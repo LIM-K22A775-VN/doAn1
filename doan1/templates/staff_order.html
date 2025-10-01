@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            display: flex;
+            padding: 20px;
+            gap: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .left-panel {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-bar input,
+        .filter-bar select {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .filter-bar button {
+            background: #007bff;
+            color: white;
+            padding: 7px 15px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .filter-bar i {
+            margin-right: 5px;
+        }
+
+        .menu1-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            max-height: 70vh;
+            /* hoặc height: 500px; */
+            overflow-y: auto;
+            padding-right: 10px;
+            /* tránh che nội dung bởi scrollbar */
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            /* Biến div thành con trỏ để dễ nhận biết có thể nhấp */
+            transition: all 0.2s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-2px);
+            /* Hiệu ứng nâng lên khi hover */
+        }
+
+        .menu-card.selected {
+            background: #e6f0ff;
+            /* Màu nền khi món được chọn */
+            border: 2px solid #007bff;
+            /* Viền xanh để biểu thị trạng thái chọn */
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .menu-card h4 {
+            margin: 10px 0 5px;
+        }
+
+        .menu-card p {
+            color: #e67e22;
+            font-weight: bold;
+            margin: 0 0 2px;
+        }
+
+        .menu-card .category,
+        .menu-card .brand {
+            font-size: 12px;
+            color: #555;
+            margin: 0 0 2px;
+        }
+
+        .bill-panel {
+            width: 30%;
+            background: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-height: 90vh;
+        }
+
+        .bill-panel h3 {
+            margin-top: 0;
+            color: #e67e22;
+        }
+
+        .bill-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .bill-item input {
+            width: 40px;
+            text-align: center;
+        }
+
+        .bill-item span {
+            margin-left: 10px;
+        }
+
+        .bill-item .remove-btn {
+            color: red;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .bill-total {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .export-btn {
+            margin-top: 15px;
+            width: 100%;
+            padding: 10px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .payment-method {
+            margin-top: 20px;
+            padding: 10px;
+            background: #fefefe;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .payment-options input[type="radio"] {
+            transform: scale(1.2);
+        }
+
+        .export-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body>
+    {% include "partials/sidebar_staff.html" %}
+
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+
+        <div class="inner-position">
+            <h2>Chọn món</h2>
+            <div class="position-right">
+                <a href="/intro_qc">Trang chủ /</a>
+                <p>Chọn món</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Left Panel -->
+            <div class="left-panel">
+                <!-- Filter + Search -->
+                <form class="filter-bar">
+                    <label>Tìm kiếm:</label>
+                    <input type="text" id="searchInput" placeholder="Tìm kiếm món, danh mục, thương hiệu..."
+                        oninput="filterMenu()" />
+                    <select id="categoryFilter" onchange="filterMenu()">
+                        <option value="all">Tất cả</option>
+                        <option value="Khai vị">Khai vị</option>
+                        <option value="Món chính">Món chính</option>
+                        <option value="Canh-Tiêm-Súp">Canh-Tiêm-Súp</option>
+                        <option value="Cơm-Mì-Cháo">Cơm-Mì-Cháo</option>
+                        <option value="Bánh tráng miệng">Bánh tráng miệng</option>
+                        <option value="Đồ uống">Đồ uống</option>
+                        <option value="Món Việt">Món Việt</option>
+                    </select>
+                    <select id="brandFilter" onchange="filterMenu()">
+                        <option value="all">Tất cả</option>
+                        <option value="Món Âu">Món Âu</option>
+                        <option value="Món Ý">Món Ý</option>
+                        <option value="Món Nhật">Món Nhật</option>
+                        <option value="Món Việt">Món Việt</option>
+                    </select>
+                    <button type="button"><i class="fa fa-search"></i> Tìm kiếm</button>
+                </form>
+
+                <!-- Menu Items -->
+                <div class="menu1-panel" id="menu1-panel">
+                    <!-- JS sẽ render món ở đây -->
+                </div>
+            </div>
+
+            <!-- Bill Panel -->
+            <div class="bill-panel">
+                <h3>Đơn hàng</h3>
+                <div id="bill-list"></div>
+                <div class="bill-total">Tổng tiền: <span id="total">0</span> VNĐ</div>
+
+                <div class="payment-method">
+                    <h4>Phương thức thanh toán:</h4>
+                    <div class="payment-options">
+                        <label>
+                            <input type="radio" name="payment" value="cash" checked>
+                            <i class="fa-solid fa-money-bill-wave"></i> Tiền mặt
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="card">
+                            <i class="fa-solid fa-credit-card"></i> Thẻ
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="momo">
+                            <i class="fa-brands fa-momo"></i> Momo
+                        </label>
+                        <label>
+                            <input type="radio" name="payment" value="other">
+                            <i class="fa-solid fa-ellipsis"></i> Khác
+                        </label>
+                    </div>
+                </div>
+                <p>idTable: {{booking_id}}</p>
+                <!-- Bắt đầu FORM ở đây -->
+                <form id="checkoutForm" action="/checkout" method="POST">
+                    <input type="hidden" name="total" id="totalInput">
+                    <input type="hidden" name="payment" id="paymentInput">
+                    <input type="hidden" name="cart" id="cartInput">
+                    {% if booking_id %}
+                    <input type="hidden" name="booking_id" value="{{ booking_id }}">
+                    {% endif %}
+                    <button id="checkoutBtn" class="export-btn" type="submit" disabled>
+                        <i class="fa fa-print"></i> Xuất hoá đơn
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!-- Thông báo -->
+    {% if success %}
+    <div id="toast" class="toast">{{ success }}</div>
+    {% endif %}
+
+    <style>
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #0050c8, #43a047);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 20px 5px 20px 5px;
+            /* Góc lệch cho nghệ hơn */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            z-index: 9999999999;
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            backdrop-filter: blur(4px);
+            /* Nền mờ sang xịn */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Viền mờ nhẹ */
+        }
+
+        .toast i {
+            font-size: 18px;
+        }
+    </style>
+
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(120%)'; // trượt sang phải
+                    toast.style.opacity = '0';
+                }, 3000); // delay 3s rồi biến mất
+            }
+        });
+    </script>
+
+    <script>
+        // Nhận dữ liệu từ Flask
+        const menuItems = JSON.parse('{{ foods | tojson | safe }}');
+        const cart = [];
+
+        function renderMenu(filteredItems = menuItems) {
+            const panel = document.getElementById('menu1-panel');
+            panel.innerHTML = '';
+
+            filteredItems.forEach((item, index) => {
+                const isSelected = cart.some(i => i.id === item.id);
+                panel.innerHTML += `
+          <div class="menu-card ${isSelected ? 'selected' : ''}" onclick="toggleSelect(${index})">
+            <img src="/static/avatars/media/${item.image}" />
+            <h4>${item.nameFood}</h4>
+            <p>${item.price.toLocaleString()} VNĐ</p>
+            <p class="category">${item.category}</p>
+            <p class="brand">${item.style}</p>
+            
+          </div>`;
+            });
+        }
+
+        function toggleSelect(index) {
+            const item = menuItems[index];
+            const existing = cart.find(i => i.id === item.id);
+            if (!existing) {
+                cart.push({
+                    ...item,
+                    quantity: 1
+                });
+            } else {
+                const i = cart.indexOf(existing);
+                cart.splice(i, 1);
+            }
+            renderMenu();
+            renderBill();
+        }
+
+        function renderBill() {
+            const billList = document.getElementById('bill-list');
+            const totalEl = document.getElementById('total');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+
+            billList.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, idx) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                billList.innerHTML += `
+      <div class="bill-item">
+        <span>${item.nameFood}</span>
+        <input type="number" min="1" value="${item.quantity}" onchange="updateQty(${idx}, this.value)" />
+        <span>${itemTotal.toLocaleString()} VNĐ</span>
+        <button class="remove-btn" onclick="removeItem(${idx})"><i class="fa-solid fa-trash"></i></button>
+      </div>`;
+            });
+
+            totalEl.textContent = total.toLocaleString();
+
+            // Nếu giỏ hàng trống thì disable nút
+            if (cart.length === 0) {
+                checkoutBtn.disabled = true;
+                checkoutBtn.style.opacity = 0.5; // mờ đi cho dễ nhận biết
+                checkoutBtn.style.cursor = 'not-allowed';
+            } else {
+                checkoutBtn.disabled = false;
+                checkoutBtn.style.opacity = 1;
+                checkoutBtn.style.cursor = 'pointer';
+            }
+        }
+
+
+        function updateQty(index, value) {
+            cart[index].quantity = parseInt(value);
+            renderBill();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderMenu();
+            renderBill();
+        }
+
+        function filterMenu() {
+            const searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const brandFilter = document.getElementById('brandFilter').value;
+
+            let filteredItems = menuItems;
+
+            if (categoryFilter !== 'all') {
+                filteredItems = filteredItems.filter(item => item.category === categoryFilter);
+            }
+
+            if (brandFilter !== 'all') {
+                filteredItems = filteredItems.filter(item => item.style === brandFilter);
+            }
+
+            if (searchQuery) {
+                filteredItems = filteredItems.filter(item =>
+                    item.nameFood.toLowerCase().includes(searchQuery) ||
+                    item.category.toLowerCase().includes(searchQuery) ||
+                    item.style.toLowerCase().includes(searchQuery)
+                );
+            }
+
+            renderMenu(filteredItems);
+        }
+
+        $(document).ready(function () {
+            $("#sidebar").load("sidebar_staff.html?v=" + Math.random());
+            $("#navbar").load("navbar_staff.html?v=" + Math.random(), function () {
+                $.getScript("CssTotal/navbar_admin.js");
+            });
+            renderMenu();
+        });
+    </script>
+
+
+
+
+    <script>
+        document.getElementById('checkoutForm').addEventListener('submit', function (e) {
+            if (cart.length === 0) {
+                alert("Vui lòng chọn món trước khi xuất hoá đơn!");
+                e.preventDefault();
+                return;
+            }
+
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+            // Đổi action dựa theo phương thức thanh toán
+            if (paymentMethod === 'cash') {
+                this.action = '/tienmat';
+            } else {
+                this.action = '/checkout';
+            }
+
+            document.getElementById('totalInput').value = document.getElementById("total").textContent.replace(
+                /,/g, '');
+            document.getElementById('paymentInput').value = paymentMethod;
+            document.getElementById('cartInput').value = JSON.stringify(cart);
+        });
+
+
+        
+
+        
+    </script>
+
+
+<!-- ✅ JavaScript để điều khiển dropdown: -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const userInfo = document.getElementById("userInfo");
+    const userDropdown = document.getElementById("userDropdown");
+
+    // Mặc định ẩn dropdown
+    if (userDropdown) userDropdown.style.display = "none";
+
+    // Toggle dropdown khi click vào userInfo
+    if (userInfo) {
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+            if (userDropdown.style.display === "block") {
+                userDropdown.style.display = "none";
+            } else {
+                userDropdown.style.display = "block";
+            }
+        });
+    }
+
+    // Ẩn dropdown khi click ra ngoài
+    window.addEventListener("click", function (e) {
+        if (!userInfo.contains(e.target)) {
+            userDropdown.style.display = "none";
+        }
+    });
+});
+// phóng to
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+});
+</script>
+
+</body>
+
+</html>

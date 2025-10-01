@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Nhà hàng The Rice Bowl</title>
+    <link rel="stylesheet" href="../static/CssTotal/refarral.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+    <script src="../static/CssTotal/standard.js"></script>
+
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+        .intro-img {
+            width: 100%;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .blog-container {
+            display: flex;
+            gap: 40px;
+            padding: 20px;
+        }
+        .blog-main {
+            flex: 3;
+        }
+        .blog-sidebar {
+            flex: 1;
+        }
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+
+    <div class="blog-container">
+        <!-- BÀI VIẾT CHÍNH -->
+        <div class="blog-main">
+            <h2>Khám phá Nhà hàng The Rice Bowl</h2>
+            <blockquote class="highlight-quote">
+                "Ẩm thực ngon bắt nguồn từ tình yêu và sự tỉ mỉ trong từng chi tiết."
+            </blockquote>
+            <p>
+                Chào mừng bạn đến với <strong>The Rice Bowl</strong> — điểm đến ẩm thực nơi hội tụ tinh hoa ẩm thực Việt cùng sự giao thoa đầy sáng tạo với các nền ẩm thực Á – Âu. Chúng tôi tin rằng mỗi món ăn không chỉ ngon mà còn mang câu chuyện và tâm huyết của người đầu bếp.
+            </p>
+            <img src="../static/avatars/media/anh5.jpg" class="intro-img" alt="Không gian nhà hàng">
+
+            <h3><i class="fa-solid fa-utensils"></i> Sứ mệnh & Chất lượng</h3>
+            <p>
+                Từ nguyên liệu tươi ngon mỗi ngày đến quy trình chế biến kỹ lưỡng, chúng tôi đặt trọn đam mê để mang đến thực khách trải nghiệm vị giác trọn vẹn nhất. Đội ngũ bếp là những người nghệ sĩ luôn tìm tòi và đổi mới để mỗi bữa ăn trở thành một hành trình khám phá hương vị.
+            </p>
+
+            <h3><i class="fa-solid fa-champagne-glasses"></i> Không gian & Dịch vụ</h3>
+            <p>
+                Không gian hiện đại pha chút mộc mạc, ấm cúng phù hợp cho gia đình, gặp gỡ bạn bè, đối tác hay tổ chức sự kiện riêng tư. Nhân viên phục vụ tận tâm, chuyên nghiệp là yếu tố làm nên sự khác biệt của The Rice Bowl.
+            </p>
+
+            <!-- PHẦN KHAI VỊ -->
+            <h2>Khai Vị Đặc Sắc</h2>
+            <blockquote class="highlight-quote">
+                "Mở đầu bữa ăn trọn vẹn bằng những món khai vị tinh tế."
+            </blockquote>
+
+            <div class="blog_item">
+                <h3>Soup cà chua hải sản (Âu)</h3>
+                <img src="../static/avatars/media/anh1.jpg" class="intro-img" alt="Soup cà chua hải sản">
+                <p>
+                    Súp cà chua hải sản là một sự kết hợp tinh tế giữa vị chua ngọt từ cà chua và hương vị đặc trưng của hải sản như tôm, cá, sò hay mực. Đây có thể là một món súp dạng bisque kem sánh mịn hoặc stew hơi đặc với nhiều miếng hải sản tươi ngon. Món ăn này mang đậm hơi thở của Pháp (bisque), Ý–Mỹ (cioppino) hay Mỹ Latin (caldo de siete mares).
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Bruschetta (Món Ý)</h3>
+                <img src="../static/avatars/media/anh2.jpg" class="intro-img" alt="Bruschetta">
+                <p>
+                    Bruschetta là món khai vị nổi tiếng của ẩm thực Ý, xuất phát từ vùng Lazio và Toscana. Những lát bánh mì nướng giòn được chà tỏi, rưới dầu ô liu, phủ thêm cà chua tươi, húng quế, chút muối và tiêu tạo nên hương vị tươi mới, kích thích vị giác.
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Há Cảo Nhật Bản (Món Nhật)</h3>
+                <img src="../static/avatars/media/anh3.jpg" class="intro-img" alt="Há cảo Nhật Bản">
+                <p>
+                    Há cảo Nhật Bản, hay còn gọi là Gyoza, có nguồn gốc từ Trung Hoa (jiaozi) nhưng được người Nhật biến tấu thành món ăn riêng biệt. Lớp vỏ mỏng, nhân thịt đậm đà, chiên áp chảo vừa giòn vừa mềm, Gyoza thường xuất hiện trong các quán ramen, izakaya và bữa cơm gia đình.
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Gỏi ngó sen (Món Việt)</h3>
+                <img src="../static/avatars/media/anh4.jpg" class="intro-img" alt="Gỏi ngó sen">
+                <p>
+                    Gỏi ngó sen là món ăn thanh mát, giòn ngon, phổ biến trong các bữa tiệc người Việt. Ngó sen non giòn hòa quyện cùng tôm tươi, thịt ba chỉ, rau thơm và nước mắm pha chua ngọt. Món này không chỉ ngon miệng mà còn là món ăn giải nhiệt tuyệt vời cho những ngày oi nóng.
+                </p>
+            </div>
+
+            <!-- MÓN CHÍNH THÊM VÀO -->
+            <h2>Món Chính & Tráng Miệng</h2>
+            <blockquote class="highlight-quote">
+                "Sự kết thúc ngọt ngào cho bữa tiệc vị giác."
+            </blockquote>
+
+            <div class="blog_item">
+                <h3>Bò nướng sốt tiêu đen</h3>
+                <img src="../static/avatars/media/anh5.jpg" class="intro-img" alt="Bò nướng sốt tiêu đen">
+                <p>
+                    Thịt bò tươi được tẩm ướp gia vị đậm đà, nướng vừa chín tới giữ nguyên độ mọng nước. Sốt tiêu đen sánh mịn, cay nồng nhẹ nhàng tôn lên vị ngọt tự nhiên của thịt. Món ăn thích hợp cho buổi tối ấm cúng bên người thân.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="blog-sidebar">
+            <div class="recent-posts">
+                <h4>Có thể bạn quan tâm</h4>
+
+                <div class="recent-post">
+                    <a href="#">
+                        <img src="../static/avatars/media/anh1.jpg" alt="">
+                        <div>
+                            <p>Khám phá soup hải sản chuẩn Âu</p>
+                            <span>2025-06-23</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="#">
+                        <img src="../static/avatars/media/anh2.jpg" alt="">
+                        <div>
+                            <p>Bruschetta – Món Ý được lòng thực khách</p>
+                            <span>2025-06-24</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="#">
+                        <img src="../static/avatars/media/anh3.jpg" alt="">
+                        <div>
+                            <p>Gyoza – Há cảo Nhật Bản không thể bỏ qua</p>
+                            <span>2025-06-25</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="#">
+                        <img src="../static/avatars/media/anh4.jpg" alt="">
+                        <div>
+                            <p>Gỏi ngó sen thanh mát ngày hè</p>
+                            <span>2025-06-26</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="#">
+                        <img src="../static/avatars/media/anh5.jpg" alt="">
+                        <div>
+                            <p>Thưởng thức bò nướng sốt tiêu đen</p>
+                            <span>2025-06-27</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+
+</body>
+
+<script>
+    const faders = document.querySelectorAll('.fade-in');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+            }
+        });
+    });
+    faders.forEach(el => observer.observe(el));
+</script>
+
+</html>

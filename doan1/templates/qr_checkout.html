@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Xác nhận thanh toán</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .qr-box {
+            margin-top: 20px;
+        }
+
+        .info {
+            margin: 20px auto;
+            width: 300px;
+            text-align: left;
+        }
+
+        .info p {
+            margin: 4px 0;
+        }
+
+        .items {
+            margin-top: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        .items ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>🧾 Quét mã QR để thanh toán</h1>
+    <div class="qr-box">
+        <img src="/static/qr_{{ order_id }}.png" alt="QR Code" style="width: 400px;">
+    </div>
+    <div class="info">
+        <p><strong>Tổng tiền:</strong> {{ total }} VNĐ</p>
+        <p><strong>Phương thức:</strong> {{ payment_method }}</p>
+        <p>{{ booking_id }}</p>
+        <p>{{ order_id }}"</p>
+    </div>
+    <div class="items">
+        <h3>Chi tiết món:</h3>
+        <ul>
+            {% for item in items %}
+            <li>{{ item.nameFood }} x {{ item.quantity }} ({{ item.price }} VNĐ)</li>
+            <li>{{item.idFood}}</li>
+            <li>{{booking_id}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <script>
+        const orderId = "{{ order_id }}";
+        const items = JSON.parse('{{ items | tojson | safe }}');
+        const total = '{{ total }}';
+        const bookingId = JSON.parse('{{ booking_id | tojson }}'); // 👈 quan trọng!
+        setInterval(() => {
+            fetch(`/check_payment_status/${orderId}`)
+                .then(res => res.text())
+                .then(status => {
+                    if (status === "paid") {
+                        // ✅ Gọi API lưu vào DB
+                        fetch('/save_order_items_counter', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    items: items,
+                                    total: total,
+                                    id_table: bookingId // Flask render: có thì ra số, không thì ra rỗng
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.success) {
+                                    if (bookingId) {
+                                        window.location.href = `/hoadon/${data.order_id}?type=booking`;
+                                    } else {
+                                        window.location.href = `/hoadon/${data.order_id}`;
+                                    }
+                                } else {
+                                    alert("Lưu đơn thất bại: " + data.message);
+                                }
+                            })
+
+                            .catch(err => {
+                                console.error('Lỗi lưu đơn:', err);
+                            });
+
+                    }
+                });
+        }, 3000);
+    </script>
+
+
+</body>
+
+</html>

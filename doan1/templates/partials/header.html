@@ -1,0 +1,73 @@
+<!-- ✅ CHAT TƯ VẤN -->
+<div class="support-widget">
+  <div class="support-header hidden">Chuyên viên tư vấn</div>
+
+  <div class="support-body">
+    <div class="chat-button-wrapper">
+      <div class="chat-tooltip">Chuyên gia tư vấn đang sẵn sàng</div>
+      <button id="open-chat" class="chat-icon-btn">
+        <i class="fa-brands fa-facebook-messenger"></i>
+      </button>
+    </div>
+
+    <div class="chat-area hidden" id="chat-area">
+      <div class="messages" id="messages"></div>
+      <textarea id="chat-input" placeholder="Nhập tin nhắn..."></textarea>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+        <button id="clear-chat">Xóa tất cả</button>
+        <button id="send-chat">Gửi</button>
+      </div>
+    </div>
+  </div>
+
+  <button id="close-chat" class="close-chat hidden">×</button>
+</div>
+
+
+
+<!-- ✅ HEADER CHUNG -->
+<header class="header">
+  <img class="logo" src="../static/avatars/media/logo2.png" alt="logo" />
+  <div class="navbar">
+    <div class="navbar_item"><a href="/intro">Trang chủ</a></div>
+    <div class="navbar_item"><a href="/refarral">Giới thiệu</a></div>
+    <div class="navbar_item"><a href="/Menu">Thực đơn</a></div>
+    <div class="navbar_item"><a href="/article">Bài viết</a></div>
+    <div class="navbar_item"><a href="/gallery">Hình ảnh</a></div>
+    <div class="navbar_item"><a href="/contact">Liên hệ</a></div>
+  </div>
+  <div class="navbar_right">
+    <div class="navbar_item navbar_item_right">
+      <a href="/reserve">
+        <i class="fa-solid fa-calendar-check navbar_icon"></i>
+        Đặt bàn</a>
+    </div>
+    <div class="navbar_item navbar_item_right account-dropdown" id="accountDropdown">
+      <div class="account-toggle" onclick="toggleDropdown()" style="display: flex; align-items: center;">
+        {% if user %}
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <img src="/static/avatars/{{ user.avatar }}" alt="Avatar"
+            style="width: 27px; height: 27px; border-radius: 50%; object-fit: cover;">
+          <span>{{ user.username }}</span>
+        </div>
+        {% else %}
+        <i class="fa-solid fa-user navbar_icon"></i> Tài khoản
+        {% endif %}
+      </div>
+      <ul class="dropdown-menu" id="dropdownMenu">
+        <li><i class="fa-solid fa-user"></i> <a href="/profile">Hồ sơ</a></li>
+        <li><i class="fa-solid fa-calendar-check"></i> <a href="/reserve">Đặt bàn</a></li>
+        <li><i class="fa-solid fa-box"></i> <a href="/order">Đơn hàng</a></li>
+        <li><i class="fa-solid fa-gift"></i>
+          <a href="/customer_point">Đổi thưởng</a></li>
+        <li><i class="fa-solid fa-heart"></i> <a href="/favorite">Yêu thích</a></li>
+        <li><i class="fa-solid fa-right-from-bracket"></i> <a href="/log_out">Đăng xuất</a></li>
+      </ul>
+    </div>
+    <div class="navbar_item navbar_item_right">
+      <a href="/Cart">
+        <i class="fa-solid fa-cart-shopping navbar_icon"></i>
+        Giỏ hàng</a>
+    </div>
+  </div>
+</header>

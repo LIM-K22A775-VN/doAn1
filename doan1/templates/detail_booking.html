@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/CssTotal/standard_admin.css" />
+    <link rel="stylesheet" href="../static/CssTotal/detail_booking.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+</head>
+
+<body>
+
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+        <div class="inner-position">
+            <h2>Chi tiết đặt bàn</h2>
+            <div class="position-right">
+                <a href="admin.html">Trang chủ /</a>
+                <a href="booking_admin.html">Đặt bàn /</a>
+                <p>Chi tiết</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container booking-detail-container">
+                <table class="booking-detail-table">
+                    <tr>
+                        <th>Họ tên:</th>
+                        <td>Nguyễn Văn C</td>
+                    </tr>
+                    <tr>
+                        <th>Điện thoại:</th>
+                        <td>0123456789</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>ncv@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <th>Ngày đặt:</th>
+                        <td>15/04/2025</td>
+                    </tr>
+                    <tr>
+                        <th>Thời gian:</th>
+                        <td>20:30</td>
+                    </tr>
+                    <tr>
+                        <th>Số người:</th>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <th>Ghi chú:</th>
+                        <td>ncv@gmail.com 0123456789 - Xác nhận giúp tôi</td>
+                    </tr>
+                    <tr>
+                        <th>Trạng thái:</th>
+                        <td>Đang chờ xử lý</td>
+                    </tr>
+                </table>
+
+                <div class="booking-detail-back">
+                    <button onclick="window.history.back()">Quay lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/CssTotal/standard_admin.js"></script>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userInfo = document.getElementById("userInfo");
+        const userDropdown = document.getElementById("userDropdown");
+
+        userDropdown.style.display = "none"; // Ẩn trước
+
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+            if (userDropdown.style.display === "none") {
+                userDropdown.style.display = "block";
+            } else {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // Click ngoài thì đóng dropdown
+        document.addEventListener("click", function () {
+            userDropdown.style.display = "none";
+        });
+    });
+</script>
+
+</html>

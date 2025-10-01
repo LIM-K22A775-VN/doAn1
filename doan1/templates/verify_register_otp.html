@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xác minh OTP</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .container input[type="text"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .container input[type="text"]:focus {
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+      outline: none;
+    }
+
+    .container button {
+      background: linear-gradient(135deg, #0d6efd, #4f9cff);
+      color: #fff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .container button:hover {
+      background: linear-gradient(135deg, #0b5ed7, #3a86ff);
+      transform: translateY(-2px);
+    }
+
+    .toast-err {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #222215, #d72405);
+      color: #fff;
+      padding: 16px 28px;
+      border-radius: 20px 5px 20px 5px;
+      box-shadow: 0 12px 30px rgba(141, 85, 85, 0.25);
+      z-index: 9999;
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Nhập mã OTP để hoàn tất đăng ký</h2>
+    <form action="/register-verify-otp" method="post">
+      <input type="text" name="otp" placeholder="Mã OTP 6 số" required pattern="\d{6}" title="OTP phải gồm 6 chữ số">
+      <button type="submit">Xác nhận</button>
+    </form>
+  </div>
+
+  {% if success %}
+  <div id="toast-err" class="toast-err">{{ success }}</div>
+  {% endif %}
+
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const toast = document.getElementById('toast-err');
+      if (toast) {
+        setTimeout(() => {
+          toast.style.transform = 'translateX(120%)';
+          toast.style.opacity = '0';
+        }, 3000);
+      }
+    });
+  </script>
+</body>
+
+</html>

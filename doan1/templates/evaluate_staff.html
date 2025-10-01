@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 0 40px;
+        }
+
+        .review-section {
+            margin-top: 20px;
+        }
+
+        .review-section h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        #status-filter {
+            background-color: #f0f0f0;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-container select {
+            padding: 8px 12px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .review-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            padding-bottom: 40px;
+        }
+
+        .review-card {
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .review-header div {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .review-content {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .review-status {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .review-status.chua-phan-hoi {
+            background-color: #ff9800;
+                padding: 8px 16px;
+        }
+
+        .review-status.da-phan-hoi {
+            background-color: #4caf50;
+                padding: 8px 16px;
+        }
+
+        .review-status.da-xoa {
+            background-color: #f44336;
+                padding: 8px 16px;
+        }
+
+        .reply-btn,
+        .submit-reply-btn {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .reply-btn:hover,
+        .submit-reply-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .reply-section {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .reply-section textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            resize: vertical;
+            font-size: 14px;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body data-staff-id="{{ user.id }}">
+    {% include "partials/sidebar_staff.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+        <div class="inner-position">
+            <h2>Xử lý đánh giá</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <p>Đánh giá</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="review-section">
+                <h3>Danh Mục Đánh Giá</h3>
+                <div class="filter-container">
+                    <label for="status-filter">Lọc theo trạng thái:</label>
+                    <select id="status-filter">
+                        <option value="all">Tất cả</option>
+                        <option value="Chưa phản hồi">Chưa phản hồi</option>
+                        <option value="đã phản hồi">Đã phản hồi</option>
+                        <option value="đã xóa">Đã xóa</option>
+                    </select>
+                </div>
+                <div class="review-list" id="review-list">
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            // Lấy và render danh sách đánh giá
+            function fetchReviews() {
+                $.get("/api/reviews", function (data) {
+                    const $list = $("#review-list");
+                    $list.empty();
+
+                    data.forEach(review => {
+                        const status = review.response ? "da-phan-hoi" : "chua-phan-hoi";
+                        const statusMap = {
+                            "da-phan-hoi": "Đã Phản Hồi",
+                            "chua-phan-hoi": "Chưa Phản Hồi",
+                            "da-xoa": "Đã Xóa"
+                        };
+                        const statusText = statusMap[status];
+
+                        const stars = "★★★★★☆☆☆☆☆".slice(5 - review.rating, 10 - review.rating);
+
+                        const responseContent = review.response ?
+                            `<div class="response-content"><strong>Phản hồi:</strong> ${review.response}</div>` :
+                            "";
+
+                        const replySection = `
+                <div class="reply-section">
+                    <textarea placeholder="Nhập phản hồi...">${review.response || ''}</textarea>
+                    <button class="submit-reply-btn" data-id="${review.IdReview}">
+                        ${review.response ? "Cập nhật" : "Gửi"}
+                    </button>
+                </div>`;
+
+                        const html = `
+                <div class="review-card" data-status="${status}" data-id="${review.IdReview}">
+                    <div class="review-header">
+                        <div><strong>Tên sản phẩm:</strong> ${review.FoodName}</div>
+                        <div><strong>Người dùng:</strong> ${review.UserName}</div>
+                        <div><strong>Đánh giá:</strong> <span class="stars">${stars}</span></div>
+                        <div><strong>Ngày:</strong> ${review.created_at.split(" ")[0]}</div>
+                    </div>
+                    <div class="review-content"><strong>Nội dung đánh giá:</strong> ${review.comment}</div>
+                    ${responseContent}
+                    <div class="review-footer">
+                        <span class="review-status ${status}">${statusText}</span>
+                        <button class="reply-btn">Phản hồi</button>
+                        ${replySection}
+                    </div>
+                </div>`;
+                        $list.append(html);
+                    });
+                });
+            }
+
+            fetchReviews();
+
+            // Lọc đánh giá theo trạng thái
+            $("#status-filter").on("change", function () {
+                const selected = $(this).val().toLowerCase();
+                $(".review-card").each(function () {
+                    const cardStatus = $(this).data("status").toLowerCase();
+                    $(this).toggle(selected === "all" || selected === cardStatus);
+                });
+            });
+
+            // Toggle phản hồi
+            $("#review-list").on("click", ".reply-btn", function () {
+                $(this).siblings(".reply-section").toggle();
+            });
+
+            // Gửi phản hồi
+            // Gửi phản hồi
+            $("#review-list").on("click", ".submit-reply-btn", function () {
+                const $btn = $(this);
+                const id = $btn.data("id");
+                const responseText = $btn.siblings("textarea").val().trim();
+                const staffId = $("body").data("staff-id"); // lấy từ data-attribute
+
+                if (!responseText) {
+                    alert("Vui lòng nhập nội dung phản hồi!");
+                    return;
+                }
+
+                $.post("/api/reply-review", {
+                    id: id,
+                    response: responseText,
+                    staff_id: staffId // gửi thêm staff_id
+                }, function (res) {
+                    if (res.success) {
+                        alert("Phản hồi đã được gửi");
+                        fetchReviews();
+                    } else {
+                        alert("Lỗi: " + res.message);
+                    }
+                }).fail(() => alert("Gửi phản hồi thất bại!"));
+            });
+
+        });
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+
+
+</head>
+
+<body>
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+        <div class="inner-position">
+            <h2>Dashboard</h2>
+            <div class="position-right">
+                <a href="/intro_qc">Trang chủ /</a>
+                <p>Dashboard</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="dashboard-content">
+                <div class="dashboard-tab">
+                    <div class="section-tab">
+                        <button class="btn-tab blue">Xem sản phẩm</button>
+                        <button class="btn-tab teal">Xem danh mục</button>
+                        <button class="btn-tab green">Xem thương hiệu</button>
+                    </div>
+                    <div class="dashboard-boxes">
+                        <div class="box blue">
+                            <div>
+                                <strong>51</strong><br>
+                                Sản phẩm
+                            </div>
+                            <i class="fa fa-box"></i>
+                        </div>
+                        <div class="box teal">
+                            <div>
+                                <strong>6</strong><br>
+                                Danh mục
+                            </div>
+                            <i class="fa fa-list"></i>
+                        </div>
+                        <div class="box green">
+                            <div>
+                                <strong>4</strong><br>
+                                Thương hiệu
+                            </div>
+                            <i class="fa fa-tags"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-boxes">
+                    <div class="box yellow">
+                        <div>
+                            <strong>0 VNĐ</strong><br>
+                            Doanh thu hôm nay
+                        </div>
+                        <i class="fa fa-dollar-sign"></i>
+                    </div>
+                    <div class="box red">
+                        <div>
+                            <strong>0 VNĐ</strong><br>
+                            Doanh thu tháng
+                        </div>
+                        <i class="fa fa-chart-line"></i>
+                    </div>
+                </div>
+                <div class="appreciate-dish">
+                    <h3>Món ăn có nhiều đánh giá nhất</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hình</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Số lượng đánh giá</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td><img src="../static/avatars/media/1.jpg" alt="Salad"></td>
+                                <td>Salad rau mùa sốt mắc mật</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td><img src="../static/avatars/media/1.jpg" alt="Salad"></td>
+                                <td>Bò cuộn kim châm</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td><img src="../static/avatars/media/1.jpg" alt="Salad"></td>
+                                <td>Sườn xào chua ngọt</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{ url_for('static', filename='CssTotal/standard_admin.js') }}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userInfo = document.getElementById("userInfo");
+        const userDropdown = document.getElementById("userDropdown");
+
+        userDropdown.style.display = "none"; // Ẩn trước
+
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+            if (userDropdown.style.display === "none") {
+                userDropdown.style.display = "block";
+            } else {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // Click ngoài thì đóng dropdown
+        document.addEventListener("click", function () {
+            userDropdown.style.display = "none";
+        });
+    });
+</script>
+
+</html>

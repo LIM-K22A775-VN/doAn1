@@ -1,0 +1,478 @@
+        <!DOCTYPE html>
+        <html>
+
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>html Page</title>
+            <!-- CSS -->
+            <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}">
+            <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/stylecart.css') }}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+
+            <!-- JS -->
+            <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+
+
+
+            <!-- ✅ Icon & Font Awesome -->
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+                integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+                crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+            <!-- ✅ CSS Reset + Base + Style riêng -->
+
+            <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+            <style>
+                /* ==== NAVBAR RIGHT ==== */
+                .navbar_right {
+                    margin-top: -3px;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                /* ==== CHECKBOX GIỎ HÀNG ==== */
+                .cart-item .item-check {
+                    width: 15px;
+                    height: 22px;
+                    accent-color: #0050c8;
+                    cursor: pointer;
+                    margin-right: 14px;
+                    transform: scale(1.5);
+                }
+
+                /* ==== BUTTON THANH TOÁN ==== */
+                #checkout-btn {
+                    background: linear-gradient(135deg, #0050c8, #43a047);
+                    color: #fff;
+                    border: none;
+                    padding: 14px 30px;
+                    font-size: 16px;
+                    font-weight: bold;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    transition: background 0.3s ease, transform 0.2s ease;
+                    box-shadow: 0 4px 12px rgba(0, 80, 200, 0.3);
+                    margin-left: 307px;
+                    margin-top: 10px;
+                }
+
+                #checkout-btn:hover {
+                    background: linear-gradient(135deg, #0040a0, #388e3c);
+                    transform: translateY(-2px);
+                }
+
+                #checkout-btn:active {
+                    transform: translateY(0);
+                    box-shadow: 0 2px 6px rgba(0, 80, 200, 0.4);
+                }
+
+                /* ==== INPUT MÃ GIẢM GIÁ ==== */
+                #discount {
+                    width: 72%;
+                    padding: 10px 14px;
+                    border: 2px solid #ddd;
+                    border-radius: 6px;
+                    outline: none;
+                    cursor: pointer;
+                    transition: border 0.2s ease, box-shadow 0.2s ease;
+                    background: #fff url('data:image/svg+xml;utf8,<svg fill="gray" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+                    background-size: 16px;
+                }
+
+                #discount:focus {
+                    border-color: #0050c8;
+                    box-shadow: 0 0 0 2px rgba(0, 80, 200, 0.2);
+                }
+
+                #discount[readonly] {
+                    background-color: #f9f9f9;
+                }
+
+                /* ==== DROPDOWN MÃ GIẢM GIÁ ==== */
+                .discount-list {
+                    position: relative;
+                }
+
+                #discount-list {
+                    position: absolute;
+                    background: #fff;
+                    border: 1px solid #ddd;
+                    width: 250px;
+                    max-height: 220px;
+                    overflow-y: auto;
+                    display: none;
+                    z-index: 9999;
+                    border-radius: 8px;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                    padding: 4px 0;
+                    transition: all 0.2s ease;
+                }
+
+                #discount-list div {
+                    padding: 10px 16px;
+                    cursor: pointer;
+                    transition: background 0.2s ease, color 0.2s ease;
+                }
+
+                #discount-list div:hover {
+                    background: #f0f8ff;
+                    color: #0050c8;
+                }
+
+                #discount-list::-webkit-scrollbar {
+                    width: 6px;
+                }
+
+                #discount-list::-webkit-scrollbar-thumb {
+                    background: #ccc;
+                    border-radius: 4px;
+                }
+
+                #discount-list::-webkit-scrollbar-thumb:hover {
+                    background: #999;
+                }
+
+                /* ==== TOAST ==== */
+                .toast {
+                    position: fixed;
+                    top: 30px;
+                    right: 30px;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    background: linear-gradient(135deg, #0050c8, #43a047);
+                    color: #fff;
+                    padding: 16px 28px;
+                    border-radius: 20px 5px 20px 5px;
+                    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+                    z-index: 9999999999;
+                    opacity: 1;
+                    transform: translateX(0);
+                    transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    font-size: 16px;
+                    backdrop-filter: blur(4px);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                }
+
+                .toast i {
+                    font-size: 18px;
+                }
+            </style>
+
+
+        </head>
+
+        <body>
+
+            {% include 'partials/header.html' %}
+            {% include 'partials/vitri.html' with context %}
+
+            <div class="container">
+                <div class="cart-container">
+                    <h2>Giỏ Hàng</h2>
+
+                    {% for item in cart_items %}
+                    <div class="cart-item">
+                        <input type="checkbox" class="item-check" checked>
+                        <img src="{{ url_for('static', filename='avatars/media/' + item.img) }}" alt="{{ item.name }}">
+                        <div class="item-info">
+
+                            <p class="item-name">{{ item.name }}</p>
+                            <p class="item-price">Giá: {{ "{:,.0f}".format(item.price).replace(",", ".") }} VND</p>
+                        </div>
+                        <input type="number" class="item-qty" value="{{ item.qty }}" min="1">
+                        <p class="item-total">{{ "{:,.0f}".format(item.price * item.qty).replace(",", ".") }} VND</p>
+                        <a href="#" class="item-detail">Chi tiết</a>
+                        <a href="#" class="item-delete" data-name="{{ item.name }}">Xóa</a>
+
+                        <!-- Ẩn thêm id và giá unit -->
+                        <input type="hidden" class="item-id" value="{{ item.id }}">
+                        <input type="hidden" class="item-idFood" value="{{ item.idFood }}">
+                        <input type="hidden" class="item-unitprice" value="{{ item.price }}">
+                    </div>
+
+
+
+                    {% endfor %}
+
+
+                    <button class="update-btn">Cập nhật giỏ hàng</button>
+
+                    <div class="total-section">
+
+                        <div class="sum">
+                            <h3>Tổng cộng:</h3>
+                            <p class="grand-total">{{ "{:,.0f}".format(grand_total).replace(",", ".") }} VND</p>
+                        </div>
+                        <label for="phone">Số điện thoại:</label>
+                        <input type="text" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                        <br><!-- comment -->
+                        <label for="discount">Mã giảm giá:</label>
+                        <input type="text" id="discount" placeholder="Chọn mã giảm giá" readonly>
+                        <div id="discount-list" class="discount-list">
+                            {% for code in discount_codes %}
+                            <div class="discount-item" data-code="{{ code.code }}" data-amount="{{ code.amount }}">
+                                {{ code.code }} - Giảm {{ "{:,.0f}".format(code.amount).replace(",", ".") }} VND
+                            </div>
+                            {% endfor %}
+                        </div>
+
+
+
+                        <button class="apply-btn">Áp dụng</button>
+
+
+                    </div>
+
+                    <form id="checkout-form" action="/payment" method="POST">
+                        <!-- Hidden fields -->
+                        <input type="hidden" name="phone" id="hidden-phone">
+                        <input type="hidden" name="discount_code" id="hidden-discount">
+                        <input type="hidden" name="items" id="hidden-items">
+                        <input type="hidden" name="grand_total" id="hidden-grand-total">
+                        <button type="submit" id="checkout-btn"> Thanh toán</button>
+                    </form>
+                </div>
+            </div>
+
+
+            {% include 'partials/footer.html' %}
+            <!-- scr tư vấn -->
+            <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+            <script>
+                const discountInput = document.getElementById('discount');
+                const discountList = document.getElementById('discount-list');
+                let tempDiscountPoints = 0;
+
+                // Mở list khi click input
+                discountInput.addEventListener('click', () => {
+                    discountList.style.display = 'block';
+                });
+
+                // Đóng list khi click ngoài
+                document.addEventListener('click', function (e) {
+                    if (!discountInput.contains(e.target) && !discountList.contains(e.target)) {
+                        discountList.style.display = 'none';
+                    }
+                });
+
+                // Click chọn mã
+                document.querySelectorAll('.discount-item').forEach(item => {
+                    item.addEventListener('click', () => {
+                        discountInput.value = item.dataset.code;
+                        discountList.style.display = 'none';
+                    });
+                });
+
+                const userEmail = "{{ session.get('user_email') }}";
+
+                // Hàm toast
+                function showToast(message) {
+                    const oldToast = document.getElementById('toast');
+                    if (oldToast) oldToast.remove();
+
+                    const toast = document.createElement('div');
+                    toast.id = 'toast';
+                    toast.className = 'toast';
+                    toast.innerHTML = `<i class="fa fa-check-circle"></i> ${message}`;
+                    document.body.appendChild(toast);
+
+                    setTimeout(() => {
+                        toast.style.transform = 'translateX(120%)';
+                        toast.style.opacity = '0';
+                        setTimeout(() => toast.remove(), 1500);
+                    }, 3000);
+                }
+
+                // Hàm tính tổng (có trừ giảm giá)
+                function updateGrandTotal() {
+                    let sum = 0;
+                    document.querySelectorAll('.cart-item').forEach(cartItem => {
+                        const isChecked = cartItem.querySelector('.item-check').checked;
+                        if (isChecked) {
+                            const itemTotal = cartItem.querySelector('.item-total').textContent;
+                            const val = parseInt(itemTotal.replace(/\D/g, ''));
+                            sum += val;
+                        }
+                    });
+
+                    sum = Math.max(0, sum - tempDiscountPoints);
+
+                    document.querySelectorAll('.grand-total').forEach(gt => {
+                        gt.textContent = sum.toLocaleString('vi-VN') + ' VND';
+                    });
+                }
+
+                // Áp dụng mã
+                document.querySelector('.apply-btn').addEventListener('click', () => {
+                    const selectedCode = discountInput.value.trim();
+                    if (!selectedCode) {
+                        showToast('Vui lòng chọn mã!');
+                        return;
+                    }
+
+                    const item = document.querySelector(`.discount-item[data-code="${selectedCode}"]`);
+                    if (!item) {
+                        showToast('Mã không tồn tại!');
+                        return;
+                    }
+
+                    // Lấy amount từ data-amount
+                    tempDiscountPoints = parseInt(item.dataset.amount) || 0;
+                    updateGrandTotal();
+                    showToast(`Áp dụng mã ${selectedCode} thành công!`);
+                });
+
+
+
+                // Xử lý số lượng thay đổi
+                document.addEventListener('DOMContentLoaded', () => {
+                    const qtyInputs = document.querySelectorAll('.item-qty');
+                    qtyInputs.forEach(input => {
+                        const cartItem = input.closest('.cart-item');
+                        const priceText = cartItem.querySelector('.item-price').textContent;
+                        const unitPrice = parseInt(priceText.replace(/\D/g, ''));
+
+                        if (unitPrice === 0) {
+                            // Giá 0 thì disable input số lượng
+                            input.disabled = true;
+                            // Bạn có thể thêm tooltip hoặc style nếu muốn
+                            input.title = "Không thể thay đổi số lượng đối với món có giá 0";
+                        } else {
+                            input.disabled = false;
+                            // Đăng ký sự kiện input nếu không bị disable
+                            input.addEventListener('input', () => {
+                                const qty = parseInt(input.value);
+                                const newTotal = unitPrice * qty;
+
+                                cartItem.querySelector('.item-total').textContent = newTotal
+                                    .toLocaleString('vi-VN') + ' VND';
+                                updateGrandTotal();
+                            });
+                        }
+                    });
+                });
+
+
+                // Checkbox thay đổi
+                document.querySelectorAll('.item-check').forEach(check => {
+                    check.addEventListener('change', updateGrandTotal);
+                });
+
+                // Cập nhật giỏ hàng
+                document.querySelector('.update-btn').addEventListener('click', () => {
+                    const items = [];
+                    document.querySelectorAll('.cart-item').forEach(item => {
+                        if (item.querySelector('.item-check').checked) {
+                            const id = item.querySelector('.item-id').value;
+                            const name = item.querySelector('.item-name').textContent.trim();
+                            const qty = parseInt(item.querySelector('.item-qty').value);
+                            const unitPrice = parseInt(item.querySelector('.item-unitprice').value);
+                            const idFood = item.querySelector('.item-idFood')
+                                .value; // ✅ Lấy thêm idFood
+                            items.push({
+                                id,
+                                idFood, // thêm dòng này, lấy từ hidden input tương ứng
+                                name,
+                                qty,
+                                unitPrice
+                            });
+
+                        }
+                    });
+
+
+
+                    fetch('/update_cart', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                items
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            showToast(data.message);
+                        })
+                        .catch(err => {
+                            console.error(err);
+                            showToast('Cập nhật lỗi!');
+                        });
+                });
+
+                // Xóa sản phẩm
+                document.querySelectorAll('.item-delete').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const name = btn.dataset.name;
+
+                        fetch('/remove_from_cart', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    name
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                showToast(data.message);
+                                if (data.status === 'success') {
+                                    btn.closest('.cart-item').remove();
+                                    updateGrandTotal();
+                                }
+                            })
+                            .catch(err => {
+                                console.error(err);
+                                showToast('Xoá thất bại!');
+                            });
+                    });
+                });
+
+                document.getElementById('checkout-btn').addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const phone = document.getElementById('phone').value.trim();
+                    const discount = discountInput.value.trim();
+                    const items = [];
+                    const totalText = document.querySelector('.grand-total').textContent;
+                    const totalVal = parseInt(totalText.replace(/\D/g, ''));
+                    document.getElementById('hidden-grand-total').value = totalVal;
+
+                    document.querySelectorAll('.cart-item').forEach(item => {
+                        if (item.querySelector('.item-check').checked) {
+                            const id = item.querySelector('.item-id').value;
+                            const idFood = item.querySelector('.item-idFood').value; // ✅ Thêm dòng này
+                            const name = item.querySelector('.item-name').textContent.trim();
+                            const qty = parseInt(item.querySelector('.item-qty').value);
+                            const unitPrice = parseInt(item.querySelector('.item-unitprice').value);
+
+                            items.push({
+                                id,
+                                idFood, // ✅ Thêm vào đây
+                                name,
+                                qty,
+                                unitPrice
+                            });
+                        }
+                    });
+
+
+                    document.getElementById('hidden-phone').value = phone;
+                    document.getElementById('hidden-discount').value = discount;
+                    document.getElementById('hidden-items').value = JSON.stringify(items);
+
+                    document.getElementById('checkout-form').submit();
+                });
+            </script>
+
+        </body>
+        <script src="../static/CssTotal/jscart.js">
+        </script>
+
+
+        </html>

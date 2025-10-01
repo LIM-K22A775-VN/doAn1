@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trang quản trị</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../static/CssTotal/standard_admin.css"/>
+        <link rel="stylesheet" href="../static/CssTotal/dish2_admin.css"/>
+    </head>
+    <body>
+        <aside class="sidebar" id="sidebar">
+            <div class="brand"><i class="fas fa-smile"></i> <span style="font-style: italic; font-weight: 600;">AdminLTE 4</span></div>
+            <ul>
+                <li><a href="order_admin.html"><i class="fas fa-shopping-bag"></i>&nbsp; Đơn hàng</a></li>
+                <li><a href="booking_admin.html"><i class="fas fa-clipboard-list"></i>&nbsp; Đặt bàn</a></li>
+                <li><a href="consultant_admin.html"><i class="fas fa-comment-dots"></i>&nbsp; Tư vấn</a></li>
+                <li><a href="contact_admin.html"><i class="fas fa-phone"></i>&nbsp; Liên hệ</a></li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-utensils"></i>&nbsp; Món ăn <i class="fas fa-angle-left" style="margin-left:auto"></i></a>
+                    <ul class="submenu">
+                        <li><a href="dish_admin.html" class="active">Tất cả món ăn</a></li>
+                        <li><a href="dish2_admin.html">Danh mục</a></li>
+                        <li><a href="dish3_admin.html">Thương hiệu</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-newspaper"></i>&nbsp; Bài viết <i class="fas fa-angle-left" style="margin-left:auto"></i></a>
+                    <ul class="submenu">
+                        <li><a href="article_admin.html" class="active">Tất cả bài viết</a></li>
+                        <li><a href="theme_admin.html">Chủ đề</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-warehouse"></i>&nbsp; Quản lý kho <i class="fas fa-angle-left" style="margin-left:auto"></i></a>
+                    <ul class="submenu">
+                        <li><a href="#" class="active">Thực phẩm đông lạnh</a></li>
+                        <li><a href="#">Đồ tươi</a></li>
+                        <li><a href="#">Pha chế</a></li>
+                        <li><a href="storage4_admin.html">Đồ khô</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-palette"></i>&nbsp; Giao diện <i class="fas fa-angle-left" style="margin-left:auto"></i></a>
+                    <ul class="submenu">
+                        <li><a href="menu_admin.html" class="active">Menu</a></li>
+                        <li><a href="banner_admin.html">Banner</a></li>
+                        <li><a href="library_admin.html">Thư viện ảnh</a></li>
+                        <li><a href="keyword_admin.html">Từ khóa</a></li>
+                    </ul>
+                </li>
+                <li class="has-submenu">
+                    <a href="#" class="submenu-toggle"><i class="fas fa-users"></i>&nbsp; Thành Viên <i class="fas fa-angle-left" style="margin-left:auto"></i></a>
+                    <ul class="submenu">
+                        <li><a href="member_admin.html" class="active">Tất cả thành viên</a></li>
+                        <li><a href="#">Thêm thành viên</a></li>
+                        <li><a href="staff_admin.html">Nhân viên</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </aside>
+
+        <div class="main" id="main">
+            <div class="navbar">
+                <div class="navbar-title">
+                    <button id="toggleSidebar"><i class="fas fa-bars"></i></button>
+                    <a href="admin.html">Trang chủ</a>
+                    <a href="contact.html">Liên hệ</a>
+                </div>
+
+                <div class="navbar-right">
+                    <div class="notification-wrapper">
+                        <i class="fas fa-bell" id="notificationBtn"></i>
+                        <span class="badge">15</span>
+                        <div class="notification-box" id="notificationBox">
+                            <div class="title">15 Notifications</div>
+                            <div class="item"><i class="fas fa-envelope"></i> 4 new messages <span>3 mins</span></div>
+                            <div class="item"><i class="fas fa-user-plus"></i> 8 friend requests <span>12 hours</span></div>
+                            <div class="item"><i class="fas fa-file-alt"></i> 3 new reports <span>2 days</span></div>
+                            <div class="see-all">See All Notifications</div>
+                        </div>
+                    </div>
+
+                    <i class="fas fa-expand" id="fullscreenBtn"></i>
+
+                    <div class="user-info">
+                        <i class="fas fa-user"></i>
+                        <span>Phan Linh</span>
+                        <a href="intro.html"><i class="fas fa-power-off"></i> Thoát</a>
+                    </div>
+                </div>
+            </div>
+            <div class="inner-position">
+                <h2>Quản lý danh mục</h2>
+                <div class="position-right">
+                    <a href="intro.html">Trang chủ /</a>
+                    <p>Danh mục</p>
+                </div>
+            </div>
+            <div class="content">
+                <div class="main-container">
+                <div class="bin-section">
+                    <button class="btn-trash">
+                        <a href="bin2_dish2_admin.html" style="text-decoration: none;color: #fff;">
+                            Thùng rác
+                        </a>
+                        </button>
+                </div>
+                <div class="container">
+                
+                <div class="form-section">
+                    <div class="form-group">
+                        <label for="ten">Tên danh mục</label>
+                        <input type="text" id="ten">
+                    </div>
+                    <div class="form-group">
+                        <label for="slug">Slug</label>
+                        <textarea class="area" id="slug" name="slug" rows="4" cols="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="mo-ta">Mô tả</label>
+                        <textarea class="area" id="mo-ta" name="mo-ta" rows="4" cols="10"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="soluong">Số lượng</label>
+                        <input type="number" id="soluong">
+                    </div>
+                    <div class="form-group">
+                        <label for="sap-xep">Sắp xếp</label>
+                        <select id="sap-xep">
+                            <option>None</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="hinh">Hình</label>
+                        <input type="file" id="hinh">
+                    </div>
+                    <div class="form-group">
+                        <label for="trang-thai">Trạng thái</label>
+                        <select id="trang-thai">
+                            <option>Chưa xuất bản</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button style="padding: 10px;background-color: #28a745;border-radius: 5px;border: solid 1px rgba(0,0,0,0.5);">Thêm danh mục</button>
+                    </div>
+                </div>
+
+                <div class="table-section">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hình</th>
+                                <th>Tên danh mục</th>
+                                <th>Slug</th>
+                                <th>Số lượng</th>
+                                <th>Mô tả</th>
+                                <th>Chức năng</th>
+                                <th>ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img src="../static/avatars/media/1.jpg" alt="food1"></td>
+                                <td>Khai vị</td>
+                                <td>khai-vi</td>
+                                <td>10</td>
+                                <td>Món ăn của khai vị</td>
+                                <td class="actions">
+                                <button class="btn-status" title="Trạng thái">
+                                        <i class="fa fa-circle"></i>
+                                    </button>
+                                <button class="btn-view" title="Xem">
+                                    <a href="show_dish2_admin.html" style="text-decoration: none;color:#fff;">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    </button>
+                                <button class="btn-edit" title="Sửa">
+                                    <a href="edit_dish2_admin.html" style="text-decoration: none;color:#fff;">
+                                    <i class="fa fa-pen"></i>
+                                    </a></button>
+                                <button class="btn-delete" title="Xóa"><i class="fa fa-trash"></i></button>
+                            </td>
+                                <td>1</td>
+                            </tr>
+                            <!-- Các dòng khác -->
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><img src="../static/avatars/media/1.jpg" alt="food2"></td>
+                                <td>Món chính</td>
+                                <td>mon-chinh</td>
+                                <td>20</td>
+                                <td>Món ăn chính</td>
+                                <td class="actions">
+                                <button class="btn-status" title="Trạng thái"><i class="fa fa-circle"></i></button>
+                                <button class="btn-view" title="Xem"><i class="fa fa-eye"></i></button>
+                                <button class="btn-edit" title="Sửa"><i class="fa fa-pen"></i></button>
+                                <button class="btn-delete" title="Xóa"><i class="fa fa-trash"></i></button>
+                            </td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                        <span>Showing 1 to 6 of 7 results</span>
+                        <div style="display: flex; gap: 5px;">
+                            <button style="padding: 5px 10px; background-color: #e9ecef; color: #333; border: none; border-radius: 3px;">‹</button>
+                            <button style="padding: 5px 10px; background-color: #007bff; color: white; border: none; border-radius: 3px;">1</button>
+                            <button style="padding: 5px 10px; background-color: #e9ecef; color: #333; border: none; border-radius: 3px;">2</button>
+                            <button style="padding: 5px 10px; background-color: #e9ecef; color: #333; border: none; border-radius: 3px;">›</button>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+            
+    </body>
+    <script src="../static/CssTotal/standard_admin.js"></script>
+</html>
+

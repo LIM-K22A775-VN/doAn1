@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>html Page</title>
+        <link rel="stylesheet" href="../static/CssTotal/standard.css"/>
+        <link rel="stylesheet" href="../static/CssTotal/stylesignup.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"/>
+        <script src="../static/CssTotal/standard.js">
+        </script>
+    </head>
+    <body>
+       <header class="header">
+            <img class="logo" src="../static/avatars/media/logo2.png" alt="logo"/>
+            <div class="navbar">
+                <div class="navbar_item">
+                    <a href="intro.html">Trang chủ</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="refarral.html">Giới thiệu</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="Menu.html">Thực đơn</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="article.html">Bài viết</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="gallery.html">Hình ảnh</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="contact.html">Liên hệ</a>
+                </div>
+            </div>
+            <div class="navbar_right">
+                <div class="navbar_item navbar_item_right">
+                    <a href="reserve.html">
+                        <i class="fa-solid fa-calendar-check navbar_icon"></i>
+                        Đặt bàn</a>
+                </div>
+                <div class="navbar_item navbar_item_right account-dropdown" id="accountDropdown">
+                    <div class="account-toggle" onclick="toggleDropdown()">
+                        <i class="fa-solid fa-user navbar_icon"></i> Tài khoản
+                    </div>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><i class="fa-solid fa-user"></i> 
+                            <a href="#">Hồ sơ</a></li>
+                        <li><i class="fa-solid fa-calendar-check"></i>
+                           <a href="reserve.html">Đặt bàn</a></li>
+                        <li><i class="fa-solid fa-box"></i> 
+                           <a href="order.html">Đơn hàng</a></li>
+                        <li><i class="fa-solid fa-heart"></i>
+                            <a href="favorite.html">Yêu thích</a></li>
+                        <li><i class="fa-solid fa-right-from-bracket"></i> 
+                            <a href="login.html">Đăng xuất</a>
+                            </li>
+                    </ul>
+                </div>
+                <div class="navbar_item navbar_item_right">
+                    <a href="Cart.html">
+                        <i class="fa-solid fa-cart-shopping navbar_icon"></i>
+                        Giỏ hàng</a>
+                </div>
+            </div>
+        </header>
+        <div class="inner-position">
+            <p>Bạn đang ở đây: =></p>
+            <a href="intro.html">Trang chủ =></a>
+            <span style="color: black;margin-left: 1px;">Đăng ký</span>
+        </div>
+        <div class="container">
+            <div class="login-container">
+                <h2>Xác nhận OTP</h2>
+                 <form action="/verify-otp" method="post">
+                    <label for="email">Mã OTP</label>
+                    <input type="email" id="email" placeholder="Nhập mã OTP">
+                    <button type="submit" class="btn login">Xác nhận</button>
+                </form>
+            </div>
+        </div>
+        <div class="chat-fixed-icons">
+
+            <div class="chat-icon message-icon">
+                <a class="chat" href="https://www.facebook.com/giacs.aos.121" target="target">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                    <div class="chat-tooltip">Chuyên gia tư vấn đang sẵn sàng</div>
+                </a>
+
+            </div>
+
+            <div class="chat-icon instagram-icon">
+                <a class="chat" href="https://www.instagram.com/linhnef.30__/" target="target">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-left">
+                    <h3>Nhà hàng Lẩu Hột Ty Hưu Trung Thạnh</h3>
+                    <p>Nhà hàng chuyên về các món lẩu ngon nhất tại Thành phố Hải Phòng, chuyên về các món ăn chuẩn hương vị thuần Việt.</p>
+                    <p>Thực phẩm tươi sống là yếu tố hàng đầu trong việc chế biến món ăn, Quy Khắc chắc chắn sẽ làm hài lòng quý khách với những món ăn đậm đà hương vị.</p>
+                </div>
+                <div class="footer-right">
+                    <h3>Thông tin liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Hà Đông, Hà Nội</p>
+                    <p><i class="fas fa-phone"></i> Điện thoại: 0999999999</p>
+                    <p><i class="fas fa-envelope"></i> Email: dabc@gmail.com</p>
+                    <button class="footer-book-now">Đặt bàn ngay</button>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="tel:0999999999"><i class="fas fa-phone"></i></a>
+                        <a href="https://www.pinterest.com/" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://plus.google.com/" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+    <script src="../static/CssTotal/jssignup.js">
+    </script>
+</html>

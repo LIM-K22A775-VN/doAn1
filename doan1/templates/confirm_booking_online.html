@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>QR Thanh toán</title>
+</head>
+
+<body>
+  <h1>🧾 Quét mã QR để thanh toán bằng {{ payment_method.upper() }}</h1>
+
+  <img src="/static/qr_{{ order_id }}.png" alt="QR Code" style="width: 200px;">
+  <p><strong>Tên:</strong> {{ name }}</p>
+  <p><strong>Ngân Hàng</strong> {{ payment_method }}</p>
+  <p><strong>Số điện thoại (STK):</strong> {{ phone }}</p>
+  <p><strong>Số tiền:</strong> {{ total }} VND</p>
+
+  <p><a href="{{ url }}">🔗 Hoặc bấm vào đây nếu không quét được</a></p>
+  <h2>Danh sách món đã chọn:</h2>
+  <ul>
+    {% for item in items %}
+    <li>{{ item.name }} - SL: {{ item.qty }}</li>
+    <li>{{ item.idFood}} ,
+      {{item.qty}} ,
+      {{item.unitPrice}} </li>
+    {% endfor %}
+  </ul>
+  <p><strong>Mã giảm giá:</strong> {{ discount_code if discount_code else "Không có" }}</p>
+  <a href="/fake_payment/{{ order_id }}?total={{ total }}&name={{ name }}&phone={{ phone }}" target="_blank">qqqqqqqqqqqqqqqqqqqqqqqq</a>
+
+  <script>
+    const orderId = "{{ order_id }}";
+    const items = JSON.parse('{{ items|tojson | safe }}');
+
+    setInterval(() => {
+      fetch(`/check_payment_status/${orderId}`)
+        .then(res => res.text())
+        .then(status => {
+          console.log("STATUS:", status); // để xem log
+          if (status === "paid") {
+            // Gọi API lưu đơn hàng trước
+            fetch('/save_order_items', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                credentials: 'include', // thêm dòng này để gửi cookie/session
+                body: JSON.stringify({
+                  order_id: orderId,
+                  items: items,
+                  total: '{{ total }}', // hoặc '{{ total }}' nếu bạn muốn chắc chắn kiểu chuỗi
+                  discount_code: '{{ discount_code }}'  ,
+                  phone :'{{phone}}'
+                })
+              })
+              .then(res => res.json())
+              .then(data => {
+                if (data.success) {
+                  // Nếu lưu thành công thì chuyển trang
+                  window.location.href = `/intro?order_id=${orderId}`;
+                } else {
+                  alert('Lưu đơn hàng thất bại!');
+                }
+              })
+              .catch(err => {
+                console.error('Lỗi lưu đơn hàng:', err);
+              });
+          }
+        });
+    }, 3000);
+  </script>
+
+
+
+</body>
+
+</html>

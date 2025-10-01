@@ -1,0 +1,130 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2025, 2:08:26 PM
+    Author     : ASUS
+*/
+.main-container {
+    max-width: 100%;
+    margin: auto 5px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    align-items: flex-start;
+    
+}
+.container{
+    display: flex;
+    padding: 20px;
+    flex-wrap: nowrap;
+    gap: 20px;
+    width: 100%;
+}
+.bin-section{
+    width: 100%;
+    height: 60px;
+   
+    border-bottom: solid 1px rgba(0,0,0,0.5);
+}
+.form-section {
+    width: 300px;
+    flex-shrink: 0;
+    padding-top: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="file"],
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.area{
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+.form-group input[type="file"] {
+    padding: 3px;
+}
+
+.table-section {
+    flex: 1;
+}
+
+.btn-trash {
+    float: right;
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin: 14px 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background-color: #f0f0f0;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+td img {
+    width: 60px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.btn-status {
+    background-color: #28a745;
+}
+.btn-view   {
+    background-color: #17a2b8;
+}
+.btn-edit   {
+    background-color: #007bff;
+}
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.actions i {
+    font-size: 14px;
+}
+.actions button {
+    border: none;
+    padding: 6px 10px;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+.actions{
+    min-width: 210px;
+}

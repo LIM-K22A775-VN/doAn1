@@ -1,0 +1,382 @@
+    <!DOCTYPE html>
+    <html lang="vi">
+
+    <head>
+        <meta charset="UTF-8" />
+        <title>Chi tiết đơn hàng</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/orderdetail.css') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+        <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+
+        <!-- phần head -->
+        <style>
+            .navbar_right {
+                margin-top: -3px;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+        <style>
+            /* Your styles unchanged */
+            .navbar_right {
+                margin-top: -3px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .popup {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.4);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+            }
+
+            .popup.hidden {
+                display: none;
+            }
+
+            .popup-content {
+                background: #fff;
+                padding: 24px 32px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+                width: 360px;
+            }
+
+            .popup-content h2 {
+                margin-bottom: 12px;
+                font-size: 20px;
+                color: #333;
+            }
+
+            .popup-buttons {
+                margin-top: 24px;
+                display: flex;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .btn-confirm {
+                background: linear-gradient(135deg, #0050c8, #43a047);
+                color: #fff;
+                padding: 14px 30px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition: 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0, 80, 200, 0.3);
+            }
+
+            .btn-cancel {
+                background-color: #e0e0e0;
+                color: #333;
+                padding: 14px 30px;
+                font-size: 16px;
+                font-weight: bold;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                transition: 0.2s ease;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .reward-card.voucher-no-img {
+                color: #fff;
+                padding: 16px;
+                border-radius: 10px;
+                text-align: center;
+            }
+
+            .reward-card.voucher-no-img h3 {
+                margin: 0;
+                font-weight: bold;
+            }
+
+            .popup-content {
+                background: #fff;
+                padding: 32px;
+                border-radius: 12px;
+                text-align: center;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+                max-width: 400px;
+                animation: popupFade 0.5s ease;
+            }
+
+            @keyframes popupFade {
+                from {
+                    transform: scale(0.7);
+                    opacity: 0;
+                }
+
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+
+            .btn-close {
+                background: linear-gradient(135deg, #2196f3, #21cbf3);
+                color: #fff;
+                padding: 12px 24px;
+                font-size: 16px;
+                border: none;
+                border-radius: 6px;
+                margin-top: 20px;
+                cursor: pointer;
+                box-shadow: 0 4px 12px rgba(33, 150, 243, 0.4);
+            }
+        </style>
+        <!-- ✅ Icon & Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+            integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <!-- ✅ CSS Reset + Base + Style riêng -->
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+        <!-- phần head -->
+    </head>
+
+    <body>
+        {% include 'partials/header.html' %}
+        {% include 'partials/vitri.html' with context %}
+
+
+
+
+        <!-- Popup Xác nhận Hủy -->
+        <div id="cancelPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>Xác nhận hủy đơn</h2>
+                <p>Bạn có chắc chắn muốn hủy đơn hàng này không?</p>
+                <div class="popup-buttons">
+                    <button id="confirmCancelBtn" class="btn-confirm">Xác nhận</button>
+                    <button id="cancelCancelBtn" class="btn-cancel">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup Hủy thành công -->
+        <div id="cancelSuccessPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>✅ Hủy đơn thành công!</h2>
+                <p>Đơn hàng của bạn đã được hủy thành công!</p>
+            </div>
+        </div>
+
+
+        <!-- Popup Xác nhận -->
+        <div id="confirmPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>Xác nhận đặt lại</h2>
+                <p>Bạn có chắc muốn đặt lại đơn hàng này không?</p>
+                <div class="popup-buttons">
+                    <button id="confirmBtn" class="btn-confirm">Xác nhận</button>
+                    <button id="cancelBtn" class="btn-cancel">Hủy</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Popup Chúc mừng -->
+        <div id="congratsPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>🎉 Đặt lại thành công!</h2>
+                <p>Đơn hàng đã được đặt lại thành công!</p>
+            </div>
+        </div>
+        <div class="main">
+            <div class="container">
+                <div class="order-container">
+                    <div class="customer-info">
+                        <h2 style="text-align: center">Thông tin đơn hàng</h2>
+                        <p><strong>Họ tên:</strong> {{ user.username }}</p>
+                        <p><strong>Điện thoại:</strong> {{ user.phone }}</p>
+                        <p><strong>Địa chỉ:</strong> {{ user.address }}</p>
+                        <p><strong>Tổng tiền:</strong> {{ "{:,.0f}".format(order.total) }} VNĐ</p>
+                        <p><strong>Trạng thái:</strong> {{ order.status }}</p>
+                        <p><strong>Ngày tạo đơn:</strong> {{ order.date_ordered }}</p>
+                    </div>
+
+                    <h3 class="section-title">Chi tiết món ăn</h3>
+
+                    <table class="detail-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hình ảnh</th>
+                                <th>Tên món ăn</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in order['items'] %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><img src="../static/avatars/media/{{ item.img }}" alt="{{ item.food_name }}"></td>
+                                <td>{{ item.food_name }}</td>
+                                <td>{{ "{:,.0f}".format(item.price) }} VNĐ</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ "{:,.0f}".format(item.subtotal) }} VNĐ</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <p class="thankyou">
+                        Cảm ơn bạn đã đặt món tại <strong>TheRiceBowl</strong>!
+                    </p>
+                    <div class="total-cancel">
+                        <p class="total-amount">
+                            Tổng tiền: <strong>{{ "{:,.0f}".format(order.total) }} VNĐ</strong>
+                        </p>
+                        {% if order.status == 'Đã hủy' %}
+                        <button class="cancel-btn" onclick="showConfirmReorder('{{ order.id }}')">Đặt lại</button>
+                        {% elif order.status == 'Đang chờ xử lý' %}
+                        <button class="cancel-btn" onclick="showConfirmCancel('{{ order.id }}')">Hủy đơn hàng</button>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            {% include 'partials/footer.html' %}
+            <!-- scr tư vấn -->
+            <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+            <script>
+                const userEmail = "{{ session.get('user_email') }}";
+            </script>
+        </div>
+        <script src="{{ url_for('static', filename='CssTotal/jssignup.js') }}"></script>
+
+
+
+
+
+
+        <script>
+            let pendingOrderId = null;
+
+            function showConfirmReorder(orderId) {
+                pendingOrderId = orderId;
+                document.getElementById('confirmPopup').classList.remove('hidden');
+            }
+
+            function showConfirmCancel(orderId) {
+                pendingOrderId = orderId;
+                document.getElementById('cancelPopup').classList.remove('hidden');
+            }
+
+            function reorder(orderId) {
+                fetch(`/reorder/${orderId}`, {
+                        method: 'POST'
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            document.getElementById('congratsPopup').classList.remove('hidden');
+                            launchFireworks();
+                            setTimeout(() => {
+                                window.location.href = '/order';
+                            }, 3000);
+                        } else {
+                            alert('Đặt lại thất bại: ' + data.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Lỗi!');
+                    });
+            }
+
+            function cancelOrder(orderId) {
+                fetch(`/cancel_order/${orderId}`, {
+                        method: 'POST'
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // ✅ Hiện popup hủy thành công
+                            document.getElementById('cancelSuccessPopup').classList.remove('hidden');
+                            // Sau 2-3 giây chuyển trang hoặc reload:
+                            setTimeout(() => {
+                                window.location.href = '/order'; // hoặc: window.location.reload();
+                            }, 2000);
+                        } else {
+                            alert('Hủy thất bại: ' + data.message);
+                        }
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        alert('Lỗi!');
+                    });
+            }
+
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('confirmBtn').onclick = function () {
+                    reorder(pendingOrderId);
+                    document.getElementById('confirmPopup').classList.add('hidden');
+                };
+                document.getElementById('cancelBtn').onclick = function () {
+                    document.getElementById('confirmPopup').classList.add('hidden');
+                };
+
+                document.getElementById('confirmCancelBtn').onclick = function () {
+                    cancelOrder(pendingOrderId);
+                    document.getElementById('cancelPopup').classList.add('hidden');
+                };
+                document.getElementById('cancelCancelBtn').onclick = function () {
+                    document.getElementById('cancelPopup').classList.add('hidden');
+                };
+            });
+
+            function launchFireworks() {
+                const duration = 2 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: {
+                            x: 0
+                        }
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: {
+                            x: 1
+                        }
+                    });
+                    if (Date.now() < end) requestAnimationFrame(frame);
+                })();
+            }
+        </script>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+
+    </body>
+
+    </html>

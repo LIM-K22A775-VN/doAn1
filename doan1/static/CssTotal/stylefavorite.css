@@ -1,0 +1,241 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 30, 2025, 12:45:47 PM
+    Author     : ASUS
+*/
+/* Section Layout */
+
+.section-one{
+    padding-top: 20px;
+}
+.inner-wrap {
+    display: flex;
+    gap: 30px;
+}
+
+.inner-chon {
+    width: 25%;
+    background: white;
+    padding: 5px 20px 20px 20px;
+    border-radius: 5px;
+    border: solid 1px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-left: 7px;
+}
+
+.inner-chon h3 {
+    margin-bottom: 8px;
+    color: #d35400;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.inner-chon input[type="radio"] {
+    margin: 5px 10px 5px 0;
+}
+
+.inner-loc input[type="number"] {
+    width: 45%;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.button-one {
+    background-color: #f60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.button-one:hover {
+    background-color: #e55c00;
+}
+
+/* Product List */
+.inner-danhsach {
+    flex: 1;
+}
+
+.inner-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+.timkiem {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.button-two {
+    background-color: #f60;
+    color: white;
+    border: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 8px 12px;
+}
+
+.button-two:hover {
+    background-color: #e55c00;
+}
+
+.section{
+    width: 100px;
+    height: 32.83px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+}
+
+
+/* Food Card Styles */
+.food-card {
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  gap: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.food-image img {
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.food-info {
+  flex: 1;
+}
+
+.food-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #d35400;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.label-new {
+  background-color: #e74c3c;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.food-slug {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.food-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.tag {
+  background-color: #f1f1f1;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #555;
+}
+
+.food-desc {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.food-category {
+  font-size: 13px;
+  color: #999;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.food-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 180px;
+}
+
+.food-price {
+  text-align: right;
+  margin-bottom: 4px;
+}
+
+.price-old {
+  text-decoration: line-through;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.price-new {
+  color: #e67e22;
+  font-weight: 600;
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+.btn-cart {
+  background-color: #f60;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+  transition: background-color 0.3s;
+}
+
+.btn-cart:hover {
+  background-color: #e55c00;
+}
+
+.food-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.icon-btn {
+  background-color: #eee;
+  border: none;
+  border-radius: 6px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.icon-btn:hover {
+  background-color: #ddd;
+}

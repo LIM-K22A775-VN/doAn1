@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang quản trị</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="../static/CssTotal/standard_admin.css" />
+    <link rel="stylesheet" href="../static/CssTotal/info_order_admin.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body>
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+
+        <div class="inner-position">
+            <h2>Quản lý đơn hàng</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <a href="order_admin.html">Đơn hàng /</a>
+                <p>Chi tiết đơn hàng</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <div class="order-info-box">
+                    <h2>Thông tin đơn hàng</h2>
+                    
+                    <div class="info-grid">
+                        <p><strong>Họ tên:</strong> {{ order.userName }}</p>
+                        <p><strong>Điện thoại:</strong> {{ order.order_phone }}</p>
+                        <p><strong>Địa chỉ:</strong> {{ order.address }}</p>
+                        <p><strong>Ghi chú:</strong> {{ order.note }}</p>
+                        <p><strong>Ngày tạo:</strong>
+                            {% if order.timeOrder %}
+                            {{ order.timeOrder.strftime('%H:%M %d/%m/%Y') }}
+                            {% else %}
+                            Không có dữ liệu
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="product-detail-box">
+                    <h2>Chi tiết sản phẩm</h2>
+                    <table class="product-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Hình</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><img src="/static/avatars/media/{{ item.Image }}" alt="{{ item.nameFood }}"></td>
+                                
+                                <td>{{ item.nameFood }}</td>
+                                <td>{{ "{:,.0f}".format(item.price) }} VNĐ</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ "{:,.0f}".format(item.price * item.quantity) }} VNĐ</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/CssTotal/standard_admin.js"></script>
+
+</html>

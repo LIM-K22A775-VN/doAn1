@@ -1,0 +1,134 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 30, 2025, 8:33:47 PM
+    Author     : ASUS
+*/
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    margin: 10px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.banner-body{
+    width: 100%;
+    height: 200px;
+    background-image: url("../avatars/media/contact.jpg");
+    background-position: center;
+    background-size: cover;
+    padding-top: 80px;
+    border: solid 1px rgba(0,0,0,0.1);
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+.banner-body h1,p{
+    text-align: center;
+    font-weight: bold;
+}
+.banner-body h1{
+    margin-bottom: 10px;
+    color: #f60;
+}
+.left-box {
+    background-color: #1d2939;
+    color: #ffffff;
+    padding: 40px;
+    width: 100%;
+}
+
+.left-box h2 {
+    color: #ff6600;
+    margin-bottom: 20px;
+}
+
+.left-box p {
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.left-box .info-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.left-box .info-item i {
+    color: #ff6600;
+    margin-right: 10px;
+}
+
+.right-box {
+    background-color: #ffffff;
+    padding: 40px;
+    width: 100%;
+}
+
+.right-box h2 {
+    margin-bottom: 20px;
+}
+
+.right-box input,
+.right-box textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.right-box button {
+    background-color: #ff6600;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+.map-section {
+    position: relative;
+    height: 500px;
+    max-width: 100%;
+    margin-top: 40px;
+}
+
+.map-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.view-full-map {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.view-full-map a {
+    text-decoration: none;
+    background-color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background 0.3s;
+}
+
+.view-full-map a:hover {
+    background-color: #eee;
+}

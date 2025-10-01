@@ -1,0 +1,133 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 3:36:51 PM
+    Author     : ASUS
+*/
+/* quan trọng hihi */
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+
+.dashboard-content {
+    margin: 0 5px;
+}
+.dashboard-boxes {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+.dashboard-boxes i{
+    font-size: 30px;
+    color: #fff;
+}
+.dashboard-tab{
+    border: solid 1px rgba(0,0,0,0.5);
+    background-color: #fff;
+    border-radius: 5px;
+}
+.section-tab{
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    padding: 11px;
+    border-bottom: solid 1px rgba(0,0,0,0.5);
+}
+.btn-tab{
+    padding: 8px;
+}
+.btn-tab.blue{
+    background-color: #007bff;
+}
+.teal{
+    background-color: #17a2b8;
+}
+.green{
+    background-color: #28a745;
+}
+.box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 6px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.box.blue {
+    background: #007bff;
+}
+.box.teal {
+    background: #17a2b8;
+}
+.box.green {
+    background: #28a745;
+}
+.box.yellow {
+    background: #ffc107;
+    color: #000;
+}
+.box.red {
+    background: #dc3545;
+}
+.appreciate-dish{
+    background-color: #fff;
+    padding: 10px;
+    border: solid 1px rgba(0,0,0,0.5);
+    border-radius: 5px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+th {
+    background: #eee;
+}
+img {
+    width: 50px;
+    height: auto;
+}
+
+
+
+        .user-info {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%; /* nằm ngay dưới */
+  right: 0; /* canh lề phải avatar */
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  display: none; /* mặc định ẩn */
+  z-index: 999;
+}
+
+.user-dropdown a {
+  display: block;
+  padding: 8px 12px;
+  color: #333;
+  text-decoration: none;
+}
+
+.user-dropdown a:hover {
+  background: #f0f0f0;
+}

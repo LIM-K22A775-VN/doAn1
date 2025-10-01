@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trang quản trị</title>
+        <link rel="stylesheet" href="CssTotal/login_admin.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!--<aside id="sidebar" class="sidebar"></aside>-->
+        <div class="main" id="main">
+
+            <div class="content">
+                <div class="container">
+           <div class="login-container">
+                <h2>Đăng nhập</h2>
+                <button class="btn facebook"><i class="fa-brands fa-facebook-f"></i> Đăng nhập với FaceBook</button>
+                <button class="btn google"><i class="fa-brands fa-google"></i> Đăng nhập với Google</button>
+
+                <form  id="loginForm">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="ex. name@gmail.com" required>
+
+                    <label for="password">Mật khẩu <a href="forget_admin.html">Quên mật khẩu?</a></label>
+                    <input type="password" id="password" placeholder="******" required>
+
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Ghi nhớ</label>
+                    </div>
+
+                    <button type="submit" class="btn login">Đăng nhập</button>
+                </form>
+
+                <p class="register">Bạn chưa có tài khoản ? <a href="signup_admin.html">Đăng ký</a></p>
+            </div>
+        </div>
+        </div>
+    </body>
+    <script>
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+        e.preventDefault(); // Ngăn reload trang
+
+        // Giả lập đăng nhập thành công (có thể dùng sessionStorage nếu bạn muốn)
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("username", "Phan Linh"); // Giả lập tên người dùng
+
+        // Chuyển sang trang chính hoặc admin
+        window.location.href = "dashboard_staff.html";
+    });
+</script>
+
+</html>
+

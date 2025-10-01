@@ -1,0 +1,148 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 8:36:30 AM
+    Author     : ASUS
+*/
+
+.container{
+    border-top: solid 1px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    padding: 10px;
+}
+.cart-container {
+  background: white;
+  max-width: 810px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  border-bottom: solid 1px rgba(0,0,0,0.1);
+  border-left: solid 1px rgba(0,0,0,0.1);
+  border-right: solid 1px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border-top: none;
+  margin-bottom: 10px;
+}
+
+.cart-container h2 {
+  margin-bottom: 20px;
+  color:#f60;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-right: 15px;
+}
+
+.item-info {
+  flex: 1;
+}
+
+.item-name {
+  font-weight: bold;
+}
+
+.item-price {
+  color: gray;
+  font-size: 14px;
+}
+
+.item-qty {
+  width: 50px;
+  padding: 5px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.item-total {
+  width: 120px;
+  font-weight: bold;
+}
+
+.item-detail,
+.item-delete {
+  color: #d17;
+  text-decoration: none;
+  margin-left: 10px;
+}
+
+.update-btn {
+  width: 100%;
+  background: orange;
+  border: none;
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.total-section {
+  margin-top: 25px;
+}
+.total-section label{
+    font-weight: bold;
+    font-size: 19px;
+}
+.sum{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.grand-total {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+#discount {
+  width: 72%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-left: 11px;;
+}
+#address{
+  width: 72%;
+  padding: 8px;
+  margin-top: 10px;  
+  margin-left: 57px;  
+}
+#phone{
+  width: 72%;
+  padding: 8px;
+  margin-top: 10px;  
+}
+.apply-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.checkout-btn {
+  width: 100%;
+  background: green;
+  border: none;
+  padding: 15px;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+}

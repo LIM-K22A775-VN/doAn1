@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Thực Đơn</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+  <!-- CSS của bạn -->
+  <link rel="stylesheet" href="../static/CssTotal/stylemenu.css" />
+  <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+
+  <script src="../static/CssTotal/standard.js"></script>
+
+  <style>
+    .navbar_right {
+      margin-top: -3px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .food-card.hidden {
+      display: none;
+    }
+
+    #not-found-message {
+      display: none;
+      padding: 20px;
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: #fff;
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      animation: pulse 1s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+      }
+
+      to {
+        transform: scale(1.05);
+      }
+    }
+
+    /* TOAST đẹp */
+    .toast {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(135deg, #0050c8, #43a047);
+      color: #fff;
+      padding: 16px 28px;
+      border-radius: 20px 5px 20px 5px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+      z-index: 9999999999;
+      opacity: 1;
+      transform: translateX(0);
+      transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 16px;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .toast i {
+      font-size: 18px;
+    }
+
+    /* ❤️ icon active */
+    .icon-btn .fa-heart {
+      transition: color 0.3s ease;
+    }
+
+    .icon-btn .fa-heart.active {
+      color: red;
+    }
+  </style>
+</head>
+
+<body>
+  {% include 'partials/header.html' %}
+  {% include 'partials/vitri.html' with context %}
+
+  <div class="section-one">
+    <div class="inner-wrap">
+
+      <!-- Bộ lọc -->
+      <div class="inner-chon">
+        <div class="inner-danhmuc">
+          <h3>Danh Mục</h3>
+          <input type="radio" name="danhmuc" value="Tất cả" checked> Tất cả<br>
+          <input type="radio" name="danhmuc" value="Khai vị"> Khai vị<br>
+          <input type="radio" name="danhmuc" value="Món chính"> Món chính<br>
+          <input type="radio" name="danhmuc" value="Canh-Tiêm-Súp"> Canh-Tiêm-Súp<br>
+          <input type="radio" name="danhmuc" value="Cơm-Mì-Cháo"> Cơm-Mì-Cháo<br>
+          <input type="radio" name="danhmuc" value="Bánh tráng miệng"> Bánh tráng miệng<br>
+          <input type="radio" name="danhmuc" value="Đồ uống"> Đồ uống<br>
+        </div>
+
+        <div class="inner-thuonghieu">
+          <h3>Thương Hiệu</h3>
+          <input type="radio" name="thuonghieu" value="Tất cả" checked> Tất cả<br>
+          <input type="radio" name="thuonghieu" value="Món Âu"> Món Âu<br>
+          <input type="radio" name="thuonghieu" value="Món Ý"> Món Ý<br>
+          <input type="radio" name="thuonghieu" value="Món Nhật"> Món Nhật<br>
+          <input type="radio" name="thuonghieu" value="Món Việt"> Món Việt<br>
+        </div>
+
+        <div class="inner-loc">
+          <h3>Lọc Theo Giá</h3>
+          <input type="number" id="gia_min" placeholder="Từ"> -
+          <input type="number" id="gia_max" placeholder="Đến"><br>
+          <input type="button" class="button button-one" value="Áp Dụng">
+        </div>
+      </div>
+
+      <!-- Danh sách món -->
+      <div class="inner-danhsach">
+        <div class="inner-head">
+          <div style="margin-top: 5px;">{{ foods|length }} Món Ăn</div>
+          <div class="inner-find">
+            <input type="text" id="timkiem" placeholder="Tìm món ăn">
+            <input type="button" class="button button-two" value="Tìm">
+          </div>
+          <div class="choice">
+            <select class="section">
+              <option value="macdinh">Mặc Định</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <i class="fa-solid fa-list"></i>
+            <i class="fa-solid fa-list-check"></i>
+          </div>
+        </div>
+
+        <!-- THÔNG BÁO KHÔNG TÌM THẤY -->
+        <div id="not-found-message">
+          🧐 Không tìm thấy món nào phù hợp! Hãy thử lại 🔍✨
+        </div>
+
+        <div class="inner-thucdon">
+          {% for food in foods %}
+          <div class="food-card" data-brand="{{ food.brand }}">
+            <div class="food-image">
+              <img src="../static/avatars/media/{{ food.img }}" alt="{{ food.name }}">
+            </div>
+            <div class="food-info">
+              <h3 class="food-name">
+                {{ food.name }} <span class="label-new">Mới</span>
+              </h3>
+              <div class="food-slug">{{ food.name | lower | replace(' ', '-') }}</div>
+              <div class="food-tags">
+                <span class="tag">Đã xác minh</span>
+                <span class="tag">Số lượng: 75</span>
+                <span class="tag">3 Đánh giá</span>
+                <span class="tag">{{ food.brand }}</span>
+              </div>
+              <p class="food-desc">
+                Salad rau mùa sốt cam là sự lựa chọn tuyệt vời cho các tín đồ yêu eat clean.
+              </p>
+              <div class="food-category">{{ food.category }}</div>
+            </div>
+            <div class="food-action">
+              <div class="food-price">
+                <span class="price-old">{{ "{:,.0f}".format(food.orig_price).replace(',', '.') }} VND</span>
+                <span class="price-new">{{ "{:,.0f}".format(food.price).replace(',', '.') }} VND</span>
+
+              </div>
+
+              <div class="food-action-row">
+                <button class="btn-cart">Thêm vào giỏ hàng</button>
+                <div class="food-icons">
+                  <button class="icon-btn">
+                    <a href="dish_detail.html" style="color:black;">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </button>
+                  <button class="icon-btn btn-love" data-name="{{ food.name }}">
+                    <i class="fa fa-heart {% if food.in_favorite %}active{% endif %}"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% include 'partials/footer.html' %}
+
+  <!-- Lọc -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const applyButton = document.querySelector('.button-one');
+      const searchButton = document.querySelector('.button-two');
+      const searchInput = document.getElementById('timkiem');
+      const foodCards = document.querySelectorAll('.food-card');
+      const notFoundMessage = document.getElementById('not-found-message');
+
+      function filterFoods() {
+        const danhMuc = document.querySelector('input[name="danhmuc"]:checked').value;
+        const thuongHieu = document.querySelector('input[name="thuonghieu"]:checked').value;
+        const giaMin = parseFloat(document.getElementById('gia_min').value) || 0;
+        const giaMax = parseFloat(document.getElementById('gia_max').value) || Infinity;
+        const keyword = searchInput.value.trim().toLowerCase();
+
+        let found = false;
+
+        foodCards.forEach(card => {
+          const category = card.querySelector('.food-category').textContent.trim();
+          const brand = card.getAttribute('data-brand').trim();
+          const name = card.querySelector('.food-name').textContent.trim().toLowerCase();
+          const priceText = card.querySelector('.price-new').textContent.replace(/[^\d]/g, '');
+          const price = parseFloat(priceText);
+
+          const matchDanhMuc = danhMuc === 'Tất cả' || category.includes(danhMuc);
+          const matchThuongHieu = thuongHieu === 'Tất cả' || brand.includes(thuongHieu);
+          const matchGia = price >= giaMin && price <= giaMax;
+          const matchKeyword = keyword === '' || name.includes(keyword);
+
+          if (matchDanhMuc && matchThuongHieu && matchGia && matchKeyword) {
+            card.classList.remove('hidden');
+            found = true;
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+
+        notFoundMessage.style.display = found ? 'none' : 'block';
+      }
+
+      applyButton.addEventListener('click', filterFoods);
+      searchButton.addEventListener('click', filterFoods);
+    });
+  </script>
+
+  <!-- Thêm / Xoá yêu thích -->
+  <script>
+    function showToast(message) {
+      const oldToast = document.getElementById('toast');
+      if (oldToast) oldToast.remove();
+
+      const toast = document.createElement('div');
+      toast.id = 'toast';
+      toast.className = 'toast';
+      toast.innerHTML = `<i class="fa fa-check-circle"></i> ${message}`;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.transform = 'translateX(120%)';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 1500);
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loveButtons = document.querySelectorAll('.btn-love');
+
+      loveButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const heartIcon = btn.querySelector('i');
+          const foodName = btn.getAttribute('data-name');
+          const isActive = heartIcon.classList.contains('active');
+
+          if (!isActive) {
+            fetch('/add_to_favorite', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: foodName
+                })
+              })
+              .then(res => res.json())
+              .then(data => {
+                showToast(data.message || 'Đã thêm vào yêu thích');
+                heartIcon.classList.add('active');
+              })
+              .catch(err => {
+                console.error(err);
+                showToast('Lỗi khi thêm!');
+              });
+          } else {
+            fetch('/remove_from_favorite', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                  name: foodName
+                })
+              })
+              .then(res => res.json())
+              .then(data => {
+                showToast(data.message || 'Đã xoá khỏi yêu thích');
+                heartIcon.classList.remove('active');
+              })
+              .catch(err => {
+                console.error(err);
+                showToast('Lỗi khi xoá!');
+              });
+          }
+        });
+      });
+    });
+  </script>
+
+  <!-- Tư vấn -->
+  <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+  <script>
+    const userEmail = "{{ session.get('user_email') }}";
+  </script>
+
+</body>
+
+</html>

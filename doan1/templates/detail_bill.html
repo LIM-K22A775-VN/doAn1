@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết hóa đơn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .content {
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
+            margin: 0 auto;
+            border: solid 1px rgba(0, 0, 0, 0.5);
+        }
+
+        .order-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+
+        .order-info p {
+            margin: 5px 0;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .order-info p strong {
+            color: #2c3e50;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .details-table th {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .details-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .total-amount {
+            font-weight: 600;
+            color: #e74c3c;
+            font-size: 18px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .back-btn:hover {
+            background-color: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .order-info p {
+                font-size: 14px;
+            }
+
+            .details-table th,
+            .details-table td {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .item-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .back-btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+</head>
+
+<body>
+
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+        <div class="inner-position">
+            <h2>Chi tiết hóa đơn</h2>
+            <div class="position-right">
+                <a href="/admin">Trang chủ /</a>
+                <p>Hóa đơn</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="container">
+                <div class="order-info">
+                    <p><strong>Mã hóa đơn:</strong> HD{{ order[0] }}</p>
+                    <p><strong>Loại đơn hàng:</strong> {{ order[1] }}</p>
+                    <p><strong>Phương thức thanh toán:</strong> {{ order[2] or 'Không xác định' }}</p>
+                    <p><strong>Tổng tiền:</strong> <span class="total-amount">{{ "{:,.0f}".format(order[3] or 0) }}
+                            VND</span></p>
+                    <p><strong>Ngày tạo:</strong> {{ order[4] or 'Không xác định' }}</p>
+                </div>
+
+                <table class="details-table" id="order-items">
+                    <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                        <tr>
+                            <td><img src="/static/avatars/media/{{ item[0] }}" class="item-image" alt="{{ item[1] }}"></td>
+                            <td>{{ item[1] }}</td>
+                            <td>{{ "{:,.0f}".format(item[2] or 0) }} VND</td>
+                            <td>{{ item[3] }}</td>
+                            <td>{{ "{:,.0f}".format(item[4] or 0) }} VND</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+
+                </table>
+                <a href="javascript:history.back()" class="back-btn">Quay lại</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#sidebar").load("sidebar_admin.html?v=" + Math.random(), function (response, status, xhr) {
+                if (status == "error") {
+                    console.error("Lỗi khi tải sidebar_admin.html: " + xhr.status + " + " + xhr
+                        .statusText);
+                }
+            });
+            $("#navbar").load("navbar_admin.html?v=" + Math.random(), function (response, status, xhr) {
+                if (status == "error") {
+                    console.error("Lỗi khi tải navbar_admin.html: " + xhr.status + " " + xhr
+                        .statusText);
+                } else {
+                    $.getScript("CssTotal/navbar_admin.js");
+                }
+            });
+
+            // Lấy order_id từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('order_id');
+        });
+    </script>
+    
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userInfo = document.getElementById("userInfo");
+        const userDropdown = document.getElementById("userDropdown");
+
+        userDropdown.style.display = "none"; // Ẩn trước
+
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+            if (userDropdown.style.display === "none") {
+                userDropdown.style.display = "block";
+            } else {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // Click ngoài thì đóng dropdown
+        document.addEventListener("click", function () {
+            userDropdown.style.display = "none";
+        });
+    });
+</script>
+
+</body>
+
+</html>

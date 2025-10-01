@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>html Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="../static/CssTotal/stylearticle.css" />
+    <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+    <script src="../static/CssTotal/standard.js">
+    </script>
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Card món khai vị */
+        .blog_item {
+            margin-bottom: 30px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .blog_item:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog_item h3 {
+            padding: 15px 20px 0;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .blog_item img.post-img {
+            width: 100%;
+            display: block;
+        }
+
+        .blog_item p {
+            padding: 10px 20px 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Phần tiêu đề "Khai Vị Đặc Sắc" */
+        .blog-main h2 {
+            font-size: 28px;
+            margin: 40px 0 20px;
+            color: #222;
+            position: relative;
+        }
+
+        .blog-main h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: #f05a28;
+            display: block;
+            margin-top: 8px;
+        }
+
+        /* Nút phân trang */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .page-btn {
+            border: none;
+            background: #f5f5f5;
+            color: #333;
+            padding: 8px 12px;
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .page-btn.active,
+        .page-btn:hover {
+            background: #f05a28;
+            color: #fff;
+        }
+    </style>
+
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+
+    <div class="blog-container">
+        <!-- Bài viết chính -->
+        <!-- Bài viết chính -->
+        <div class="blog-main">
+            <h2>Bài viết mới</h2>
+
+            <!-- Các bài viết cũ -->
+            <div class="blog_item">
+                <div class="post-card">
+                    <div class="post-date">
+                        <span class="day">19</span>
+                        <span class="month">Jun</span>
+                    </div>
+                    <a href="detail_article.html" class="post-link">
+                        <img src="../static/avatars/media/1.jpg" alt="Bài viết" class="post-img">
+                        <div class="post-meta">
+                            <p class="post-date-line">Ngày đăng: 19-06-2024</p>
+                            <h3 class="post-title">Mách bạn công thức làm canh cá nấu me thơm ngon đậm vị</h3>
+                            <p class="post-desc">
+                                Canh cá nấu me là món ăn dân dã, quen thuộc trong mỗi mâm cơm gia đình Việt...
+                            </p>
+                            <div class="post-tags">
+                                <span><i class="fa fa-folder"></i> Thực phẩm nhà hàng</span>
+                                <span><i class="fa fa-comment"></i> 30 Bình luận</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="blog_item">
+                <div class="post-card">
+                    <div class="post-date">
+                        <span class="day">19</span>
+                        <span class="month">Jun</span>
+                    </div>
+                    <a href="article-detail.html?id=123" class="post-link">
+                        <img src="../static/avatars/media/1.jpg" alt="Bài viết" class="post-img">
+                        <div class="post-meta">
+                            <p class="post-date-line">Ngày đăng: 19-06-2024</p>
+                            <h3 class="post-title">Mách bạn công thức làm canh cá nấu me thơm ngon đậm vị</h3>
+                            <p class="post-desc">
+                                Canh cá nấu me là món ăn dân dã, quen thuộc trong mỗi mâm cơm gia đình Việt...
+                            </p>
+                            <div class="post-tags">
+                                <span><i class="fa fa-folder"></i> Thực phẩm nhà hàng</span>
+                                <span><i class="fa fa-comment"></i> 30 Bình luận</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Món khai vị đặc sắc -->
+            <h2>Khai Vị Đặc Sắc</h2>
+
+            <div class="blog_item">
+                <h3>Soup Cà Chua Hải Sản (Âu)</h3>
+                <img src="../static/avatars/media/anh1.jpg" alt="Soup Cà Chua Hải Sản" class="post-img">
+                <p>
+                    Súp cà chua hải sản là sự hòa quyện tuyệt vời giữa vị chua ngọt thanh mát của cà chua cùng hải sản
+                    tươi ngon như tôm, cá, sò, mực. Món ăn mang đậm hơi thở của các nền ẩm thực Âu Mỹ như Pháp (bisque),
+                    Ý–Mỹ (cioppino) hay Mỹ Latin (caldo de siete mares). Thưởng thức món soup này, bạn như được lạc bước
+                    giữa những bờ biển Địa Trung Hải đầy nắng.
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Bruschetta (Món Ý)</h3>
+                <img src="../static/avatars/media/anh2.jpg" alt="Bruschetta" class="post-img">
+                <p>
+                    Bruschetta – món khai vị tinh tế nổi tiếng của Ý, ra đời từ vùng Lazio và Toscana. Chỉ với lát bánh
+                    mì nướng giòn rụm chà tỏi, rưới dầu ô liu nguyên chất, phủ cà chua tươi, lá húng quế, chút muối và
+                    tiêu, món ăn mộc mạc nhưng cuốn hút thực khách bởi hương vị tươi mới và nhẹ nhàng.
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Há Cảo Nhật Bản (Gyoza)</h3>
+                <img src="../static/avatars/media/anh3.jpg" alt="Há Cảo Nhật Bản" class="post-img">
+                <p>
+                    Gyoza – phiên bản há cảo Nhật Bản được biến tấu từ jiaozi Trung Hoa, nhưng mỏng nhẹ hơn với phần
+                    nhân thịt đậm đà, chiên áp chảo giòn rụm bên ngoài, mềm ẩm bên trong. Món ăn phổ biến trong các quán
+                    ramen, izakaya và là món “must try” khi ghé quán Nhật!
+                </p>
+            </div>
+
+            <div class="blog_item">
+                <h3>Gỏi Ngó Sen (Món Việt)</h3>
+                <img src="../static/avatars/media/anh4.jpg" alt="Gỏi Ngó Sen" class="post-img">
+                <p>
+                    Gỏi ngó sen – món khai vị dân dã, thanh mát, đậm chất Nam Bộ. Vị giòn thanh của ngó sen non kết hợp
+                    cùng tôm sú, thịt ba chỉ luộc, rau thơm và nước mắm pha chua ngọt tạo nên hương vị hài hòa, giải
+                    nhiệt cực kỳ thích hợp cho những ngày hè oi bức.
+                </p>
+            </div>
+
+            <div class="pagination">
+                <button class="page-btn">&lt;</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">&gt;</button>
+            </div>
+        </div>
+
+
+        <!-- Sidebar -->
+        <div class="blog-sidebar">
+            <!-- Tìm kiếm -->
+            <div class="search-box">
+                <input type="text" placeholder="Tìm kiếm từ khóa">
+                <button class="search-btn">Tìm kiếm</button>
+            </div>
+
+            <!-- Danh mục -->
+            <div class="category-box">
+                <h4>Danh mục</h4>
+                <ul>
+                    <li>Thực phẩm nhà hàng <span>(1)</span></li>
+                    <li>Công thức nấu ăn <span>(4)</span></li>
+                    <li>Công nghệ hiện đại <span>(0)</span></li>
+                    <li>Sản phẩm <span>(0)</span></li>
+                    <li>Cảm hứng <span>(0)</span></li>
+                    <li>Chăm sóc sức khỏe <span>(0)</span></li>
+                </ul>
+            </div>
+
+            <!-- Bài viết gần đây -->
+            <div class="recent-posts">
+
+                <h4>Bài viết gần đây</h4>
+
+                <div class="recent-post">
+                    <a href="article-detail.html?id=456" class="recent-link">
+                        <img src="../static/avatars/media/anh7.jpg" alt="">
+                        <div>
+                            <p>Hé lộ chìa khóa vàng giúp thiết lập được công thức nấu ăn ngon</p>
+                            <span>2024-12-29 08:44:54</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="article-detail.html?id=457" class="recent-link">
+                        <img src="../static/avatars/media/anh8.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="article-detail.html?id=458" class="recent-link">
+                        <img src="../static/avatars/media/anh9.jpg" alt="">
+                        <div>
+                            <p>Khám phá bí quyết bữa cơm gia đình đậm vị yêu thương</p>
+                            <span>2025-06-29 15:56:12</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="recent-post">
+                    <a href="article-detail.html?id=459" class="recent-link">
+                        <img src="../static/avatars/media/anh10.jpg" alt="">
+                        <div>
+                            <p>Gợi ý thực đơn chuẩn nhà hàng cho dịp cuối tuần</p>
+                            <span>2025-06-30 10:22:15</span>
+                        </div>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    {% include 'partials/footer.html' %}
+    <!-- scr tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+</body>
+<script src="../static/CssTotal/script.js">
+
+</script>
+
+</html>

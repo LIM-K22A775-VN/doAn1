@@ -1,0 +1,114 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 9, 2025, 5:01:48 PM
+    Author     : ASUS
+*/
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.buttons {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.form-footer button{
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.buttons button:hover {
+    background: #0056b3;
+}
+
+.form-section {
+    display: none;
+    margin-top: 20px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+select, input[type="text"], input[type="date"] {
+    padding: 10px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 12px;
+    background: #fdfdfd;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.card label {
+    font-weight: normal;
+    margin-top: 8px;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.tag {
+    display: inline-block;
+    background: #eee;
+    padding: 3px 8px;
+    font-size: 0.8em;
+    border-radius: 6px;
+    margin-top: 6px;
+}

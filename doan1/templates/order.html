@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Danh sách đơn hàng</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/order.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}" />
+    <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+
+    <div class="main">
+        <div class="container">
+            <h2 class="title">Danh sách đơn hàng</h2>
+            <div class="status-tabs">
+                <button class="filter-btn active" data-status="all">Tất cả</button>
+                <button class="filter-btn" data-status="Đang chờ xử lý">Đang chờ xử lý</button>
+                <button class="filter-btn" data-status="Đang vận chuyển">Đang vận chuyển</button>
+                <button class="filter-btn" data-status="Đã giao hàng">Đã giao hàng</button>
+                <button class="filter-btn" data-status="Đã hủy">Đã hủy</button>
+            </div>
+
+
+
+
+            <!-- ✅ Lặp qua danh sách orders -->
+            {% for order in orders %}
+            <div class="order_detail" data-status="{{ order.status }}">
+
+                <div class="order-info">
+                    <p><strong>Đơn hàng - Ngày :</strong> {{ order.date_ordered if order.date_ordered else "N/A" }}</p>
+                    <p style="margin: 10px 0;">
+                        Trạng thái:
+                        <span class="status-label">{{ order.status }}</span>
+                        <!-- Bạn có thể thêm logic mô tả trạng thái -->
+                    </p>
+                    <button class="view-detail">
+                        <a style="text-decoration: none; color: #fff;" href="/order_detail/{{ order.id }}">Xem chi
+                            tiết</a>
+                    </button>
+                </div>
+
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>ID Món</th> <!-- Cột idFood mới -->
+                            <th>Hình ảnh</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order["items"] %}
+                        <tr>
+                            <td>{{ item.food_id }}</td> <!-- Thêm cột idFood -->
+                            <td>
+                                <img src="../static/avatars/media/{{ item.img }}" alt="{{ item.name }}">
+                            </td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ "{:,.0f}".format(item.price) }} VNĐ</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ "{:,.0f}".format(item.price * item.quantity) }} VNĐ</td>
+                            <td>
+                                <form action="/evaluate_dish" method="POST" style="display:inline;">
+                                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                                    <input type="hidden" name="food_id" value="{{ item.food_id }}">
+                                    <button type="submit" class="rate-btn">
+                                        Đánh giá
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    {% include 'partials/footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+    <script src="../static/CssTotal/jssignup.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const orders = document.querySelectorAll('.order_detail');
+
+            function renderOrders(status) {
+                orders.forEach(order => {
+                    if (status === 'all' || order.dataset.status === status) {
+                        order.style.display = 'block';
+                    } else {
+                        order.style.display = 'none';
+                    }
+                });
+            }
+
+            renderOrders('all');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const status = button.getAttribute('data-status');
+                    renderOrders(status);
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

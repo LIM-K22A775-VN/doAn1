@@ -1,0 +1,107 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 9:38:48 AM
+    Author     : ASUS
+*/
+
+.container{
+    border-top: solid 1px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+.hienthi{
+    display: flex;
+    margin-top: 138px;
+    margin-left: 178px;
+    margin-bottom: 20px;
+}
+.hienthi .vitri{
+    display: flex;
+    width: 26%;
+}
+
+.login-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 400px;
+    margin: 94px  auto;
+}
+
+.login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.facebook {
+    background-color: #1877f2;
+}
+
+.google {
+    background-color: #db4437;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+form label a {
+    float: right;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+    color: #007bff;
+}
+
+form input[type="email"],
+form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.remember {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+#remember{
+    margin-top: 10px;
+}
+.remember input {
+    margin-right: 6px;
+}
+
+.login {
+    background-color: #f60;
+    margin-top: 15px;
+}
+
+.register {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register a {
+    color: #007bff;
+    text-decoration: none;
+}

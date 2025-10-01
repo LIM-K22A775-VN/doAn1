@@ -1,0 +1,7 @@
+<form action="/verify-reserve-otp" method="post">
+    <input type="text" name="otp" placeholder="Nhập mã OTP">
+    <button type="submit">Xác nhận</button>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+</form>

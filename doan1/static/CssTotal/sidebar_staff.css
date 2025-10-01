@@ -1,0 +1,125 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 11, 2025, 10:15:20 PM
+    Author     : ASUS
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    background: #ccc;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+.brand{
+    height: 56px;
+}
+body i {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+.sidebar {
+    width: 250px;
+    background: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+    height: 100vh;
+}
+.sidebar.collapsed {
+    width: 0;
+    overflow: hidden;
+}
+.sidebar .brand {
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #23272b;
+    text-align: center;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 10px 0;
+    overflow-y: auto; /* Cho phép cuộn */
+    scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+    max-height: 100vh;
+}
+.sidebar ul::-webkit-scrollbar {
+    display: none; /* Ẩn thanh cuộn trên Chrome, Safari */
+}
+.sidebar li a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    line-height: 1.5; /* Đảm bảo chiều cao dòng đồng đều */
+}
+.sidebar li a:hover {
+    background: #495057;
+}
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Khoảng cách cố định giữa icon và chữ */
+    flex-grow: 1; /* Đảm bảo chiếm toàn bộ không gian */
+}
+.menu-item i {
+    flex-shrink: 0; /* Ngăn icon bị co lại */
+    width: 18px; /* Định kích thước cố định cho icon */
+    text-align: center;
+    margin-top: 3px;
+}
+.submenu {
+    display: none;
+    background: #495057;
+}
+.has-submenu.open .submenu {
+    display: block;
+}
+.submenu li a {
+    padding-left: 20px; /* Giảm padding để đồng bộ với mục cha */
+    display: flex;
+    align-items: center;
+}
+.submenu {
+    display: none;
+    background: #495057;
+}
+.has-submenu.open .submenu {
+    display: block;
+}
+.submenu li a {
+    padding-left: 50px;
+}
+.submenu li a::before {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-bottom: 3px;
+}
+.submenu li a.active::before {
+    background: white;
+}
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#usernameDisplay{
+    margin-right: 100px;
+}

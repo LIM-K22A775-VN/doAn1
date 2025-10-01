@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --primary-light: #eef2ff;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-dark: #1e1e1e;
+            --text-medium: #4a4a4a;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
+            --success-color: #2ecc71;
+            --warning-color: #ffaa00;
+            --danger-color: #e63946;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .content {
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            overflow: auto;
+            padding-bottom: 150px;
+            position: relative;
+        }
+
+        .profile-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .profile-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 22px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            pointer-events: none;
+
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .profile-header img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-right: 1.5rem;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .profile-header img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-header h3 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .profile-header .edit-btn,
+        .profile-header .save-btn,
+        .profile-header .cancel-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .profile-header .save-btn {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .profile-header .cancel-btn {
+            background: var(--danger-color);
+            color: white;
+            right: 120px;
+        }
+
+        .profile-header .edit-btn:hover,
+        .profile-header .save-btn:hover,
+        .profile-header .cancel-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .profile-header .save-btn:hover {
+            background: #27ae60;
+        }
+
+        .profile-header .cancel-btn:hover {
+            background: #d32f2f;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .profile-info .info-item {
+            background: var(--bg-light);
+            padding: 1.25rem;
+            border-radius: 10px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-info .info-item:hover {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-left-color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .profile-info .info-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(67, 97, 238, 0.1) 0%, rgba(76, 201, 240, 0.1) 100%);
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            /* thêm dòng này */
+        }
+
+
+        .profile-info .info-item:hover::after {
+            opacity: 1;
+        }
+
+        .profile-info label {
+            font-weight: 600;
+            color: var(--text-light);
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .profile-info span {
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 1.05rem;
+            display: block;
+        }
+
+        .profile-info input,
+        .profile-info select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .profile-info input:focus,
+        .profile-info select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(67, 97, 238, 0.3);
+        }
+
+        .status-active {
+            color: var(--success-color);
+            font-weight: 600;
+            background: rgba(46, 204, 113, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .rating {
+            color: var(--warning-color);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .rating i {
+            font-size: 1.1rem;
+        }
+
+        .salary {
+            color: var(--secondary-color);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .position {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                padding: 1.5rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-header img {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .profile-header .edit-btn,
+            .profile-header .save-btn,
+            .profile-header .cancel-btn {
+                position: relative;
+                margin-top: 1rem;
+            }
+
+            .profile-header .cancel-btn {
+                right: 0;
+                margin-left: 1rem;
+            }
+
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 1rem;
+            }
+
+            .profile-header img {
+                width: 90px;
+                height: 90px;
+            }
+
+            .profile-header h3 {
+                font-size: 1.4rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-container {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .profile-info .info-item {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .profile-info .info-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .profile-info .info-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .profile-info .info-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .profile-info .info-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .profile-info .info-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .profile-info .info-item:nth-child(6) {
+            animation-delay: 0.6s;
+        }
+
+        .profile-info .info-item:nth-child(7) {
+            animation-delay: 0.7s;
+        }
+
+        .profile-info .info-item:nth-child(8) {
+            animation-delay: 0.8s;
+        }
+
+        .profile-info .info-item:nth-child(9) {
+            animation-delay: 0.9s;
+        }
+
+        .profile-info .info-item:nth-child(10) {
+            animation-delay: 1s;
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body data-staff-id="{{ user.id }}">
+    {% include "partials/sidebar_staff.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+
+        <div class="content">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <img src="/static/avatars/{{ user.avatar }}" alt="Avatar" alt="Ảnh hồ sơ">
+                    <h3 id="fullName">{{ user.username }}</h3>
+
+                    <button class="edit-btn">
+                        <i class="fas fa-edit"></i> Chỉnh sửa
+                    </button>
+                    <button class="save-btn" style="display: none;">
+                        <i class="fas fa-save"></i> Lưu
+                    </button>
+                    <button class="cancel-btn" style="display: none;">
+                        <i class="fas fa-times"></i> Hủy
+                    </button>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-item" data-field="fullName">
+                        <label>Họ tên</label>
+                        <span>{{ user.username }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Tên đăng nhập</label>
+                        <span>{{ user.email }}</span>
+                    </div>
+                    <div class="info-item" data-field="address">
+                        <label>Địa chỉ</label>
+                        <span>{{ user.address or "Chưa cập nhật" }}</span>
+                    </div>
+
+                    <div class="info-item" data-field="gender">
+                        <label>Giới tính</label>
+                        <span>{{ user.gender or "Chưa cập nhật" }}</span>
+                    </div>
+
+                    <div class="info-item" data-field="phone">
+                        <label>Điện thoại</label>
+                        <span>{{ user.phone or "Chưa cập nhật" }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Hệ số lương</label>
+                        <span>{{ employee.HeSoLuong or "0.0" }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Lương</label>
+                        <span class="salary">
+                            {% if employee.HeSoLuong %}
+                            {{ "{:,.0f}".format(employee.HeSoLuong * 1100000) }} VND
+                            {% else %}
+                            Chưa tính
+                            {% endif %}
+                        </span>
+
+                    </div>
+
+                    <div class="info-item">
+                        <label>Ngày vào làm</label>
+                        <span>{{ employee.NgayVaoLam or "Chưa cập nhật" }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Email</label>
+                        <span>{{ user.email or "Chưa cập nhật" }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Quyền</label>
+                        <span class="position">{{ user.role | capitalize }}</span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Chức vụ</label>
+                        <span>{{ employee.ChucVu or "Chưa cập nhật" }}</span>
+                    </div>
+                    <div class="info-item">
+                        <label>Đánh giá</label>
+                        <span class="rating">
+                            {{employee.DanhGia}}
+                        </span>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Ca làm</label>
+                        <span>{{ employee.CaLam or "Chưa sắp lịch" }}</span>
+                    </div>  
+                    <div class="info-item">
+                        <label>Trạng thái</label>
+                        <span class="status-active">Đang hoạt động</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<input type="file" id="avatarInput" accept="image/*" style="display:none">
+
+<script>
+    $(document).ready(function () {
+        let originalValues = {};
+        let selectedAvatarName = ""; // 👈 nhớ tên file
+
+        // Click ảnh => mở input file
+        $('img[alt="Avatar"]').click(function () {
+            $('#avatarInput').click();
+        });
+
+        // Khi chọn file => preview + lưu tên file
+        $('#avatarInput').change(function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    $('img[alt="Avatar"]').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(file);
+
+                selectedAvatarName = file.name; // chỉ lưu tên file
+            }
+        });
+
+        // Lưu giá trị gốc
+        $('.info-item[data-field]').each(function () {
+            const field = $(this).attr('data-field');
+            const text = $(this).find('span').text().trim();
+            originalValues[field] = text;
+        });
+
+        // Bấm nút chỉnh sửa
+        $('.edit-btn').click(function () {
+            $(this).hide();
+            $('.save-btn, .cancel-btn').show();
+
+            $('.info-item[data-field]').each(function () {
+                const field = $(this).attr('data-field');
+                const value = originalValues[field] || '';
+                if (field === 'gender') {
+                    $(this).find('span').replaceWith(`
+                        <select name="${field}">
+                            <option value="Nam" ${value === 'Nam' ? 'selected' : ''}>Nam</option>
+                            <option value="Nữ" ${value === 'Nữ' ? 'selected' : ''}>Nữ</option>
+                            <option value="Khác" ${value === 'Khác' ? 'selected' : ''}>Khác</option>
+                        </select>
+                    `);
+                } else {
+                    const escapedValue = $('<div>').text(value).html();
+                    $(this).find('span').replaceWith(
+                        `<input type="text" name="${field}" value="${escapedValue}">`
+                    );
+                }
+            });
+        });
+
+        // Bấm nút lưu
+        $('.save-btn').click(function () {
+            let isValid = true;
+            let payload = {};
+
+            $('.info-item[data-field] input, .info-item[data-field] select').each(function () {
+                if (!$(this).val().trim()) {
+                    isValid = false;
+                    $(this).css('border-color', 'var(--danger-color)');
+                } else {
+                    $(this).css('border-color', '#e0e0e0');
+                }
+
+                const field = $(this).attr('name');
+                payload[field] = $(this).val().trim();
+            });
+
+            if (!isValid) {
+                alert('Vui lòng điền đầy đủ thông tin.');
+                return;
+            }
+
+            payload['idUser'] = $('body').data('staff-id');
+
+            // Nếu có chọn avatar thì thêm tên file
+            if (selectedAvatarName) {
+                payload['avatar'] = selectedAvatarName;
+            }
+
+            fetch('/api/update_employee', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        $('.info-item[data-field]').each(function () {
+                            const field = $(this).attr('data-field');
+                            const newValue = payload[field];
+                            originalValues[field] = newValue;
+                            $(this).find('input, select').replaceWith(
+                                `<span>${newValue}</span>`);
+                            if (field === 'fullName') {
+                                $('#fullName').text(newValue);
+                            }
+                        });
+
+                        $('.save-btn, .cancel-btn').hide();
+                        $('.edit-btn').show();
+                        alert('Cập nhật thành công!');
+                        location.reload();
+                    } else {
+                        alert('Có lỗi xảy ra: ' + data.message);
+                    }
+                })
+                .catch(err => {
+                    alert('Lỗi mạng hoặc server: ' + err);
+                });
+        });
+
+        // Bấm nút hủy
+        $('.cancel-btn').click(function () {
+            $('.info-item[data-field]').each(function () {
+                const field = $(this).attr('data-field');
+                const originalValue = originalValues[field];
+                $(this).find('input, select').replaceWith(`<span>${originalValue}</span>`);
+            });
+
+            $('.save-btn, .cancel-btn').hide();
+            $('.edit-btn').show();
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,42 @@
+
+        <div class="navbar">
+            <div class="navbar-title">
+                <button id="toggleSidebar"><i class="fas fa-bars"></i></button>
+                <a href="dashboard_staff.html">Trang chủ</a>
+                <a href="admin.html">Admin</a>
+            </div>
+
+            <div class="navbar-right">
+                <div class="notification-wrapper">
+                    <i class="fas fa-bell" id="notificationBtn"></i>
+                    <span class="badge">15</span>
+                    <div class="notification-box" id="notificationBox">
+                        <div class="title">15 Notifications</div>
+                        <div class="item"><i class="fas fa-envelope"></i> 4 new messages <span>3 mins</span></div>
+                        <div class="item"><i class="fas fa-user-plus"></i> 8 friend requests <span>12 hours</span></div>
+                        <div class="item"><i class="fas fa-file-alt"></i> 3 new reports <span>2 days</span></div>
+                        <div class="see-all">See All Notifications</div>
+                    </div>
+                </div>
+
+                <i class="fas fa-expand" id="fullscreenBtn"></i>
+                <!-- Nếu chưa đăng nhập -->
+                <div class="auth-buttons" id="authButtons">
+                    <a href="loginstaff.html" class="loginicon">Đăng nhập</a>
+                    <a href="signup_staff.html" class="loginicon">Đăng ký</a>
+                    <a href="intro.html"><i class="fas fa-power-off"></i> Thoát</a>
+                </div>
+
+                <!-- Nếu đã đăng nhập -->
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <i class="fas fa-user"></i>
+                    <span id="usernameDisplay">Phan Linh</span>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="profile_staff.html"><i class="fas fa-user-circle"></i> Hồ sơ</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Đăng xuất</a>
+                    </div>
+                    <a href="intro.html"><i class="fas fa-power-off"></i> Thoát</a>
+                </div>
+            </div>
+        </div>
+

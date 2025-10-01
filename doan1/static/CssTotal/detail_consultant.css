@@ -1,0 +1,106 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 5, 2025, 8:24:34 PM
+    Author     : ASUS
+*/
+.chat-container {
+  max-width: 700px;
+  margin: 20px auto 50px auto;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', sans-serif;
+  overflow: hidden;
+}
+
+.chat-header {
+  background: #ff914d;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #ff7220;
+}
+
+.chat-header .user {
+  color: #ffe8d6;
+  font-weight: bold;
+}
+
+.chat-header .staff {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.chat-box {
+  padding: 25px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #fdfaf6;
+}
+
+.message {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message.left {
+  align-items: flex-start;
+}
+
+.message.right {
+  align-items: flex-end;
+}
+
+.sender {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.bubble {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 75%;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.message.left .bubble {
+  background: #e6f7ff;
+  color: #333;
+  border-top-left-radius: 0;
+}
+
+.message.right .bubble {
+  background: #ffd7ba;
+  color: #333;
+  border-top-right-radius: 0;
+}
+
+.back-btn-wrap {
+  padding: 15px 25px;
+  border-top: 1px solid #eee;
+  text-align: right;
+  background: #fffaf4;
+}
+
+.back-btn {
+  background: #ff914d;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.back-btn:hover {
+  background: #ff7220;
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Đặt bàn</title>
+  <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+  <link rel="stylesheet" href="../static/CssTotal/stylereserve.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+  <script src="../static/CssTotal/standard.js"></script>
+  <style>
+    .navbar_right {
+      margin-top: -3px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form input,
+    form textarea {
+      font-family: serif;
+      color: #333;
+      border: 1px solid #ccc;
+      padding: 8px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    form input[readonly] {
+      background: #f9f9f9;
+      color: #000;
+    }
+
+    form textarea {
+      min-height: 80px;
+    }
+
+    .button_form {
+      background: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .footer-text {
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    .register-form {
+      width: 100vw;
+      height: 500px;
+      background-image: url(../static/avatars/media/backfood.jpg);
+      object-fit: cover;
+      background-size: cover;
+      background-position: center;
+      padding: 30px;
+    }
+
+
+    /* xác nhận thanh toán  */
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .popup.hidden {
+      display: none;
+    }
+
+    .popup-content {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .popup-content h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .popup-content p {
+      margin: 15px 0 25px 0;
+      font-size: 16px;
+    }
+
+    .popup-btn {
+      padding: 10px 25px;
+      margin: 0 10px;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+      font-weight: bold;
+      background: #28a745;
+    }
+
+
+    .popup-btn.cancel {
+      background: #dc3545;
+      /* đỏ */
+    }
+
+    /* xác nhận thanh toán  */
+  </style>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+  {% include 'partials/header.html' %}
+  {% include 'partials/vitri.html' with context %}
+
+  <div class="container">
+    <div class="register-form">
+      <h3>Đặt bàn</h3>
+      <h2>Lên lịch đặt bàn</h2>
+      <div id="form-container">
+        <!-- /reserve-send-otp -->
+        <form action="/payment_mortgate" method="post" id="reserveForm">
+          <div class="form-group">
+            <input type="text" name="name" placeholder="Tên của bạn" value="{{ user.username }}" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="email" name="email" placeholder="Email của bạn" value="{{ user.email }}" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="tel" name="phone" placeholder="Số điện thoại" value="{{ user.phone }}" readonly>
+          </div>
+
+          <div class="form-group">
+            <input type="number" name="people" placeholder="Số người" required>
+          </div>
+
+          <div class="date-group">
+            <input type="date" name="date" id="dateInput" required>
+            <input type="time" name="time" id="timeInput" min="07:00" max="22:00" required>
+          </div>
+
+          <div class="notes-group">
+            <textarea name="notes" placeholder="Ghi chú"></textarea>
+          </div>
+
+          <button class="button_form" type="submit">Đặt bàn ngay</button>
+
+          <div class="footer-text">
+            Khách đặt trước 10h, liên hoan vui lòng gọi trước: 0987265336
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  {% include 'partials/footer.html' %}
+
+
+  <div id="depositPopup" class="popup hidden">
+    <div class="popup-content">
+      <h2>🎉 Xác nhận đặt bàn</h2>
+      <p>Vui lòng thanh toán tiền cọc để xác nhận đặt bàn.</p>
+      <div style="margin-top: 20px;">
+        <button onclick="confirmDeposit()" class="popup-btn">Thanh toán</button>
+        <button onclick="closeDepositPopup()" class="popup-btn cancel">Hủy</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+  <script>
+    const userEmail = "{{ session.get('user_email') }}";
+  </script>
+
+  <script>
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('dateInput').setAttribute('min', today);
+
+    let shouldSubmit = false;
+
+    document.getElementById('reserveForm').addEventListener('submit', function (e) {
+      if (shouldSubmit) return; // cho phép submit nếu user đã bấm "Thanh toán"
+
+      const date = document.getElementById('dateInput').value;
+      const time = document.getElementById('timeInput').value;
+
+      const now = new Date();
+      const selected = new Date(date + 'T' + time);
+
+      if (selected < now) {
+        alert('❌ Thời gian đặt bàn phải ở tương lai!');
+        e.preventDefault();
+        return;
+      }
+
+      const [h, m] = time.split(':');
+      if (parseInt(h) > 22 || (parseInt(h) === 22 && parseInt(m) > 0)) {
+        alert('❌ Thời gian đặt bàn không được quá 22h!');
+        e.preventDefault();
+        return;
+      }
+
+      // Hiển thị popup thay vì confirm
+      e.preventDefault();
+      openDepositPopup();
+    });
+
+    function openDepositPopup() {
+      document.getElementById('depositPopup').classList.remove('hidden');
+    }
+
+    function closeDepositPopup() {
+      document.getElementById('depositPopup').classList.add('hidden');
+    }
+
+    function confirmDeposit() {
+      shouldSubmit = true;
+      document.getElementById('reserveForm').submit();
+    }
+  </script>
+
+
+  <script src="../static/CssTotal/jsreserve.js"></script>
+</body>
+
+</html>

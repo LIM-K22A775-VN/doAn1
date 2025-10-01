@@ -1,0 +1,35 @@
+
+    <div class="navbar">
+        <div class="navbar-title">
+            <button id="toggleSidebar"><i class="fas fa-bars"></i></button>
+            <a href="/intro_qc">Trang chủ</a>
+            <!-- <a href="admin.html">Admin</a> -->
+        </div>
+
+        <div class="navbar-right">
+            <div class="notification-wrapper">
+                <i class="fas fa-bell" id="notificationBtn"></i>
+                <span class="badge">15</span>
+                <div class="notification-box" id="notificationBox">
+                    <div class="title">15 Notifications</div>
+                    <div class="item"><i class="fas fa-envelope"></i> 4 tin nhắn mới <span>3 phút</span></div>
+                    <div class="item"><i class="fas fa-user-plus"></i> 8 yêu cầu kết bạn <span>12 giờ</span></div>
+                    <div class="item"><i class="fas fa-file-alt"></i> 3 báo cáo mới <span>2 ngày</span></div>
+                    <div class="see-all">Xem tất cả</div>
+                </div>
+            </div>
+
+            <i class="fas fa-expand" id="fullscreenBtn"></i>
+
+            <div class="user-info" id="userInfo">
+                <img src="/static/avatars/{{ user.avatar }}" alt="Avatar"
+                    style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover;">
+                <span id="usernameDisplay">{{ user.username }}</span>
+                <div class="user-dropdown" id="userDropdown">
+                    <a href="/profile_admin"><i class="fas fa-user-circle"></i> Hồ sơ</a>
+                    <a href="/log_out"><i class="fas fa-power-off"></i> Thoát</a>
+                </div>
+            </div>
+        </div>
+
+    </div>

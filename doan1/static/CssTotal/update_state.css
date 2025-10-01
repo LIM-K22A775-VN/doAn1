@@ -1,0 +1,28 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 9:22:03 PM
+    Author     : ASUS
+*/
+.container{
+    margin: 0 5px;
+    background-color: #fff;
+    padding: 15px;
+}
+#filter{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+.btn-select{
+    width: 100px;
+    height: 40px;
+    background-color: #f60;
+    font-size: 16px;
+}
+label{
+    font-size: 16px;
+}

@@ -1,0 +1,234 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 5, 2025, 9:46:35 AM
+    Author     : ASUS
+*/
+.blog-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px auto 0px auto;
+    font-family: Arial, sans-serif;
+    gap: 17px;
+    
+}
+
+.blog-main {
+    width: 70%;
+    padding: 10px;
+    border: solid 1px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+.blog-main h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.blog_item{
+    margin-bottom: 20px;
+    border-bottom: solid 1px rgba(0,0,0,0.1);
+    padding-bottom: 10px;
+}
+.post-card {
+    position: relative;
+}
+
+.post-img {
+    width: 100%;
+    border-radius: 6px;
+}
+
+.post-date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #1e3a5f;
+    color: white;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 4px;
+    width: 40px;
+    line-height: 1.2;
+}
+
+.post-date .day {
+    font-size: 18px;
+    font-weight: bold;
+    display: block;
+}
+
+.post-date .month {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.post-meta {
+    margin-top: 15px;
+}
+
+.post-date-line {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 6px;
+}
+
+.post-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.post-desc {
+    font-size: 15px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.post-tags span {
+    font-size: 14px;
+    color: #333;
+    margin-right: 20px;
+}
+
+.post-tags i {
+    margin-right: 4px;
+    color: #007BFF;
+}
+
+.blog-sidebar {
+    width: 25%;
+}
+
+.recent-posts h4 {
+    margin: 20px 0 10px;
+    font-size: 18px;
+}
+.recent-posts {
+    margin-top: 20px;
+}
+
+.recent-post {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.recent-post img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.recent-post p {
+    margin: 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.recent-post span {
+    font-size: 12px;
+    color: #777;
+}
+.post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.post-link:hover .post-title {
+    color: #f60;
+    text-decoration: underline;
+}
+.recent-link {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.recent-link:hover p {
+    color: #f60;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.page-btn {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.page-btn:hover {
+    background-color: #f60;
+    color: #fff;
+    border-color: #f60;
+}
+
+.page-btn.active {
+    background-color: #f60;
+    color: #fff;
+    border-color: #f60;
+}
+.message-section h3 {
+    font-size: 20px;
+    color: #ff6600;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-section p {
+    background: #fffdf7;
+    border-left: 4px solid #ffae42;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #444;
+}
+.highlight-quote {
+    font-style: italic;
+    font-size: 18px;
+    color: #aa4f00;
+    border-left: 5px solid #ffa500;
+    padding-left: 15px;
+    margin: 20px 0;
+    background-color: #fff8ec;
+    border-radius: 6px;
+}
+.intro-img {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}

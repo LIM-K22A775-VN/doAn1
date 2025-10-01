@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông tin cá nhân</title>
+
+    <!-- CSS tĩnh -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/inner-position.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}">
+
+    <!-- CDN & jQuery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ==== BUTTON CHỈNH SỬA ==== */
+        /* ==== BUTTON CHỈNH SỬA ==== */
+        #edit-btn {
+            display: block;
+            /* Đảm bảo nó chiếm 1 dòng để margin auto hoạt động */
+            margin: 20px auto;
+            /* Căn giữa nút */
+            background: linear-gradient(135deg, #0050c8, #43a047);
+            color: #fff;
+            border: none;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0, 80, 200, 0.3);
+        }
+
+        #edit-btn:hover {
+            background: linear-gradient(135deg, #0040a0, #388e3c);
+            transform: translateY(-2px);
+        }
+
+        #edit-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 80, 200, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+
+    <div class="mainss">
+        <div class="container">
+            <h1>Thông tin cá nhân</h1>
+
+            <div class="header-profile">
+                <img id="avatar-main" src="/static/avatars/{{ user.avatar }}" alt="Avatar" style="cursor: pointer;">
+                <div class="info">
+                    <h2>{{ user.username }}</h2>
+                </div>
+            </div>
+
+            <form id="profile-form" class="profile-grid" method="POST" action="/update_profile"
+                enctype="multipart/form-data">
+                <!-- Thêm input ẩn để chứa tên file avatar -->
+                <input type="hidden" name="avatar" id="avatar-hidden-input">
+                <!-- File input ẩn để chọn file -->
+                <input type="file" id="avatar-file-input" accept="image/*" style="display: none;">
+
+                <div class="form-group">
+                    <label>Tên người dùng</label>
+                    <input type="text" name="username" value="{{ user.username }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ</label>
+                    <input type="text" name="address" value="{{ user.address }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" value="{{ user.email }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Điện thoại</label>
+                    <input type="text" name="phone" value="{{ user.phone }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Giới tính</label>
+                    <input type="text" name="gender" value="{{ user.gender }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Người dùng</label>
+                    <input type="text" name="role"
+                        value="{% if user.role == 'user' %}Khách Hàng{% elif user.role == 'admin' %}Quản trị viên{% elif user.role == 'agent' %}Nhân viên hỗ trợ{% else %}Không rõ{% endif %}"
+                        readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Số tiền đã tiêu</label>
+                    <input type="text" name="total_spent"
+                        value="{{ "{:,.0f}".format(user.total_spent).replace(',', '.') }}" readonly>
+
+
+                </div>
+            </form>
+
+            <button id="edit-btn" type="button">Chỉnh sửa</button>
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+
+    <!-- JS tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+    <script src="{{ url_for('static', filename='CssTotal/profile.js') }}"></script>
+
+    <script>
+        const editBtn = document.getElementById('edit-btn');
+        const inputs = document.querySelectorAll(
+            '#profile-form input:not([name="email"]):not([name="role"]):not([name="total_spent"])'
+        );
+        const avatarMain = document.getElementById('avatar-main');
+        const avatarFileInput = document.getElementById('avatar-file-input');
+
+        let isEditing = false;
+
+        // 🚩 Ban đầu: không cho click avatar
+        avatarMain.style.pointerEvents = 'none';
+        avatarMain.style.cursor = 'default';
+
+        editBtn.addEventListener('click', () => {
+            if (!isEditing) {
+                // Bật chỉnh sửa input
+                inputs.forEach(input => input.removeAttribute('readonly'));
+                // Bật đổi avatar
+                avatarMain.style.pointerEvents = 'auto';
+                avatarMain.style.cursor = 'pointer';
+
+                editBtn.textContent = 'Lưu';
+                isEditing = true;
+            } else {
+                // Khi bấm Lưu, SUBMIT FORM
+                document.getElementById('profile-form').submit();
+            }
+        });
+
+
+        avatarMain.addEventListener('click', () => {
+            if (isEditing) {
+                avatarFileInput.click();
+            }
+        });
+
+        avatarFileInput.addEventListener('change', () => {
+            const file = avatarFileInput.files[0];
+            if (file) {
+                // Hiển thị trước
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    avatarMain.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // Gán tên file cho input ẩn
+                document.getElementById('avatar-hidden-input').value = file.name;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

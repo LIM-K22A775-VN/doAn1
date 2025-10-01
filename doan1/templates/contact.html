@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>html Page</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+<link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/stylecontact.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}" />
+<script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+    <div class="banner-body">
+        <h1>TheRiceBowl</h1>
+        <p>Chúng tôi luôn sẵn sàng lắng nghe ý kiến của bạn</p>
+    </div>  
+    <div class="container">
+
+        <div class="left-box">
+            <h2>Cửa hàng chính</h2>
+            <p>TheRiceBowl luôn bảo đảm về chất lượng cũng như an toàn thực phẩm.</p>
+
+            <div class="info-item"><i>📍</i> Hẻm 30, An Khánh, Ninh Kiều, Cần Thơ</div>
+            <div class="info-item"><i>📧</i> devrestaurant@gmail.com</div>
+            <div class="info-item"><i>📞</i> (84)0123.456.789</div>
+            <div class="info-item"><i>⏰</i> Các ngày trong tuần 7:00am - 22:00pm</div>
+        </div>
+
+        <!-- Right side -->
+        <div class="right-box">
+            <h2>Để lại thông tin để nhận liên hệ</h2>
+            <form action="/lienhe" method="POST">
+                <input type="text" name="username" placeholder="Nhập họ và tên"
+                    value="{{ user.username if user else '' }}" readonly>
+                <input type="email" name="email" placeholder="Nhập email của bạn"
+                    value="{{ user.email if user else '' }}" readonly>
+                <input type="tel" name="phone" placeholder="Nhập số điện thoại của bạn"
+                    value="{{ user.phone if user else '' }}" readonly>
+                <textarea name="message" rows="5" placeholder="Nhập nội dung"></textarea>
+                <button type="submit">Gửi thông tin</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="map-section">
+        <div class="map-container">
+            <!-- Nút mở bản đồ lớn hơn -->
+            <div class="view-full-map">
+                <a href="https://www.google.com/maps?q=fpt+software+HCM" target="_blank">Xem bản đồ lớn hơn</a>
+            </div>
+
+            <!-- Google Maps không cần API key -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.210843415923!2d106.78811507574405!3d10.87001408928739!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752756e0113875%3A0xa405d2b30a3a9e7a!2zRlBUIFNvZnR3YXJlIFRow6BuaCBwaOG7kSBI4buTIENN!5e0!3m2!1svi!2s!4v1719916189472!5m2!1svi!2s"
+                allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+
+
+    {% include 'partials/footer.html' %}
+    <!-- scr tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+            <!-- Thông báo -->
+        {% if success %}
+        <div id="toast" class="toast">{{ success }}</div>
+        {% endif %}
+
+        <style>
+            .toast {
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                background: linear-gradient(135deg, #0050c8, #43a047);
+                color: #fff;
+                padding: 16px 28px;
+                border-radius: 20px 5px 20px 5px;
+                /* Góc lệch cho nghệ hơn */
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+                z-index: 9999999999;
+                opacity: 1;
+                transform: translateX(0);
+                transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 16px;
+                backdrop-filter: blur(4px);
+                /* Nền mờ sang xịn */
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                /* Viền mờ nhẹ */
+            }
+
+            .toast i {
+                font-size: 18px;
+            }
+        </style>
+
+
+
+        <script>
+            window.addEventListener('DOMContentLoaded', () => {
+                const toast = document.getElementById('toast');
+                if (toast) {
+                    setTimeout(() => {
+                        toast.style.transform = 'translateX(120%)'; // trượt sang phải
+                        toast.style.opacity = '0';
+                    }, 3000); // delay 3s rồi biến mất
+                }
+            });
+        </script>
+
+
+        <!-- Thông báo -->
+</body>
+<script src="../static/CssTotal/script.js">
+
+</script>
+
+</html>

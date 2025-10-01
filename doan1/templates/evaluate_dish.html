@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/evaluate_dish.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/inner-position.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+    <div class="food-review-container">
+        <div class="food-header">
+            <h2>{{ food_name }}</h2>
+            <img src="{{ url_for('static', filename='avatars/media/' ~ img) }}" alt="{{ food_name }}">
+        </div>
+
+        <div class="food-body">
+            <form id="review-form">
+                <label>Đánh giá của bạn:</label>
+                <div class="stars">
+                    <input type="radio" id="star5" name="rating" value="5" {% if rating == 5 %}checked{% endif %}><label
+                        for="star5">★</label>
+                    <input type="radio" id="star4" name="rating" value="4" {% if rating == 4 %}checked{% endif %}><label
+                        for="star4">★</label>
+                    <input type="radio" id="star3" name="rating" value="3" {% if rating == 3 %}checked{% endif %}><label
+                        for="star3">★</label>
+                    <input type="radio" id="star2" name="rating" value="2" {% if rating == 2 %}checked{% endif %}><label
+                        for="star2">★</label>
+                    <input type="radio" id="star1" name="rating" value="1" {% if rating == 1 %}checked{% endif %}><label
+                        for="star1">★</label>
+                </div>
+                <label for="comment">Nhận xét của bạn:</label>
+                <textarea id="comment" name="comment" rows="4"
+                    placeholder="Hãy chia sẻ cảm nhận của bạn...">{% if comment %}{{ comment }}{% endif %}</textarea>
+                <!-- Hidden input để biết món nào + user nào -->
+                <input type="hidden" name="food_id" value="{{ food_id }}">
+                <input type="hidden" name="order_id" value="{{ order_id }}">
+                <button type="submit" class="submit-btn">✨ Gửi đánh giá</button>
+            </form>
+        </div>
+
+    </div>
+
+
+    {% include 'partials/footer.html' %}
+    <!-- scr tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#review-form').submit(function (e) {
+                e.preventDefault();
+
+                const formData = $(this).serialize();
+
+                $.ajax({
+                    url: '/danhgia',
+                    method: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        // Gọi pháo hoa
+                        launchFireworks();
+                        alert('🎉 Cảm ơn bạn đã đánh giá!');
+                    },
+                    error: function () {
+                        alert('Gửi đánh giá thất bại, hãy thử lại!');
+                    }
+                });
+            });
+
+            function launchFireworks() {
+                // Ví dụ đơn giản dùng canvas + confetti
+                const duration = 2 * 1000;
+                const end = Date.now() + duration;
+
+                (function frame() {
+                    confetti({
+                        particleCount: 5,
+                        angle: 60,
+                        spread: 55,
+                        origin: {
+                            x: 0
+                        }
+                    });
+                    confetti({
+                        particleCount: 5,
+                        angle: 120,
+                        spread: 55,
+                        origin: {
+                            x: 1
+                        }
+                    });
+
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        });
+    </script>
+    <!-- Confetti JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 9:13:27 AM
+    Author     : ASUS
+*/
+.container{
+    border-top: solid 1px rgba(0,0,0,0.1);
+    margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+   
+}
+#form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+    margin: auto;
+}
+#form-container h2{
+    color: #4f5bd5;
+}
+.form-group {
+    margin: 0;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #888;
+    font-size: 12px;
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form-group input[type="date"] {
+    padding: 7px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2zm11.5 2.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zM8 8a.5.5 0 0 1 .5.5V9a.5.5 0 0 1-1 0V8.5A.5.5 0 0 1 8 8zm0 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 8 10zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 6 10zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 4 10zm6 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 10zm2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 12 10z"/></svg>') no-repeat right 8px center;
+    background-size: 16px;
+}
+.date-group {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+}
+.date-group input[type="date"] {
+    width: 175px;
+    height: 33.53px;
+}
+.date-group input[type="time"] {
+    margin-left: 10px;
+    width: 175px;
+    height: 33.53px;
+}
+.notes-group {
+    grid-column: span 2;
+}
+.notes-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    min-height: 60px;
+}
+.button_form {
+    grid-column: span 2;
+    background-color: #f4a261;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.button_form:hover {
+    background-color: #e07a5f;
+}
+.footer-text {
+    grid-column: span 2;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #888;
+}
+.register-form h2{
+    text-align: center;
+    margin-bottom: 18px;
+}
+.register-form h3{
+    text-align: center;
+    color: orange;
+    margin-bottom: 8px;
+}
+.register-form{
+    width: 100%;
+    height: 500px;
+    background-image: url("../media/backfood.jpg");
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+}

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&family=Poppins:wght@500;700&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .chat-wrapper {
+            display: flex;
+            height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e6eb 100%);
+        }
+
+        .chat-sidebar {
+            width: 350px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 15px;
+            font-weight: 700;
+            background: linear-gradient(45deg, #007bff, #00c4ff);
+            color: #fff;
+            text-align: center;
+            font-size: 24px;
+            height: 75px;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .search-bar {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-buttons button {
+            background: #eee;
+            border: none;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-buttons button.active {
+            background: linear-gradient(45deg, #007bff, #00c4ff);
+            color: white;
+        }
+
+        .user-list {
+            flex: 1;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 10px;
+
+            /* Edge, Chrome, Safari */
+            -ms-overflow-style: none;
+            /* IE 10+ */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        .user-list::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari, Edge (Chromium) */
+        }
+
+        .user-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .user-item:hover {
+            background: #e6f0ff;
+            transform: translateX(5px);
+        }
+
+        .user-item.unread {
+            background: #fff3cd;
+            /* Nền màu nổi bật cho chưa đọc */
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .user-avatar::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: #28a745;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border: 2px solid #fff;
+        }
+
+        .user-item.unread .user-avatar::after {
+            background: #ff4444;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-name {
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .user-name i {
+            color: #007bff;
+            font-size: 12px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-left: 5px;
+            display: inline-block;
+        }
+
+        .status-dot.active {
+            background: #28a745;
+        }
+
+        .status-dot.inactive {
+            background: #ff4444;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: #28a745;
+            margin-left: 5px;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .last-message {
+            font-size: 13px;
+            color: #555;
+            font-family: 'Source Sans 3', sans-serif;
+        }
+
+        .user-item.unread .user-name {
+            font-weight: 700;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid #ccc;
+            background: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header .avatar:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-header .name {
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            background: #f9f9f9;
+            max-height: 60vh;
+            /* hoặc 300px */
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 70%;
+            padding: 12px 15px;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.staff {
+            background: linear-gradient(45deg, #007bff, #00c4ff);
+            color: white;
+            margin-left: auto;
+            border: 1px solid #0056b3;
+        }
+
+        .message.customer {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+        }
+
+        .message-time {
+            font-size: 11px;
+            margin-top: 5px;
+            color: #666;
+            opacity: 0.7;
+        }
+
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #ccc;
+            background: white;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        .chat-input button {
+            padding: 10px 25px;
+            background: linear-gradient(45deg, #007bff, #00c4ff);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        .chat-input i {
+            cursor: pointer;
+            color: #007bff;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input i:hover {
+            color: #0056b3;
+            transform: scale(1.2);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-input {
+            position: relative;
+            /* Quan trọng! */
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body>
+    {% include "partials/sidebar_staff.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+        <div class="inner-position">
+            <h2>Messenger</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <p>Tư vấn</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="chat-wrapper">
+                <!-- Sidebar -->
+                <div class="chat-sidebar">
+                    <div class="sidebar-header">Khách hàng</div>
+                    <div class="search-bar">
+                        <input type="text" id="searchUser" placeholder="Tìm kiếm..." oninput="filterUsers()" />
+                    </div>
+                    <div class="filter-buttons">
+                        <button class="active" onclick="filterUsers('all')">Tất cả</button>
+                        <button onclick="filterUsers('unread')">Chưa đọc</button>
+                    </div>
+                    <div class="user-list" id="userList">
+                        <!-- JS sẽ render -->
+                    </div>
+                </div>
+
+                <!-- Chat main -->
+                <div class="chat-main">
+                    <div class="chat-header">
+                        <img class="avatar" id="chatAvatar">
+                        <div class="name" id="chatName"></div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- JS sẽ thêm tin nhắn -->
+                    </div>
+                    <div class="chat-input">
+                        <i class="fas fa-paperclip"></i>
+                        <input type="text" id="chatInput" placeholder="Nhập tin nhắn..." />
+                        <i class="fas fa-smile" id="emoji-btn"></i>
+                        <button onclick="sendMessage()">Gửi</button>
+
+                        <!-- 🟢 Thêm div emoji picker ở đây -->
+                        <div id="emoji-picker" style="
+    display: none;
+    position: absolute;
+    bottom: 60px; /* Nổi lên trên input */
+    right: 50px;  /* Căn phải theo icon */
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 10;
+  "></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const users = JSON.parse('{{ sidebar_customers | tojson }}');
+    const allMessages = JSON.parse('{{ messages | tojson }}');
+    let currentFilter = 'all';
+    let currentCustomerId = null;
+
+    function renderUserList(filteredUsers) {
+        const list = document.getElementById("userList");
+        list.innerHTML = "";
+        filteredUsers.forEach(user => {
+            const div = document.createElement("div");
+            div.className = `user-item ${user.unread ? "unread" : ""}`;
+
+            const img = document.createElement("img");
+            img.className = "user-avatar";
+            img.src = `/static/avatars/${user.avatar}`;
+            img.alt = user.userName;
+
+            const details = document.createElement("div");
+            details.className = "user-details";
+
+            const name = document.createElement("div");
+            name.className = "user-name";
+            const icon = document.createElement("i");
+            icon.className = "fas fa-user";
+            name.appendChild(icon);
+            name.append(` ${user.userName}`);
+
+            const lastMessage = document.createElement("div");
+            lastMessage.className = "last-message";
+            lastMessage.textContent = user.lastMessage || "";
+
+            details.append(name, lastMessage);
+            div.append(img, details);
+
+            div.onclick = () => openChat(user);
+            list.appendChild(div);
+        });
+    }
+
+    function openChat(user) {
+        currentCustomerId = user.IdUser;
+        user.unread = false;
+        document.getElementById("chatName").textContent = user.userName;
+        document.getElementById("chatAvatar").src = `/static/avatars/${user.avatar}`;
+        renderChatMessages();
+        filterUsers();
+    }
+
+    function renderChatMessages() {
+        const box = document.getElementById("chatMessages");
+        box.innerHTML = "";
+        allMessages
+            .filter(m => m.IdSender === currentCustomerId || m.IdReceiver === currentCustomerId)
+            .forEach(msg => {
+                const div = document.createElement("div");
+                div.className = `message ${msg.IdSender !== currentCustomerId ? "staff" : "customer"}`;
+                div.textContent = msg.content;
+
+                const time = document.createElement("div");
+                time.className = "message-time";
+                time.textContent = msg.time;
+
+                div.appendChild(time);
+                box.appendChild(div);
+            });
+        box.scrollTop = box.scrollHeight;
+    }
+
+    function sendMessage() {
+        const input = document.getElementById("chatInput");
+        const text = input.value.trim();
+        if (text && currentCustomerId) {
+
+            // 1️⃣ Gửi tin nhắn về server qua API
+            fetch('/api/send_message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        receiver_id: currentCustomerId,
+                        content: text
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        // 2️⃣ Nếu thành công thì mới thêm vào allMessages
+                        allMessages.push({
+                            IdSender: "STAFF_ID", // cái này ko cần, chỉ cần push session user_id cũng được
+                            IdReceiver: currentCustomerId,
+                            content: text,
+                            time: new Date().toISOString().slice(0, 19).replace('T', ' ')
+                        });
+                        renderChatMessages();
+                        input.value = "";
+                    } else {
+                        alert("Gửi tin nhắn thất bại: " + data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Lỗi kết nối server");
+                });
+        }
+    }
+
+    function filterUsers(filterType = currentFilter) {
+        currentFilter = filterType;
+        const q = document.getElementById("searchUser").value.toLowerCase().trim();
+        let filtered = filterType === 'unread' ? users.filter(u => u.unread) : users;
+        if (q) filtered = filtered.filter(u => u.userName.toLowerCase().includes(q));
+        renderUserList(filtered);
+    }
+
+    filterUsers();
+</script>
+
+<script>
+    const emojiBtn = document.getElementById("emoji-btn");
+    const emojiPicker = document.getElementById("emoji-picker");
+    const chatInput = document.getElementById("chatInput");
+
+    emojiBtn.addEventListener("click", () => {
+        emojiPicker.style.display = emojiPicker.style.display === "block" ? "none" : "block";
+    });
+
+    // Ví dụ: tạo emoji đơn giản
+    const emojis = ["😀", "😁", "😂", "🤣", "😊", "😍", "😜", "👍", "❤️", "🔥"];
+    emojis.forEach(e => {
+        const span = document.createElement("span");
+        span.textContent = e;
+        span.style.cursor = "pointer";
+        span.style.fontSize = "20px";
+        span.style.margin = "5px";
+        span.onclick = () => {
+            chatInput.value += e;
+            emojiPicker.style.display = "none";
+            chatInput.focus();
+        };
+        emojiPicker.appendChild(span);
+    });
+</script>
+
+
+<!-- ✅ JavaScript để điều khiển dropdown: -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const userInfo = document.getElementById("userInfo");
+    const userDropdown = document.getElementById("userDropdown");
+
+    // Mặc định ẩn dropdown
+    if (userDropdown) userDropdown.style.display = "none";
+
+    // Toggle dropdown khi click vào userInfo
+    if (userInfo) {
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+            if (userDropdown.style.display === "block") {
+                userDropdown.style.display = "none";
+            } else {
+                userDropdown.style.display = "block";
+            }
+        });
+    }
+
+    // Ẩn dropdown khi click ra ngoài
+    window.addEventListener("click", function (e) {
+        if (!userInfo.contains(e.target)) {
+            userDropdown.style.display = "none";
+        }
+    });
+});
+</script>
+</html>

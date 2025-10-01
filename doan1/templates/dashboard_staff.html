@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #eef2ff;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Source Sans 3', sans-serif;
+            background-color: #f5f7fb;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            overflow-y: scroll;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-light);
+            margin-bottom: 15px;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .profile-position {
+            color: var(--primary);
+            background-color: var(--primary-light);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .profile-details {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .detail-item i {
+            width: 30px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            /* Thêm con trỏ để chỉ ra có thể click */
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card .icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .stat-card.order .icon {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--success);
+        }
+
+        .stat-card.booking .icon {
+            background-color: rgba(248, 150, 30, 0.1);
+            color: var(--warning);
+        }
+
+        .stat-card.advice .icon {
+            background-color: rgba(72, 149, 239, 0.1);
+            color: var(--info);
+        }
+
+        .stat-card.contact .icon {
+            background-color: rgba(247, 37, 133, 0.1);
+            color: var(--danger);
+        }
+
+        .stat-card.review .icon {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-card.import-export .icon {
+            background-color: rgba(106, 76, 147, 0.1);
+            color: #6a4c93;
+        }
+
+        .stat-card .value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .stat-card .label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .stat-card .label a {
+            text-decoration: none;
+            color: #6c757d;
+            /* Đổi màu chữ về màu mặc định để hiển thị rõ */
+        }
+
+        .charts-container {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .salary-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .salary-amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .salary-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body>
+    {% include "partials/sidebar_staff.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+
+        <div class="inner-position">
+            <h2>Dashboard</h2>
+            <div class="position-right">
+                <a href="/intro_qc">Trang chủ /</a>
+                <p>Dashboard</p>
+            </div>
+        </div>
+        <div class="container">
+            <!-- Profile Section -->
+            <div class="profile-card">
+                <img src="/static/avatars/{{ user.avatar }}" alt="Avatar"
+                    style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                <h3 class="profile-name">{{ user.username }}</h3>
+                <span class="profile-position">{{ user.role }}</span>
+
+                <div class="detail-item">
+                    <i class="fas fa-venus"></i>
+                    <span>{{ user.gender }}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-phone"></i>
+                    <span>{{ user.phone }}</span>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ user.email }}</span>
+                </div>
+
+
+
+                <div class="salary-info">
+                    <div>
+                        <div class="salary-label">Lương cơ bản</div>
+                        <div class="salary-amount">12,500,000 VND</div>
+                    </div>
+                    <i class="fas fa-wallet" style="font-size: 2rem; color: var(--primary);"></i>
+                </div>
+            </div>
+
+            <div>
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card order" onclick="window.location.href='order_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="value">142</div>
+                        <div class="label">
+                            <!-- hihi -->
+                            <a href="/order_staff">Đơn hàng</a>
+                        </div>
+                    </div>
+
+                    <div class="stat-card booking" onclick="window.location.href='booking_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="value">28</div>
+                        <div class="label">
+                            <!-- hihi -->
+                            <a href="/booking_staff">Đặt bàn</a>
+                        </div>
+                    </div>
+
+                    <div class="stat-card advice" onclick="window.location.href='consultant_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="value">15</div>
+                        <div class="label">
+                            <!-- hihi -->
+                            <a href="/consultant_staff">Tư vấn</a>
+                        </div>
+                    </div>
+
+                    <div class="stat-card contact" onclick="window.location.href='contact_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-phone-volume"></i>
+                        </div>
+                        <div class="value">9</div>
+                        <div class="label">
+                            <!-- hihi -->
+                            <a href="/contact_staff">Liên hệ</a>
+                        </div>
+                    </div>
+
+                    <div class="stat-card review" onclick="window.location.href='evaluate_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="value">4.8</div>
+                        <div class="label">
+                            <a href="/evaluate_staff">Đánh giá</a>
+                        </div>
+                    </div>
+
+                    <div class="stat-card import-export" onclick="window.location.href='import_staff.html'">
+                        <div class="icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="value">Auto</div>
+                        <div class="label">
+                            <a href="/import_staff">Nhập/Xuất</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h3 class="chart-title">Hiệu suất làm việc</h3>
+                        <div class="chart-container">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h3 class="chart-title">Phân bổ công việc</h3>
+                        <div class="chart-container">
+                            <canvas id="taskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const submenuToggles = document.querySelectorAll('.submenu-toggle');
+
+        submenuToggles.forEach(toggle => {
+            toggle.addEventListener('click', e => {
+                e.preventDefault();
+                const parent = toggle.parentElement;
+                const isOpen = parent.classList.contains('open');
+
+                // Đóng tất cả submenu khác
+                document.querySelectorAll('.has-submenu').forEach(item => {
+                    if (item !== parent) {
+                        item.classList.remove('open');
+                    }
+                });
+
+                // Toggle submenu hiện tại
+                parent.classList.toggle('open');
+            });
+        });
+    </script>
+    <script>
+        const toggleBtn = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+        });
+        const notificationBtn = document.getElementById("notificationBtn");
+        const notificationBox = document.getElementById("notificationBox");
+        notificationBtn.addEventListener("click", () => {
+            notificationBox.style.display = notificationBox.style.display === "block" ? "none" : "block";
+        });
+        const usernameDisplay = document.getElementById("usernameDisplay");
+        const userDropdown = document.getElementById("userDropdown");
+        usernameDisplay.addEventListener("click", () => {
+            userDropdown.style.display = userDropdown.style.display === "block" ? "none" : "block";
+        });
+        const fullscreenBtn = document.getElementById("fullscreenBtn");
+        fullscreenBtn.addEventListener("click", () => {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen();
+            } else {
+                document.exitFullscreen();
+            }
+        });
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            localStorage.setItem("isLoggedIn", "false");
+            localStorage.removeItem("username");
+            authButtons.style.display = "flex";
+            userInfo.style.display = "none";
+            userDropdown.style.display = "none";
+            window.location.href = "dashboard_staff.html";
+        });
+        window.addEventListener('click', function (e) {
+            if (!notificationBox.contains(e.target) && !notificationBtn.contains(e.target)) {
+                notificationBox.style.display = 'none';
+            }
+            if (!userDropdown.contains(e.target) && usernameDisplay && !usernameDisplay.contains(e.target)) {
+                userDropdown.style.display = 'none';
+            }
+        });
+
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        const authButtons = document.getElementById("authButtons");
+        const userInfo = document.getElementById("userInfo");
+
+        if (isLoggedIn) {
+            authButtons.style.display = "none";
+            userInfo.style.display = "flex";
+        } else {
+            authButtons.style.display = "flex";
+            userInfo.style.display = "none";
+        }
+    </script>
+
+</body>
+<script>
+    $(document).ready(function () {
+        setTimeout(initializeCharts, 500);
+    });
+
+    function initializeCharts() {
+        const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(performanceCtx, {
+            type: 'line',
+            data: {
+                labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],
+                datasets: [{
+                        label: 'Đơn hàng hoàn thành',
+                        data: [18, 22, 25, 20, 28, 30],
+                        borderColor: '#4361ee',
+                        backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true
+                    }, {
+                        label: 'Đánh giá trung bình',
+                        data: [4.2, 4.5, 4.7, 4.8, 4.9, 4.8],
+                        borderColor: '#4cc9f0',
+                        backgroundColor: 'rgba(76, 201, 240, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.3,
+                        fill: true,
+                        yAxisID: 'y1'
+                    },
+                    {
+                        label: 'Vi phạm',
+                        data: [2, 1, 0, 1, 0, 0],
+                        borderColor: '#f72585',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Số đơn hàng'
+                        }
+                    },
+                    y1: {
+                        position: 'right',
+                        beginAtZero: true,
+                        max: 5,
+                        title: {
+                            display: true,
+                            text: 'Điểm đánh giá'
+                        },
+                        grid: {
+                            drawOnChartArea: false
+                        }
+                    }
+                }
+            }
+        });
+
+        // Task Distribution Chart (Doughnut Chart)
+        const taskDistributionCtx = document.getElementById('taskDistributionChart').getContext('2d');
+        const taskDistributionChart = new Chart(taskDistributionCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Nấu ăn', 'Chuẩn bị nguyên liệu', 'Vệ sinh', 'Kiểm kho', 'Khác'],
+                datasets: [{
+                    data: [45, 25, 15, 10, 5],
+                    backgroundColor: [
+                        '#4361ee',
+                        '#4cc9f0',
+                        '#f8961e',
+                        '#4895ef',
+                        '#f72585'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return `${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    }
+</script>

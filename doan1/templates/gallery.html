@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>html Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="../static/CssTotal/stylegallery.css" />
+    <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+    <script src="../static/CssTotal/standard.js">
+    </script>
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+    <div class="container">
+        <section class="gallery">
+            <h2>Thư Viện Ảnh</h2>
+            <div class="gallery-grid">
+<div class="gallery-item"><img src="../static/avatars/media/anh10.jpg" alt="Ảnh 1"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh11.jpg" alt="Ảnh 2"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh13.jpg" alt="Ảnh 3"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh14.jpg" alt="Ảnh 4"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh15.jpg" alt="Ảnh 5"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh16.jpg" alt="Ảnh 6"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh17.jpg" alt="Ảnh 7"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh18.jpg" alt="Ảnh 8"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh19.jpg" alt="Ảnh 9"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh20.jpg" alt="Ảnh 10"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh21.jpg" alt="Ảnh 11"></div>
+<div class="gallery-item"><img src="../static/avatars/media/anh22.jpg" alt="Ảnh 12"></div>
+            </div>
+        </section>
+    </div>
+    {% include 'partials/footer.html' %}
+        <!-- scr tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+
+
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+</body>
+<script src="../static/CssTotal/script.js">
+
+</script>
+
+</html>

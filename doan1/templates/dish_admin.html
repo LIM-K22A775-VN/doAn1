@@ -1,0 +1,317 @@
+    <!DOCTYPE html>
+    <html lang="vi">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Trang quản trị</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap"
+            rel="stylesheet" />
+        <link rel="stylesheet" href="../static/CssTotal/standard_admin.css" />
+        <link rel="stylesheet" href="../static/CssTotal/dish_admin.css" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+        <style>
+            td.editable input {
+                width: 100%;
+                box-sizing: border-box;
+                /* Để padding không làm rộng thêm */
+                padding: 4px 8px;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        {% include "partials/sidebar_admin.html" %}
+        <div class="main" id="main">
+            {% include "partials/navbar_admin.html" %}
+            <div class="inner-position">
+                <h2>Quản lý sản phẩm</h2>
+                <div class="position-right">
+                    <a href="/admin">Trang chủ /</a>
+                    <p>Sản phẩm</p>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    <div class="filter-bar">
+                        <p>Lọc theo:</p>
+                        <input type="text" placeholder="Tìm kiếm sản phẩm..." />
+                        <select id="categoryFilter">
+                            <option value="">Tất cả danh mục</option>
+                            <option value="Khai vị">Khai vị</option>
+                            <option value="Món chính">Món chính</option>
+                            <option value="Canh-Tiềm-Súp">Canh-Tiềm-Súp</option>
+                            <option value="Cơm-Mì-Cháo">Cơm-Mì-Cháo</option>
+                            <option value="Bánh tráng miệng">Bánh tráng miệng</option>
+                            <option value="Đồ uống">Đồ uống</option>
+                        </select>
+
+                        <select id="brandFilter">
+                            <option value="">Tất cả thương hiệu</option>
+                            <option value="Món Âu">Món Âu</option>
+                            <option value="Món Ý">Món Ý</option>
+                            <option value="Món Nhật">Món Nhật</option>
+                            <option value="Món Việt">Món Việt</option>
+                        </select>
+
+                        <button class="btn-search"><i class="fa fa-search"></i> Tìm kiếm</button>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>ID</th>
+                                    <th>Hình</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Danh mục</th>
+                                    <th>Thương hiệu</th>
+                                    <th>Giá gốc</th>
+                                    <th>Giá khuyến mại</th>
+                                    <th style="min-width: 200px;">Chức năng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for f in foods %}
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" class="review-checkbox" />
+                                    </td>
+                                    <td>
+                                        <img src="{{ url_for('static', filename='avatars/media/' + f[7]) }}"
+                                            alt="Món ăn" style="width: 50px;" />
+                                    </td>
+                                    <td>{{ f[0] }}</td>
+                                    <td class="editable">{{ f[1] }}</td>
+                                    <td class="editable">{{ f[5] }}</td>
+                                    <td class="editable">{{ f[8] }}</td>
+                                    <td class="editable">{{ f[3]}}</td>
+                                    <td class="editable">{{ f[2] }}</td>
+                                    <td class="actions">
+                                        <button class="btn-status" title="Trạng thái">
+                                            <i class="fa fa-circle"></i>
+                                        </button>
+                                        <button class="btn-view" title="Xem">
+                                            <a href="#" class="view-link" style="text-decoration: none; color: #fff;">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                        </button>
+
+                                        <button class="btn-edit" title="Sửa">
+                                            <i class="fa fa-pen"></i>
+                                        </button>
+                                        <button class="btn-save" title="Lưu" style="display: none;">
+                                            <i class="fa fa-save"></i>
+                                        </button>
+                                        <button class="btn-delete" title="Xóa">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        <div
+                            style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center;">
+                            <span>Showing 1 to 6 of 7 results</span>
+                            <div style="display: flex; gap: 5px;">
+                                <button style="
+                        padding: 5px 10px;
+                        background-color: #e9ecef;
+                        color: #333;
+                        border: none;
+                        border-radius: 3px;
+                    ">‹</button>
+                                <button style="
+                        padding: 5px 10px;
+                        background-color: #007bff;
+                        color: white;
+                        border: none;
+                        border-radius: 3px;
+                    ">1</button>
+                                <button style="
+                        padding: 5px 10px;
+                        background-color: #e9ecef;
+                        color: #333;
+                        border: none;
+                        border-radius: 3px;
+                    ">2</button>
+                                <button style="
+                        padding: 5px 10px;
+                        background-color: #e9ecef;
+                        color: #333;
+                        border: none;
+                        border-radius: 3px;
+                    ">›</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../static/CssTotal/standard_admin.js"></script>
+        <script>
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = btn.closest('tr');
+                    row.querySelectorAll('.editable').forEach(cell => {
+                        const text = cell.innerText.trim();
+                        cell.innerHTML = `<input type="text" value="${text}" />`;
+                    });
+                    btn.style.display = 'none';
+                    row.querySelector('.btn-save').style.display = 'inline-block';
+                });
+            });
+
+            document.querySelectorAll('.btn-save').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = btn.closest('tr');
+                    const idFood = row.querySelector('td:nth-child(3)').innerText.trim(); // ID ở cột 3
+
+                    // Lấy các giá trị mới
+                    const cells = row.querySelectorAll('.editable');
+                    const nameFood = cells[0].querySelector('input').value;
+                    const category = cells[1].querySelector('input').value;
+                    const style = cells[2].querySelector('input').value;
+                    const orig_price = cells[3].querySelector('input').value;
+                    const price = cells[4].querySelector('input').value;
+
+                    // Gửi API update
+                    fetch('/api/update_food', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                IdFood: idFood,
+                                nameFood: nameFood,
+                                category: category,
+                                style: style,
+                                orig_price: orig_price,
+                                price: price
+                            })
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                // Cập nhật lại HTML
+                                cells[0].innerHTML = nameFood;
+                                cells[1].innerHTML = category;
+                                cells[2].innerHTML = style;
+                                cells[3].innerHTML = orig_price;
+                                cells[4].innerHTML = price;
+
+                                btn.style.display = 'none';
+                                row.querySelector('.btn-edit').style.display = 'inline-block';
+                                alert('Cập nhật thành công!');
+                            } else {
+                                alert('Lỗi: ' + data.error);
+                            }
+                        });
+                });
+            });
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const row = btn.closest('tr');
+                    const idFood = row.querySelector('td:nth-child(3)').innerText.trim();
+
+                    if (confirm(`Bạn có chắc chắn muốn xoá món ăn ID: ${idFood} không?`)) {
+                        fetch('/api/delete_food', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({
+                                    IdFood: idFood
+                                })
+                            })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    row.remove();
+                                    alert('Xóa thành công!');
+                                } else {
+                                    alert('Lỗi: ' + data.error);
+                                }
+                            });
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-view').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const row = btn.closest('tr');
+                    const idFood = row.querySelector('td:nth-child(3)').innerText.trim();
+                    window.location.href = `/detail_dish_admin/${idFood}`;
+                });
+            });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const userInfo = document.getElementById("userInfo");
+                const userDropdown = document.getElementById("userDropdown");
+
+                userDropdown.style.display = "none"; // Ẩn trước
+
+                userInfo.addEventListener("click", function (e) {
+                    e.stopPropagation(); // Ngăn lan ra ngoài
+                    if (userDropdown.style.display === "none") {
+                        userDropdown.style.display = "block";
+                    } else {
+                        userDropdown.style.display = "none";
+                    }
+                });
+                // Click ngoài thì đóng dropdown
+                document.addEventListener("click", function () {
+                    userDropdown.style.display = "none";
+                });
+            });
+        </script>
+
+        <script>
+            const searchInput = document.querySelector('.filter-bar input[type="text"]');
+            const categoryFilter = document.getElementById('categoryFilter');
+            const brandFilter = document.getElementById('brandFilter');
+            const btnFilter = document.querySelector('.btn-search');
+
+            btnFilter.addEventListener('click', function () {
+                const keyword = searchInput.value.trim().toLowerCase();
+                const selectedCategory = categoryFilter.value.trim().toLowerCase();
+                const selectedBrand = brandFilter.value.trim().toLowerCase();
+
+                document.querySelectorAll('tbody tr').forEach(row => {
+                    const name = row.querySelector('td:nth-child(4)').innerText.trim().toLowerCase();
+                    const category = row.querySelector('td:nth-child(5)').innerText.trim()
+                .toLowerCase();
+                    const brand = row.querySelector('td:nth-child(6)').innerText.trim().toLowerCase();
+
+                    const matchName = name.includes(keyword);
+                    const matchCategory = !selectedCategory || category === selectedCategory;
+                    const matchBrand = !selectedBrand || brand === selectedBrand;
+
+                    if (matchName && matchCategory && matchBrand) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Lọc tự động khi đổi select
+            categoryFilter.addEventListener('change', () => btnFilter.click());
+            brandFilter.addEventListener('change', () => btnFilter.click());
+        </script>
+
+
+
+    </body>
+
+    </html>

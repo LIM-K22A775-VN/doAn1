@@ -1,0 +1,263 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 28, 2025, 9:10:41 PM
+    Author     : ASUS
+*/
+/*header*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 16px;
+}
+
+.header {
+    width: 100%;
+    height: 70px;
+    background-color: #333;
+    color: white;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+.logo{
+    width: 150px;
+    height: 90px;
+    border-radius:  0 0 10px 10px;
+    z-index: 100;
+}
+
+.navbar {
+    padding-top: 5px;
+    margin-top: 17px;
+    display: flex;
+    gap: 10px;
+}
+.navbar_item a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.navbar_right {
+    padding-top: 5px;
+    margin-top:-3px;
+    display: flex;
+    gap: 10px;
+    
+}
+/*inner*/
+.inner-position {
+    display: flex;
+    margin-top: 100px;
+    background-color: #fff;
+    height: 20px;
+    position: relative;
+    padding-left: 8px;
+    font-weight: bold;
+}
+.inner-position a{
+    text-decoration: none;
+}
+/*account*/
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.account-toggle {
+    display: flex;
+    gap:2px;
+    cursor: pointer;
+    margin-right: 20px;
+}
+.account-toggle i{
+    margin-top: 1px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin-top: 6px;
+    display: none;
+    min-width: 180px;
+    z-index: 999;
+    color: black;
+}
+
+.dropdown-menu li {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+.dropdown-menu li a{
+    text-decoration: none;
+    color:black;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f2f2f2;
+}
+/* fixed icon*/
+
+
+.chat-fixed-icons {
+    position: fixed;
+    bottom: 60px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.chat-icon {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    background-color: #1877f2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.chat-icon:hover {
+    transform: scale(1.1);
+}
+/* .chat-tooltip {
+    position: absolute;
+    
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease;
+    font-size: 14px;
+    animation: showTooltip 8s ease-in-out infinite;
+} */
+
+.instagram-icon {
+    background: radial-gradient(circle at 30% 30%, #feda75, #d62976, #962fbf, #4f5bd5);
+    color: white;
+}
+/*footer*/
+.footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #000;
+    color: #fff;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.footer-left, .footer-right {
+    flex: 1;
+    min-width: 300px;
+    padding: 10px;
+}
+
+.footer-left h3, .footer-right h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.footer-left p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.footer-facebook {
+    display: inline-block;
+    background-color: #3b5998;
+    color: #fff;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.footer-right p {
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-left: 210px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-right p i {
+    margin-right: 10px;
+
+}
+
+.footer-book-now {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.footer-book-now:hover {
+    background-color: #cc0000;
+}
+
+.footer-social {
+    margin-top: 15px;
+}
+
+.footer-social a {
+    color: #fff;
+    font-size: 20px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #ccc;
+}

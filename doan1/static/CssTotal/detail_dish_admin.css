@@ -1,0 +1,85 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2025, 8:54:29 AM
+    Author     : ASUS
+*/
+.container {
+  background: #fff;
+  border-radius: 8px;
+  border: solid 1px rgba(0,0,0,0.5);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin: 0 5px;
+  max-width: 100%;
+}
+
+.detail-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+  padding: 12px 10px;
+  border-bottom: solid 1px rgba(0,0,0,0.5);
+}
+
+.btn-group .btn {
+  padding: 8px 14px;
+  margin-left: 8px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-blue {
+  background-color: #007bff;
+}
+
+.btn-red {
+  background-color: #dc3545;
+}
+
+.btn-back {
+  background-color: #17a2b8;
+}
+
+.detail-table {
+  width: 98%;
+  border-collapse: collapse;
+  
+}
+table{
+    margin: 10px;
+}
+.detail-table th, .detail-table td {
+  border: 1px solid #dee2e6;
+  padding: 12px 10px;
+  vertical-align: middle;
+}
+
+.detail-table th {
+  background-color: #f8f9fa;
+  text-align: left;
+  font-weight: 600;
+}
+
+.preview-img {
+  max-width: 150px;
+  border-radius: 5px;
+}
+.long-text {
+  text-align: left;
+  line-height: 1.7;
+  white-space: normal;
+  padding: 10px;
+}
+
+.long-text p {
+  margin-bottom: 10px;
+}
+
+.long-text strong {
+  font-weight: bold;
+}

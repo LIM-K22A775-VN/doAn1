@@ -1,0 +1,108 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 5, 2025, 10:53:24 PM
+    Author     : ASUS
+*/
+
+.trash-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  border-top: solid 1px rgba(0,0,0,0.5);
+  border-right: solid 1px rgba(0,0,0,0.5);
+  border-left: solid 1px rgba(0,0,0,0.5);
+  border-radius: 5px 5px 0 0;
+  margin-left: 5px;
+}
+
+.trash-header h2 {
+  font-size: 22px;
+  color: #333;
+}
+.table{
+    padding: 0px 10px 10px 10px;
+    background-color: #fff;
+    border-bottom: solid 1px rgba(0,0,0,0.5);
+    border-right: solid 1px rgba(0,0,0,0.5);
+    border-left: solid 1px rgba(0,0,0,0.5);
+    border-radius: 0 0 5px 5px ;
+    margin-left: 5px;
+}
+.btn-back {
+  background: #3498db;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.trash-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 10px;
+}
+
+.trash-table th,
+.trash-table td {
+  padding: 12px;
+  border: 1px solid #eee;
+  text-align: left;
+}
+
+.trash-table th {
+  background: #f8f8f8;
+  font-weight: bold;
+}
+
+.trash-table img {
+  border-radius: 6px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-success i,
+.btn-danger i {
+  margin-right: 4px;
+}
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+td img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}

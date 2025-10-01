@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .order-card {
+            background: #fff;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin: 0 20px 10px 20px;
+        }
+
+        .order-summary {
+            display: flex;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background-color: #f0f0f0;
+            cursor: pointer;
+            align-items: center;
+        }
+
+        .order-summary h4 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .order-summary p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .order-meta {
+            text-align: right;
+        }
+
+        .order-meta .status {
+            background-color: #28a745;
+            color: #fff;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .status-yellow {
+            background-color: #ddd;
+            color: #333;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .order-meta .status-red {
+            background-color: red;
+            color: #fff;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .order-meta .status-yellow {
+            background-color: yellow;
+            color: #333;
+            font-size: 13px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .order-meta .date {
+            display: block;
+            font-size: 13px;
+            margin-top: 6px;
+            color: #666;
+        }
+
+        .toggle-icon {
+            font-size: 16px;
+            color: #444;
+            transition: transform 0.3s;
+            margin-left: 10px;
+        }
+
+        .order-card.open .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .order-details {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            display: none;
+        }
+
+        .order-card.open .order-details {
+            display: block;
+        }
+
+        .order-details p {
+            font-size: 14px;
+            color: #444;
+            margin: 6px 0;
+        }
+
+        .item-list {
+            margin-top: 12px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            object-fit: cover;
+            margin-right: 12px;
+            border: 1px solid #ddd;
+        }
+
+        .item .info h5 {
+            margin: 0 0 4px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .item .info p {
+            margin: 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .total {
+            margin-top: 15px;
+            text-align: right;
+            font-size: 16px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .order-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .order-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .filter-dropdown {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .filter-dropdown select {
+            padding: 8px 14px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s;
+        }
+
+        .filter-dropdown select:focus {
+            outline: none;
+            background-color: #e6f0ff;
+        }
+
+        .order-summary h4 {
+            font-size: 17px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .order-summary .order-title {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .order-list {
+            max-height: 70vh;
+            /* hoặc height: 500px; */
+            overflow-y: auto;
+            padding-right: 10px;
+            /* tránh che nội dung bởi scrollbar */
+            padding-bottom: 40px;
+        }
+
+        .tao {
+            display: flex;
+            align-items: center;
+        }
+
+        /*  */
+        .user-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 50px;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-dropdown.show {
+            display: block;
+        }
+
+        /*  */
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/sidebar_staff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/navbar_admin.css') }}">
+</head>
+
+<body>
+
+    {% include "partials/sidebar_staff.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_staff.html" %}
+        <div class="inner-position">
+            <h2>xử lý đơn hàng</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <p>Đơn hàng</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="order-section">
+                <h2 style="text-align:center;">Danh sách đơn hàng</h2>
+                <form class="filter-dropdown">
+                    <label for="statusFilter">Lọc theo:</label>
+                    <select id="statusFilter" onchange="filterOrders(this.value)">
+                        <option value="all">Tất cả</option>
+                        <option value="Đang chờ xử lý">Đang chờ xử lý</option>
+                        <option value="Đang vận chuyển">Đang vận chuyển</option>
+                        <option value="Đã giao hàng">Đã giao hàng</option>
+                        <option value="Đã hủy">Đã hủy</option>
+                    </select>
+                </form>
+                <div class="order-list">
+                    {% for order in orders %}
+                    <div class="order-card" data-status="{{ order.status }}">
+                        <div class="order-summary" onclick="toggleDetails(this)">
+                            <div>
+                                <h4 class="order-title">Đơn hàng #{{ order.IdOrder }} lúc {{ order.timeOrder }}</h4>
+                                <div class="tao"><img src="/static/avatars/{{ order.avatar }}" alt="Avatar người đặt"
+                                        style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover; margin: 5px 0;">
+                                    <p>{{ order.userName }}</p>
+                                </div>
+                                <p><i class="fa fa-phone"></i> {{ order.phone }}</p>
+                                <p><i class="fa fa-map-marker-alt"></i> {{ order.address }}</p>
+                            </div>
+                            <div class="order-meta">
+                                {% if order.status == 'Đang chờ xử lý' %}
+                                <span class="status-yellow">{{ order.status }}</span>
+                                {% elif order.status == 'Đã hủy' %}
+                                <span class="status-red">{{ order.status }}</span>
+                                {% else %}
+                                <span class="status">{{ order.status }}</span>
+                                {% endif %}
+                                <span class="date">{{ order.timeOrder }}</span>
+                                <i class="fa fa-chevron-down toggle-icon"></i>
+                            </div>
+                        </div>
+                        <div class="order-details">
+                            <p><strong>Ghi chú:</strong> {{ order.note }}</p>
+                            <p><strong>Phương thức thanh toán:</strong> {{ order.payment_method }}</p>
+                            <div class="item-list">
+                                {% for item in order["items"] %}
+                                <div class="item">
+                                    <img src="{{ url_for('static', filename='avatars/media/' ~ item.image) }}"
+                                        alt="{{ item.nameFood }}">
+                                    <div class="info">
+                                        <h5>{{ item.nameFood }}</h5>
+                                        <p>Giá: {{ "{:,.0f}".format(item.unit_price | float) }}đ |
+                                            SL: {{ item.quantity }} |
+                                            Thành tiền: {{ "{:,.0f}".format(item.subtotal | float) }}đ
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="total">Tổng cộng:
+                                <strong>{{ "{:,.0f}".format(order.grand_total | float) }}đ</strong></div>
+                            <div class="order-actions"
+                                style="margin-top: 15px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <label for="statusSelect{{ order.IdOrder }}" style="font-weight: 500;">Cập nhật
+                                        trạng thái: </label>
+                                    <select id="statusSelect{{ order.IdOrder }}"
+                                        style="padding: 6px 12px; border-radius: 6px; border: 1px solid #ccc;">
+                                        <option value="Đang chờ xử lý"
+                                            {% if order.status == 'Đang chờ xử lý' %}selected{% endif %}>Đang chờ xử lý
+                                        </option>
+                                        <option value="Đang vận chuyển"
+                                            {% if order.status == 'Đang vận chuyển' %}selected{% endif %}>Đang vận
+                                            chuyển</option>
+                                        <option value="Đã giao hàng"
+                                            {% if order.status == 'Đã giao hàng' %}selected{% endif %}>Đã giao hàng
+                                        </option>
+                                        <option value="Đã hủy" {% if order.status == 'Đã hủy' %}selected{% endif %}>Đã
+                                            hủy</option>
+                                    </select>
+                                </div>
+                                <button onclick="updateOrderStatus('{{ order.IdOrder }}')"
+                                    {% if order.status == 'Đã hủy' %}disabled style="opacity: 0.6; cursor: not-allowed;"
+                                    {% endif %}
+                                    style="padding: 8px 16px; background: #007bff; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer;">
+                                    ✔ Cập nhật
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $(document).ready(function () {
+        $("#sidebar").load("sidebar_staff.html?v=" + Math.random(), function (response, status, xhr) {
+            if (status == "error") {
+                console.error("Lỗi khi tải sidebar_staff.html: " + xhr.status + " " + xhr.statusText);
+            }
+        });
+        $("#navbar").load("navbar_staff.html?v=" + Math.random(), function (response, status, xhr) {
+            if (status == "error") {
+                console.error("Lỗi khi tải navbar_staff.html: " + xhr.status + " " + xhr.statusText);
+            } else {
+                $.getScript("CssTotal/navbar_admin.js");
+            }
+        });
+    });
+
+    function toggleDetails(element) {
+        const card = element.parentElement;
+        card.classList.toggle('open');
+    }
+
+    function filterOrders(status) {
+        const cards = document.querySelectorAll('.order-card');
+        cards.forEach(card => {
+            if (status === 'all' || card.getAttribute('data-status') === status) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function updateOrderStatus(orderId) {
+        const selectElement = document.querySelector(`#statusSelect${orderId}`);
+        const newStatus = selectElement.value;
+
+        fetch('/update_order_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `order_id=${encodeURIComponent(orderId)}&new_status=${encodeURIComponent(newStatus)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Đã cập nhật trạng thái đơn hàng #${orderId} thành: ${newStatus}`);
+                    // ✅ Sau khi alert -> load lại trang
+                    window.location.reload();
+                } else {
+                    alert("Có lỗi xảy ra khi cập nhật trạng thái!");
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    }
+</script>
+<!--  -->
+<script>
+    const usernameDisplay = document.getElementById("usernameDisplay");
+    const userDropdown = document.getElementById("userDropdown");
+
+    usernameDisplay.addEventListener("click", function (event) {
+        event.stopPropagation();
+        userDropdown.classList.toggle("show");
+    });
+
+    window.addEventListener("click", function () {
+        userDropdown.classList.remove("show");
+    });
+
+    // phóng to
+const fullscreenBtn = document.getElementById("fullscreenBtn");
+fullscreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+    } else {
+        document.exitFullscreen();
+    }
+});
+
+</script>
+<!--  -->
+
+</html>

@@ -1,0 +1,111 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 11, 2025, 3:50:51 PM
+    Author     : ASUS
+*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+    background: #fff;
+    
+}
+.header {
+    width: 100%;
+    height: 70px;
+    background-color: #333;
+    color: white;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+.logo{
+    width: 150px;
+    height: 90px;
+    border-radius:  0 0 10px 10px;
+    z-index: 100;
+}
+
+.navbar {
+    padding-top: 5px;
+    margin-top: 17px;
+    display: flex;
+    gap: 10px;
+}
+.navbar_item a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.navbar_right{
+    margin-top: -2px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/*account*/
+.account-dropdown {
+    position: relative;
+    display: inline-block;
+}
+.account-toggle {
+    display: flex;
+    align-items: center; /* Căn icon và text theo chiều dọc */
+    gap: 6px;
+    cursor: pointer;
+    margin-right: 20px;
+    font-weight: 500; /* Đậm như các thẻ a khác */
+    font-size: 14px;
+    color: white; /* Đảm bảo màu trắng như các nút còn lại */
+    text-decoration: none;
+}
+.account-toggle i{
+    margin-top: 1px;
+}
+.dropdown-menu {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin-top: 6px;
+    display: none;
+    min-width: 180px;
+    z-index: 999;
+    color: black;
+}
+
+.dropdown-menu li {
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+.dropdown-menu li a{
+    text-decoration: none;
+    color:black;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f2f2f2;
+}

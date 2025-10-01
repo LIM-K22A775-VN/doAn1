@@ -1,0 +1,395 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 28, 2025, 8:16:02 AM
+    Author     : ASUS
+*/
+.container {
+    display: flex;
+    padding-top: 20px;
+    
+}
+.main-content {
+    flex: 3;
+    margin-right: 20px;
+    min-width: 0;
+}
+.dish {
+    display: flex;
+    align-items: flex-start;
+    background-color: #fff;
+    padding: 10px 10px 10px 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border: solid 1px rgba(0,0,0,0.1);
+}
+.dish img {
+    width: 300px;
+    height: 200px;
+    margin-right: 20px;
+    border-radius: 5px;
+}
+.dish_favorite{
+    width: 200px;
+    height: 30px;
+    background-color: #999;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    color:#fff;
+}
+.favorite{
+    text-decoration: none;
+}
+.dish .details {
+    flex-grow: 1;
+}
+.dish .details h2 {
+    margin: 0;
+    font-size: 18px;
+}
+.dish .details .price {
+    color: #ff0000;
+    font-weight: bold;
+    margin: 5px 0;
+}
+.dish .details .price del {
+    color: #666;
+    margin-left: 10px;
+}
+.dish .details p {
+    margin: 5px 0;
+    color: #666;
+}
+.dish .details .quantity {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.dish .details .quantity button {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background-color: #9999;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.dish .details .quantity span {
+    margin: 0 10px;
+}
+.active-heart {
+    color: red;
+}
+.dish .favorite {
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+.dish .actions {
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+}
+.dish .actions button {
+    padding: 10px 20px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 200px;
+}
+.dish .actions .add-to-cart {
+    background-color: #ff6200;
+    color: #fff;
+}
+.dish .actions .order-now {
+    background-color: #007bff;
+    color: #fff;
+}
+.sidebar {
+    flex: 1;
+}
+.suggestions, .recent-posts {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+.suggestions h3, .recent-posts h3 {
+    margin: 0 0 7px 0;
+    font-size: 16px;
+    color: #333;
+    
+}
+.suggestion, .recent-post {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.suggestion img, .recent-post img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+.suggestion .details, .recent-post .details {
+    flex-grow: 1;
+}
+.suggestion .price {
+    color: #ff0000;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.suggestion button {
+    padding: 5px 10px;
+    background-color: #ff6200;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.recent-post a {
+    text-decoration: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+.recent-post .details a {
+    display: flex;
+    flex-direction: column;
+}
+.recent-post .details p {
+    margin: 2px 0;
+}
+
+/* tab-section */
+.tab-section {
+    margin-top: 25px;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.tab-divider {
+    height: 2px;
+    background-color: #ddd;
+    margin-bottom: 15px;
+    margin-top: -5px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.tab-content.active {
+    display: block;
+}
+.tab-content p{
+    line-height: 1.3;
+}
+.rating-filter {
+    margin: 10px 0;
+}
+
+.rating-filter span {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.rating-filter button {
+    margin: 3px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+.star-rating {
+    font-size: 28px;
+    color: #ccc;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.star-rating .star.selected {
+    color: orange;
+}
+
+/* Góp ý */
+.feedback-section {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feedback-section textarea {
+    width: 100%;
+    height: 120px;
+    padding: 10px;
+    font-size: 14px;
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.feedback-section .submit-feedback {
+    align-self: flex-start;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.feedback-section .submit-feedback:hover {
+    background-color: #218838;
+}
+
+.review-summary {
+    background-color: #fefefe;
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-left: 4px solid #ffa500;
+    border-radius: 5px;
+}
+
+.review-summary .score {
+    font-size: 24px;
+    color: orange;
+    font-weight: bold;
+    margin: 5px 0px;
+}
+
+.policy-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #333;
+    line-height: 1.6;
+    font-size: 14px;
+}
+.policy-list a{
+    text-decoration: none;
+    
+}
+.new-dishes-section {
+    margin-top: 40px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.new-dishes-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    padding: 10px 0;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+    height: auto;              /* Không cho phép cao quá gây scroll dọc */
+    max-height: 280px;         /* Giới hạn chiều cao tối đa */
+}
+
+.food-item {
+    flex: 0 0 auto;
+    width: 200px;
+    background-color: #fafafa;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.food-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.food-item p {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.food-item p span {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 13px;
+    margin-left: 5px;
+}
+
+.detail-btn {
+    background-color: #f60;
+    color: #fff;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.detail-btn:hover {
+    background-color: #e55c00;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes showTooltip{
+    0%,45%{
+        opacity:0;
+        visibility: hidden;
+        right:60px;
+    }
+    50%,95%{
+        opacity: 1;
+        visibility: visible;
+        right: 70px;
+    }
+
+    100%{
+        opacity: 0;
+        visibility: hidden;
+        right:60px;
+    }
+}

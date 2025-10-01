@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+
+    <!-- Sửa link tĩnh -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/stylepayment2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/inner-position.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="../static/CssTotal/refarral.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="../static/CssTotal/standard.css" />
+    <script src="../static/CssTotal/standard.js">
+    </script>
+
+    <style>
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+</head>
+
+<body>
+
+    {% include 'partials/header.html' %}
+    {% include 'partials/vitri.html' with context %}
+
+    <div class="container">
+        <div class="login-container">
+            <form action="/confirm_booking_online" method="POST">
+               
+                <label>Họ tên:</label>
+                <input type="text" id="name" name="name" value="{{ name or '' }}" readonly>
+
+                <label>Email:</label>
+                <input type="email" id="email" name="email" value="{{ email or '' }}" readonly>
+
+                <label>Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" value="{{ phone or '' }}" readonly>
+
+                <!-- Nếu có mã giảm giá -->
+                <label>Mã giảm giá:</label>
+                <input type="text" id="discount_code" name="discount_code" value="{{ discount_code or '' }}" readonly>
+                <!-- Hiển thị tổng tiền cho người dùng -->
+                <input type="text" value="{{ "{:,.0f}".format(grand_total) }} VND" readonly>
+
+                <!-- Gửi giá trị grand_total thực sự (không có định dạng VND) -->
+                <input type="hidden" name="total" value="{{ grand_total }}">
+
+                <!-- Add hidden input -->
+                <input type="hidden" name="items" value='{{ items | tojson | safe }}'>
+
+                <div class="payment-method">
+                    <h2>Chọn phương thức thanh toán</h2>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="momo">
+                            <img src="{{ url_for('static', filename='avatars/media/momo.png') }}" alt="MoMo">
+                            <span>MoMo</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="atm" checked>
+                            <img src="{{ url_for('static', filename='avatars/media/atm.png') }}" alt="ATM">
+                            <span>ATM</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="zalopay">
+                            <img src="{{ url_for('static', filename='avatars/media/zalo.png') }}" alt="ZaloPay">
+                            <span>ZaloPay</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="applepay">
+                            <img src="{{ url_for('static', filename='avatars/media/apple.png') }}" alt="ApplePay">
+                            <span>ApplePay</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="vnpay">
+                            <img src="{{ url_for('static', filename='avatars/media/vnpay.jpg') }}" alt="VNPay">
+                            <span>VNPAY</span>
+                        </label>
+
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="vietinbank">
+                            <img src="{{ url_for('static', filename='avatars/media/vietinbank.jpg') }}"
+                                alt="VietinBank">
+                            <span>VietinBank</span>
+                        </label>
+
+                    </div>
+                </div>
+                <button type="submit" class="btn confirm">Xác nhận</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="qrPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>🔒 Vui lòng quét mã QR để thanh toán</h2>
+            <img id="qrImage" src="{{ url_for('static', filename='avatars/media/qrpay.jpg') }}" alt="QR Code"
+                style="width: 250px; margin: 20px 0;">
+            <br>
+            <button onclick="closeQrPopup()">Đóng</button>
+        </div>
+    </div>
+    {% include 'partials/footer.html' %}
+    <script>
+        function closeQrPopup() {
+            document.getElementById("qrPopup").classList.add("hidden");
+        }
+    </script>
+
+    <script src="{{ url_for('static', filename='CssTotal/jssignup.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 30, 2025, 9:42:22 PM
+    Author     : ASUS
+*/
+.container {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    overflow-x: auto;
+}
+
+.header-actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.header-actions button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 14px;
+    border: 1px solid #e0e0e0;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.actions button {
+    border: none;
+    padding: 6px 10px;
+    margin: 0 2px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-status {
+    background-color: #28a745;
+}
+.btn-view   {
+    background-color: #17a2b8;
+}
+.btn-edit   {
+    background-color: #007bff;
+}
+.btn-delete {
+    background-color: #dc3545;
+}
+
+.actions i {
+    font-size: 14px;
+}
+

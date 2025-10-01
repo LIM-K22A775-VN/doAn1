@@ -1,0 +1,186 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 1, 2025, 10:26:00 AM
+    Author     : ASUS
+*/
+.product-review-container {
+  font-family: sans-serif;
+  padding: 20px;
+  background: #f9f9f9;
+}
+
+/* PHẦN THÔNG TIN */
+.product-info-card {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.product-info-card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+.product-details h3,p{
+    margin-bottom: 10px;
+}
+
+.product-details{
+    margin-left: 30px;
+}
+.old-price {
+  text-decoration: line-through;
+  color: #999;
+  font-weight: normal;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.new-price {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.back-button {
+  background: #555;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.review-container {
+  font-family: "Segoe UI", sans-serif;
+  padding: 20px;
+  background: #f1f3f5;
+}
+
+/* BỘ LỌC */
+.filter-section {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 25px;
+}
+
+.filter-left label,
+.filter-right label {
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.filter-left select {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-filter {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* BẢNG ĐÁNH GIÁ */
+.review-table {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.review-table h3 {
+  margin: 0 0 15px;
+}
+
+.review-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.review-table th,
+.review-table td {
+  border: 1px solid #e1e1e1;
+  padding: 12px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.review-table th {
+  background: #f9f9f9;
+  font-weight: bold;
+}
+
+.star {
+  color: #ffc107;
+  font-size: 1.2em;
+}
+
+/* HÀNH ĐỘNG */
+.action-box {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.action-box input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 100%;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.btn-submit {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-delete {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Responsive (tùy chọn) */
+@media (max-width: 768px) {
+  .filter-section {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+}

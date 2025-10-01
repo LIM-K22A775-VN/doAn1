@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+
+    <!-- Sửa link tĩnh -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/stylepayment2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/inner-position.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="login-container">
+            <h2>💳 Xác nhận thanh toán đặt bàn</h2>
+            <h2><strong style="color:#f60">Số tiền:</strong> 500.000 VND</h2>
+            <form action="/confirm_booking" method="POST">
+                <label>Họ tên:</label>
+                <input type="text" id="name" name="name" value="{{ name or '' }}" readonly>
+
+                <label>Email:</label>
+                <input type="email" id="email" name="email" value="{{ email or '' }}" readonly>
+
+                <label>Số điện thoại:</label>
+                <input type="text" id="phone" name="phone" value="{{ phone or '' }}" readonly>
+
+                <label>Số người:</label>
+                <input type="number" id="number" name="people" value="{{ people or '' }}" readonly>
+
+                <label>Ngày:</label>
+                <input type="date" id="date" name="date" value="{{ date or '' }}" readonly>
+
+                <label>Giờ:</label>
+                <input type="time" id="time" name="time" value="{{ time or '' }}" readonly>
+
+                <label>Ghi chú:</label>
+                <textarea id="note" name="notes" readonly>{{ notes or '' }}</textarea>
+
+
+                <div class="payment-method">
+                    <h2>Chọn phương thức thanh toán</h2>
+                    <div class="payment-options">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" />
+                            <img src="{{ url_for('static', filename='avatars/media/momo.png') }}" alt="MoMo">
+                            <span>MoMo</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" checked>
+                            <img src="{{ url_for('static', filename='avatars/media/atm.png') }}" alt="ATM">
+                            <span>ATM</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment">
+                            <img src="{{ url_for('static', filename='avatars/media/zalo.png') }}" alt="ZaloPay">
+                            <span>ZaloPay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment">
+                            <img src="{{ url_for('static', filename='avatars/media/apple.png') }}" alt="ApplePay">
+                            <span>ApplePay</span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment">
+                            <img src="{{ url_for('static', filename='avatars/media/vnpay.jpg') }}" alt="VNPay">
+                            <span>VNPAY</span>
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn confirm">Xác nhận</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="qrPopup" class="popup hidden">
+        <div class="popup-content">
+            <h2>🔒 Vui lòng quét mã QR để thanh toán</h2>
+            <img id="qrImage" src="{{ url_for('static', filename='avatars/media/qrpay.jpg') }}" alt="QR Code"
+                style="width: 250px; margin: 20px 0;">
+            <br>
+            <button onclick="closeQrPopup()">Đóng</button>
+        </div>
+    </div>
+
+    <div id="chat-fixed-icons"></div>
+    <div id="footer"></div>
+
+    <script>
+        function closeQrPopup() {
+            document.getElementById("qrPopup").classList.add("hidden");
+        }
+    </script>
+
+    <script src="{{ url_for('static', filename='CssTotal/jssignup.js') }}"></script>
+</body>
+
+</html>

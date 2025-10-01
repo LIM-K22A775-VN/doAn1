@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Điểm tích lũy</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/customer_point.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/inner-position.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+
+    <!-- JS LIB -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+
+    <style>
+        /* Your styles unchanged */
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .popup.hidden {
+            display: none;
+        }
+
+        .popup-content {
+            background: #fff;
+            padding: 24px 32px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+            width: 360px;
+        }
+
+        .popup-content h2 {
+            margin-bottom: 12px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        .popup-buttons {
+            margin-top: 24px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #0050c8, #43a047);
+            color: #fff;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 80, 200, 0.3);
+        }
+
+        .btn-cancel {
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 14px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .reward-card.voucher-no-img {
+            color: #fff;
+            padding: 16px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .reward-card.voucher-no-img h3 {
+            margin: 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <div class="inner-position">
+        <p>Bạn đang ở đây: =></p>
+        <a href="/">Trang chủ =></a>
+        <span style="color: black; margin-left: 1px;">Đổi điểm tích lũy</span>
+    </div>
+
+    <div class="container">
+        <h2 class="loyalty-title">🎁 Đổi điểm tích lũy</h2>
+
+        <div class="points-info">
+            <p>Bạn đang có <span class="highlight">{{ user_points }} điểm</span></p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="showCategory('drink')">Đồ uống</button>
+            <button class="tab-button" onclick="showCategory('dessert')">Món tráng miệng</button>
+            <button class="tab-button" onclick="showCategory('mydiscount')">Mã giảm giá của tôi</button>
+        </div>
+
+        <!-- Danh sách phần thưởng -->
+        <div class="reward-list">
+            <div class="reward-category" id="drink">
+                {% for r in rewards %}
+                {% if r.category == 'drink' %}
+                <div class="reward-card">
+                    <img src="../static/avatars/media/{{ r.img }}" alt="{{ r.name }}">
+                    <div class="reward-details">
+                        <h3>{{ r.name }}</h3>
+                        <p>{{ r.cost }} điểm</p>
+                        <button class="redeem-btn" data-cost="{{ r.cost }}" data-name="{{ r.name|escape }}"
+                            data-category="{{ r.category }}" data-img="{{ r.img }}" onclick="redeemReward(this)">Đổi
+                            ngay</button>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <div class="reward-category hidden" id="dessert">
+                {% for r in rewards %}
+                {% if r.category == 'dessert' %}
+                <div class="reward-card">
+                    <img src="../static/avatars/media/{{ r.img }}" alt="{{ r.name }}">
+                    <div class="reward-details">
+                        <h3>{{ r.name }}</h3>
+                        <p>{{ r.cost }} điểm</p>
+                        <button class="redeem-btn" data-cost="{{ r.cost }}" data-name="{{ r.name|escape }}"
+                            data-category="{{ r.category }}" data-img="{{ r.img }}" onclick="redeemReward(this)">Đổi
+                            ngay</button>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- Mã giảm giá của tôi -->
+            <div class="reward-category hidden" id="mydiscount">
+                {% for d in discount_codes %}
+                <div class="reward-card {% if not d.img %}voucher-no-img{% endif %}">
+                    
+                    <div class="reward-details">
+                        <h3>{{ d.discount_code }}</h3>
+                        <p>Giảm: {{ "{:,.0f}".format(d.points).replace(",", ".") }} VND</p>
+                        <!-- Nút chuyển hướng đến trang /Cart -->
+                        <div style="text-align: center; margin-top: 20px;">
+                            <a href="/Cart" class="redeem-btn" style="text-decoration: none;">Sử dụng</a>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <p>Bạn chưa có mã giảm giá nào.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Popup thành công -->
+        <div id="congratsPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>🎉 Đổi quà thành công!</h2>
+                <p>Bạn đã nhận được: <span id="rewardName"></span></p>
+                <button onclick="closePopup()">Đóng</button>
+            </div>
+        </div>
+
+        <!-- Popup xác nhận đổi điểm -->
+        <div id="confirmPopup" class="popup hidden">
+            <div class="popup-content">
+                <h2>🎉 Xác nhận đổi điểm</h2>
+                <p id="confirmMessage">Bạn có chắc muốn đổi ... điểm để lấy "..." không?</p>
+                <div class="popup-buttons">
+                    <button id="confirmBtn" class="btn-confirm">Xác nhận</button>
+                    <button id="cancelBtn" class="btn-cancel">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'partials/footer.html' %}
+
+    <script>
+        let pendingReward = {
+            cost: 0,
+            name: '',
+            category: '',
+            img: ''
+        };
+
+        function redeemReward(btn) {
+            const cost = parseInt(btn.dataset.cost);
+            const userPoints = parseInt('{{ user_points }}'); // server đã render user_points
+
+            if (userPoints < cost) {
+                alert('Bạn không đủ điểm để đổi phần thưởng này.');
+                return;
+            }
+
+            pendingReward.cost = cost;
+            pendingReward.name = btn.dataset.name;
+            pendingReward.category = btn.dataset.category;
+            pendingReward.img = btn.dataset.img;
+
+            document.getElementById('confirmMessage').innerText =
+                `Bạn có chắc muốn đổi ${pendingReward.cost} điểm để lấy "${pendingReward.name}" không?`;
+            document.getElementById('confirmPopup').classList.remove('hidden');
+        }
+
+
+        document.getElementById('confirmBtn').onclick = function () {
+            document.getElementById('confirmPopup').classList.add('hidden');
+
+            // Gửi AJAX JSON
+            fetch('/thanhtoan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: pendingReward.name,
+                        category: pendingReward.category,
+                        img: pendingReward.img
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.status === 'success') {
+                        console.log('Đổi quà thành công');
+
+                        // ✅ Cập nhật số điểm mới ngay lập tức
+                        const pointsSpan = document.querySelector('.points-info .highlight');
+                        let currentPoints = parseInt(pointsSpan.textContent);
+                        currentPoints -= parseInt(pendingReward.cost);
+                        pointsSpan.textContent = currentPoints + ' điểm';
+
+                        // ✅ Hiển thị popup chúc mừng
+                        document.getElementById('rewardName').innerText = pendingReward.name;
+                        document.getElementById('congratsPopup').classList.remove('hidden');
+
+                        // ✅ Chạy confetti
+                        const duration = 5000;
+                        const animationEnd = Date.now() + duration;
+                        const defaults = {
+                            startVelocity: 30,
+                            spread: 360,
+                            ticks: 60,
+                            zIndex: 1000
+                        };
+
+                        function randomInRange(min, max) {
+                            return Math.random() * (max - min) + min;
+                        }
+
+                        const interval = setInterval(() => {
+                            const timeLeft = animationEnd - Date.now();
+                            if (timeLeft <= 0) return clearInterval(interval);
+                            const particleCount = 50 * (timeLeft / duration);
+                            confetti(Object.assign({}, defaults, {
+                                particleCount,
+                                origin: {
+                                    x: randomInRange(0.1, 0.3),
+                                    y: Math.random() - 0.2
+                                }
+                            }));
+                            confetti(Object.assign({}, defaults, {
+                                particleCount,
+                                origin: {
+                                    x: randomInRange(0.7, 0.9),
+                                    y: Math.random() - 0.2
+                                }
+                            }));
+                        }, 250);
+
+                        confetti({
+                            particleCount: 200,
+                            spread: 90,
+                            origin: {
+                                y: 0.6
+                            }
+                        });
+
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                });
+        };
+
+        document.getElementById('cancelBtn').onclick = function () {
+            document.getElementById('confirmPopup').classList.add('hidden');
+        };
+
+        function closePopup() {
+            document.getElementById('congratsPopup').classList.add('hidden');
+        }
+
+        function showCategory(id) {
+            const categories = document.querySelectorAll('.reward-category');
+            categories.forEach(c => c.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(b => b.classList.remove('active'));
+            const clickedButton = [...buttons].find(b => {
+                if (id === 'drink') return b.textContent.includes('Đồ uống');
+                if (id === 'dessert') return b.textContent.includes('Món');
+                if (id === 'mydiscount') return b.textContent.includes('giảm giá');
+                return false;
+            });
+            if (clickedButton) clickedButton.classList.add('active');
+        }
+    </script>
+
+
+</body>
+
+</html>

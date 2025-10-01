@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết hóa đơn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #5D87FF;
+            --secondary-color: #49BEFF;
+            --success-color: #13DEB9;
+            --warning-color: #FFAE1F;
+            --error-color: #FA896B;
+            --dark-color: #2A3547;
+            --light-color: #f5f7fa;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid;
+            position: relative;
+            overflow: hidden;
+            min-width: 0;
+        }
+
+        .stat-card.income {
+            border-left-color: var(--success-color);
+        }
+
+        .stat-card.expense {
+            border-left-color: var(--error-color);
+        }
+
+        .stat-card.profit {
+            border-left-color: var(--primary-color);
+        }
+
+        .stat-card.orders {
+            border-left-color: var(--warning-color);
+        }
+
+        .stat-card h3 {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 0;
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .stat-card .value {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .stat-card .compare {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .stat-card .compare.positive {
+            color: var(--success-color);
+        }
+
+        .stat-card .compare.negative {
+            color: var(--error-color);
+        }
+
+        .stat-card i {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 30px;
+            opacity: 0.2;
+        }
+
+        .chart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            min-width: 0;
+        }
+
+        .chart-card h3 {
+            margin-top: 0;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .chart-card .chart {
+            height: 250px;
+            position: relative;
+            width: 100%;
+        }
+
+        .details-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .detail-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            min-width: 0;
+        }
+
+        .detail-card h3 {
+            margin-top: 0;
+            color: var(--dark-color);
+            font-weight: 600;
+            font-size: 16px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: auto;
+        }
+
+        .detail-table th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            color: #6c757d;
+            font-weight: 600;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .detail-table td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .detail-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .positive-amount {
+            color: var(--success-color);
+            font-weight: 600;
+        }
+
+        .negative-amount {
+            color: var(--error-color);
+            font-weight: 600;
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 6px 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover {
+            background-color: #f5f5f5;
+        }
+
+        .date-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .date-picker input {
+            padding: 6px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            min-width: 120px;
+        }
+
+        .date-picker button {
+            padding: 6px 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        @media (max-width: 1200px) {
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .chart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .details-container {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-card .chart {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 10px;
+            }
+
+            .stat-card .value {
+                font-size: 18px;
+            }
+
+            .stat-card h3 {
+                font-size: 12px;
+            }
+
+            .chart-card .chart {
+                height: 180px;
+            }
+
+            .chart-card h3,
+            .detail-card h3 {
+                font-size: 14px;
+            }
+
+            .detail-table th,
+            .detail-table td {
+                font-size: 12px;
+                padding: 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stat-card .value {
+                font-size: 16px;
+            }
+
+            .stat-card h3 {
+                font-size: 10px;
+            }
+
+            .chart-card .chart {
+                height: 150px;
+            }
+
+            .chart-card h3,
+            .detail-card h3 {
+                font-size: 12px;
+            }
+
+            .detail-table th,
+            .detail-table td {
+                font-size: 10px;
+                padding: 4px;
+            }
+
+            .filter-btn,
+            .date-picker input,
+            .date-picker button {
+                font-size: 12px;
+                padding: 4px 8px;
+                min-width: 60px;
+            }
+
+            .date-picker input {
+                min-width: 100px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+</head>
+
+<body>
+
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+        <div class="inner-position">
+            <h2>Thống kê doanh thu/lợi nhuận</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <p>Doanh thu</p>
+            </div>
+        </div>
+        <div class="content">
+            <!-- Filter section -->
+            <div class="filter-container">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-type="today">Hôm nay</button>
+                    <button class="filter-btn" data-type="week">Tuần này</button>
+                    <button class="filter-btn" data-type="month">Tháng này</button>
+                    <button class="filter-btn" data-type="year">Năm nay</button>
+                </div>
+                <div class="date-picker">
+                    <input type="date" id="start-date">
+                    <span>đến</span>
+                    <input type="date" id="end-date">
+                    <button id="apply-date">Áp dụng</button>
+                </div>
+            </div>
+
+            <!-- Stats cards -->
+            <div class="stats-container">
+                <div class="stat-card income">
+                    <i class="fas fa-wallet"></i>
+                    <h3>Tổng doanh thu</h3>
+                    <div class="value">{{total_revenue}} ₫</div>
+                    <div class="compare positive">
+                        <i class="fas fa-arrow-up"></i> 12% so với tháng trước
+                    </div>
+                </div>
+
+                <div class="stat-card expense">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <h3>Tổng chi phí</h3>
+                    <div class="value">{{total_cost}}₫</div>
+                    <div class="compare negative">
+                        <i class="fas fa-arrow-down"></i> 8% so với tháng trước
+                    </div>
+                </div>
+
+                <div class="stat-card profit">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Lợi nhuận</h3>
+                    <div class="value">{{profit}}</div>
+                    <div class="compare positive">
+                        <i class="fas fa-arrow-up"></i> 
+                    </div>
+                </div>
+
+                <div class="stat-card orders">
+                    <i class="fas fa-shopping-cart"></i>
+                    <h3>Tổng đơn hàng</h3>
+                    <div class="value">{{ total_orders_all  }}</div>
+                    <div class="compare positive">
+                        <i class="fas fa-arrow-up"></i> 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts section -->
+            <div class="chart-container">
+                <div class="chart-card">
+                    <h3>Biểu đồ doanh thu và chi phí</h3>
+                    <div class="chart">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Phân bổ doanh thu</h3>
+                    <div class="chart">
+                        <canvas id="incomeDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details section -->
+            <div class="details-container">
+                <div class="detail-card">
+                    <h3>Chi tiết doanh thu</h3>
+                    <table class="detail-table">
+                        <thead>
+                            <tr>
+                                <th>Nguồn</th>
+                                <th>Số lượng</th>
+                                <th>Doanh thu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Đặt món online</td>
+                                <td>85 đơn</td>
+                                <td class="positive-amount">15,240,000₫</td>
+                            </tr>
+                            <tr>
+                                <td>Đặt tại quán</td>
+                                <td>43 đơn</td>
+                                <td class="positive-amount">10,600,000₫</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tổng cộng</strong></td>
+                                <td><strong>128 đơn</strong></td>
+                                <td class="positive-amount"><strong>25,840,000₫</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="detail-card">
+                    <h3>Chi tiết chi phí</h3>
+                    <table class="detail-table">
+                        <thead>
+                            <tr>
+                                <th>Danh mục</th>
+                                <th>Chi phí</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiền lương nhân viên</td>
+                                <td class="negative-amount">8,200,000₫</td>
+                            </tr>
+                            <tr>
+                                <td>Nguyên liệu nhà bếp</td>
+                                <td class="negative-amount">4,250,000₫</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tổng cộng</strong></td>
+                                <td class="negative-amount"><strong>12,450,000₫</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    
+    <script>
+        $(document).ready(function () {
+            $("#sidebar").load("sidebar_admin.html?v=" + Math.random(), function (response, status, xhr) {
+                if (status == "error") {
+                    console.error("Lỗi khi tải sidebar_admin.html: " + xhr.status + " + " + xhr
+                        .statusText);
+                }
+            });
+            $("#navbar").load("navbar_admin.html?v=" + Math.random(), function (response, status, xhr) {
+                if (status == "error") {
+                    console.error("Lỗi khi tải navbar_admin.html: " + xhr.status + " " + xhr
+                        .statusText);
+                } else {
+                    $.getScript("CssTotal/navbar_admin.js");
+                }
+            });
+
+            
+            // Initialize charts
+            initCharts();
+
+            // Apply date filter button click event
+            $("#apply-date").click(function () {
+                // Here you would typically reload data based on the selected date range
+                alert("Đã áp dụng bộ lọc ngày từ " + $("#start-date").val() + " đến " + $("#end-date")
+                    .val());
+            });
+        });
+
+        function initCharts() {
+            // Line Chart for Revenue and Expense with Gradient
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+
+            // Create gradient for revenue
+            const revenueGradient = revenueCtx.createLinearGradient(0, 0, 0, 250);
+            revenueGradient.addColorStop(0, 'rgba(19, 222, 185, 0.8)');
+            revenueGradient.addColorStop(1, 'rgba(19, 222, 185, 0.2)');
+
+            // Create gradient for expense
+            const expenseGradient = revenueCtx.createLinearGradient(0, 0, 0, 250);
+            expenseGradient.addColorStop(0, 'rgba(250, 137, 107, 0.8)');
+            expenseGradient.addColorStop(1, 'rgba(250, 137, 107, 0.2)');
+
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{
+                            label: 'Doanh thu',
+                            data: chartRevenue,
+                            borderColor: 'rgba(19, 222, 185, 1)',
+                            backgroundColor: revenueGradient,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointHoverRadius: 8,
+                            pointBackgroundColor: 'rgba(19, 222, 185, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        },
+                        {
+                            label: 'Chi phí',
+                            data: chartCost,
+                            borderColor: 'rgba(250, 137, 107, 1)',
+                            backgroundColor: expenseGradient,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointHoverRadius: 8,
+                            pointBackgroundColor: 'rgba(250, 137, 107, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    return value.toLocaleString('vi-VN') + '₫';
+                                },
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                },
+                                color: 'var(--dark-color)'
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.raw.toLocaleString(
+                                        'vi-VN') + '₫';
+                                }
+                            },
+                            backgroundColor: '#fff',
+                            titleColor: 'var(--dark-color)',
+                            bodyColor: 'var(--dark-color)',
+                            borderColor: 'rgba(0, 0, 0, 0.1)',
+                            borderWidth: 1,
+                            padding: 10
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+
+            // Doughnut Chart for Income Distribution
+            const incomeDistCtx = document.getElementById('incomeDistributionChart').getContext('2d');
+            const incomeDistChart = new Chart(incomeDistCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Đặt món online', 'Đặt tại quán'],
+                    datasets: [{
+                        data: [15240000, 10600000],
+                        backgroundColor: [
+                            'rgba(93, 135, 255, 0.8)',
+                            'rgba(73, 190, 255, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(93, 135, 255, 1)',
+                            'rgba(73, 190, 255, 1)'
+                        ],
+                        borderWidth: 2,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 12
+                                },
+                                color: 'var(--dark-color)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userInfo = document.getElementById("userInfo");
+        const userDropdown = document.getElementById("userDropdown");
+
+        userDropdown.style.display = "none"; // Ẩn trước
+
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+            if (userDropdown.style.display === "none") {
+                userDropdown.style.display = "block";
+            } else {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // Click ngoài thì đóng dropdown
+        document.addEventListener("click", function () {
+            userDropdown.style.display = "none";
+        });
+    });
+</script>
+<script>
+  $(".filter-btn").click(function () {
+    $(".filter-btn").removeClass("active");
+    $(this).addClass("active");
+
+    const type = $(this).data("type");
+    const today = new Date();
+
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    let from_date = "";
+    let to_date = "";
+
+    if (type === "today") {
+      from_date = `${yyyy}-${mm}-${dd}`;
+      to_date = from_date;
+    } else if (type === "week") {
+      const day = today.getDay(); // 0: CN
+      const diffToMonday = today.getDate() - day + (day === 0 ? -6 : 1);
+      const monday = new Date(today.setDate(diffToMonday));
+      const sunday = new Date(monday);
+      sunday.setDate(monday.getDate() + 6);
+
+      from_date = `${monday.getFullYear()}-${String(monday.getMonth() + 1).padStart(2, '0')}-${String(monday.getDate()).padStart(2, '0')}`;
+      to_date = `${sunday.getFullYear()}-${String(sunday.getMonth() + 1).padStart(2, '0')}-${String(sunday.getDate()).padStart(2, '0')}`;
+    } else if (type === "month") {
+      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+      from_date = `${firstDay.getFullYear()}-${String(firstDay.getMonth() + 1).padStart(2, '0')}-${String(firstDay.getDate()).padStart(2, '0')}`;
+      to_date = `${lastDay.getFullYear()}-${String(lastDay.getMonth() + 1).padStart(2, '0')}-${String(lastDay.getDate()).padStart(2, '0')}`;
+    } else if (type === "year") {
+      from_date = `${today.getFullYear()}-01-01`;
+      to_date = `${today.getFullYear()}-12-31`;
+    }
+
+    // Chuyển hướng có tham số ngày
+    window.location.href = `/revenue_admin?from_date=${from_date}&to_date=${to_date}`;
+  });
+</script>
+<script>
+  const chartLabels = {{ chart_labels | tojson }};
+  const chartRevenue = {{ chart_revenue | tojson }};
+  const chartCost = {{ chart_cost | tojson }};
+</script>
+</html>

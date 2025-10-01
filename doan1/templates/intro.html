@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>html Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    <!-- <script src="{{ url_for('static', filename='CssTotal/js.js') }}"></script> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard.css') }}">
+    <script src="{{ url_for('static', filename='CssTotal/standard.js') }}"></script>
+    <!-- ✅ Icon & Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- ✅ CSS Reset + Base + Style riêng -->
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='ascesss/css/formchuan.css') }}">
+
+
+    <style>
+        .food-section h2 {
+            margin-top: 20px;
+        }
+
+        .register-form {
+            width: 100%;
+            height: 500px;
+            background-image: url(../static/avatars/media/backfood.jpg);
+            object-fit: cover;
+            background-size: cover;
+            background-position: center;
+            padding: 30px;
+        }
+        .navbar_right {
+            margin-top: -3px;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'partials/header.html' %}
+
+    <div class="banner">
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="../static/avatars/media/1.jpg" alt="Ảnh 1"></div>
+                <div class="swiper-slide"><img src="../static/avatars/media/5.jpg" alt="Ảnh 2"></div>
+                <div class="swiper-slide"><img src="../static/avatars/media/1.jpg" alt="Ảnh 3"></div>
+                <div class="swiper-slide"><img src="../static/avatars/media/1.jpg" alt="Ảnh 4"></div>
+                <div class="swiper-slide"><img src="../static/avatars/media/5.jpg" alt="Ảnh 5"></div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+    <div class="service-promises">
+        <div class="promise-item">
+            <div class="promise-icon">
+                <i class="fa-solid fa-truck-fast"></i>
+            </div>
+            <div class="promise-text">
+                <h4>Miễn phí vận chuyển</h4>
+                <p>Cho đơn hàng từ 500k</p>
+            </div>
+        </div>
+        <div class="promise-item">
+            <div class="promise-icon">
+                <i class="fa-solid fa-hand-holding-heart"></i>
+            </div>
+            <div class="promise-text">
+                <h4>Bảo hiểm món ăn</h4>
+                <p>Đảm chất lượng đồ ăn</p>
+            </div>
+        </div>
+        <div class="promise-item">
+            <div class="promise-icon">
+                <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <div class="promise-text">
+                <h4>Thanh toán COD</h4>
+                <p>Hoặc thanh toán quét mã QR</p>
+            </div>
+        </div>
+        <div class="promise-item">
+            <div class="promise-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <div class="promise-text">
+                <h4>Bảo mật thông tin</h4>
+                <p>Đảm bảo thông tin khách hàng</p>
+            </div>
+        </div>
+    </div>
+    <div class="food-suggestion">
+        <div class="food-title">Ăn Gì Hôm Nay</div>
+        <input type="text" class="food-input-box" placeholder="Tìm kiếm">
+        <div class="food-options">
+            <button class="food-option-btn">Tùy chọn bữa hôm nay</button>
+            <button class="food-option-btn">Cơm</button>
+            <button class="food-option-btn">Salad rau muống sợi cam</button>
+            <button class="food-option-btn">Phở cuốn</button>
+            <button class="food-option-btn">Gỏi táo hoa chuối</button>
+            <button class="food-option-btn">Gà cuốn lá dứa</button>
+            <button class="food-option-btn">Hủ tiếu cháo bò</button>
+            <button class="food-option-btn">Cơm chiên chả lá lìm</button>
+        </div>
+    </div>
+    <div class="intro-standard">
+        <div class="standard-text">
+
+            <h3>TheRiceBowlRestaurant</h3>
+            <p>Thưởng thức ẩm thực đỉnh cao tại nhà hàng của chúng tôi luôn đặt cái tâm trong công việc, chúng tôi luôn
+                sẵn sàng phục vụ, chúng tôi luôn sẵn sàng phục vụ các bạn.Tiêu chí nhà hàng được chúng tôi để tâm</p>
+            <div class="grid-container">
+                <div class="grid-item">
+                    <i class="fas fa-user"></i>
+                    <p>Đầu bếp chuyên nghiệp</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-utensils"></i>
+                    <p>Ăn uống sinh thái xanh</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-utensils"></i>
+                    <p>Thực đơn phong phú</p>
+                </div>
+                <div class="grid-item">
+                    <i class="fas fa-user-friends"></i>
+                    <p>Khách hàng lưu ý đổi</p>
+                </div>
+            </div>
+        </div>
+        <div class="standard-img">
+            <img src="../static/avatars/media/chef2.jpg" alt="alt" />
+        </div>
+    </div>
+
+
+    <div class="food-section">
+        <h2>Một số món ăn phổ biến theo thực đơn của nhà hàng</h2>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">Tất cả</button>
+            <button class="filter-btn" data-category="appetizer">Khai vị</button>
+            <button class="filter-btn" data-category="main">Món chính</button>
+            <button class="filter-btn" data-category="soup">Canh - Súp</button>
+            <button class="filter-btn" data-category="dessert">Tráng miệng</button>
+            <button class="filter-btn" data-category="drink">Đồ uống</button>
+        </div>
+
+        <div class="food-grid" id="foodGrid">
+            {% for food in foods_phobien %}
+            <div class="food-item" data-category="{{ food.category }}">
+                <img src="../static/avatars/media/{{ food.img }}" alt="{{ food.name }} " style="width: 100%;height: 150px;">
+                <p>
+                    -{{ 100 - ((food.price / food.orig_price) * 100) | round(0) }}%
+                    {{ "{:,.0f}".format(food.price) }} VND
+                    <span>{{ "{:,.0f}".format(food.orig_price) }} VND</span>
+                </p>
+                <button class="detail-btn">Xem chi tiết</button>
+            </div>
+            {% endfor %}
+        </div>
+
+
+
+        <div class="new-dishes-section">
+            <h2>Những món ăn mới</h2>
+            <div class="new-dishes-scroll" id="newDishesScroll">
+                {% for food in foods_moi %}
+                <div class="food-item" data-category="{{ food.category }}">
+                    <img src="../static/avatars/media/{{ food.img }}" alt="{{ food.name }}"  style="width: 100%;height: 150px;">
+                    <p>
+                        -{{ 100 - ((food.price / food.orig_price) * 100) | round(0) }}%
+                        {{ "{:,.0f}".format(food.price) }} VND
+                        <span>{{ "{:,.0f}".format(food.orig_price) }} VND</span>
+                    </p>
+                    <button class="detail-btn">Xem chi tiết</button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="register-form">
+            <h3>Đặt bàn</h3>
+            <h2>Lên lịch đặt bàn</h2>
+            <div id="form-container">
+                <form action="/reserve-send-otp" method="post" id="reserveForm">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Tên của bạn" value="{{ user.username }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email của bạn" value="{{ user.email }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="tel" name="phone" placeholder="Số điện thoại" value="{{ user.phone }}" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="number" name="people" placeholder="Số người" required>
+                    </div>
+
+                    <div class="date-group">
+                        <input type="date" name="date" id="dateInput" required>
+                        <input type="time" name="time" id="timeInput" min="07:00" max="22:00" required>
+                    </div>
+
+                    <div class="notes-group">
+                        <textarea name="notes" placeholder="Ghi chú"></textarea>
+                    </div>
+
+                    <button class="button_form" type="submit">Đặt bàn ngay</button>
+
+                    <div class="footer-text">
+                        Khách đặt trước 10h, liên hoan vui lòng gọi trước: 0987265336
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="referal-service">
+            <h3>VỀ DỊCH VỤ</h3>
+            <h2>Dịch vụ tốt nhất của chúng tôi</h2>
+            <div class="referal-container">
+                <div class="card">
+                    <h3>Đầu bếp hàng đầu</h3>
+                    <p>Đi đầu về lĩnh vực đầu bếp, các đầu bếp của chúng tôi luôn tận tâm để tạo ra những món ăn chất
+                        lượng.
+                    </p>
+                </div>
+                <div class="card">
+                    <h3>Chất lượng thực phẩm</h3>
+                    <p>Tất cả các loại thực phẩm được chọn đều được chúng tôi kiểm tra kỹ càng để đảm bảo chất lượng
+                        thực
+                        phẩm.</p>
+                </div>
+                <div class="card">
+                    <h3>Không gian nhà hàng</h3>
+                    <p>Không chỉ tạo nên không khí thoải mái, Nhà Restaurant sẽ luôn là sự lựa chọn hàng đầu của bạn.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div class="latest-news-section">
+            <h2>Bản tin tức mới nhất</h2>
+            <div class="news-scroll" id="newsScroll">
+                <div class="news-item" data-article-id="1">
+                    <img src="../static/avatars/media/1.jpg" alt="Món ăn 1">
+                    <p class="date">18:04, 19-06-2024</p>
+                    <p>Mách bạn cách nấu món ăn ngon</p>
+                </div>
+                <div class="news-item" data-article-id="2">
+                    <img src="../static/avatars/media/1.jpg" alt="Món ăn 2">
+                    <p class="date">08:44, 29-12-2024</p>
+                    <p>Tuyển tập món xào ngon, tiết kiệm thời gian cho ngày cuối tuần</p>
+                </div>
+                <div class="news-item" data-article-id="3">
+                    <img src="../static/avatars/media/1.jpg" alt="Món ăn 3">
+                    <p class="date">09:07, 29-12-2024</p>
+                    <p>Hé lộ cách làm món ngon, tiết kiệm thời gian cho ngày cuối tuần</p>
+                </div>
+                <div class="news-item" data-article-id="4">
+                    <img src="../static/avatars/media/1.jpg" alt="Món ăn 4">
+                    <p class="date">13:55, 20-02-2025</p>
+                    <p>1001 món ngon ngày Tết - Gợi ý món ngon</p>
+                </div>
+                <div class="news-item" data-article-id="5">
+                    <img src="../static/avatars/media/1.jpg" alt="Món ăn 5">
+                    <p class="date">13:59, 21-06-2025</p>
+                    <p>Cách làm món ngon</p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    {% include 'partials/footer.html' %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+    <!-- Thông báo -->
+    {% if success %}
+    <div id="toast" class="toast">{{ success }}</div>
+    {% endif %}
+
+    <style>
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #0050c8, #43a047);
+            color: #fff;
+            padding: 16px 28px;
+            border-radius: 20px 5px 20px 5px;
+            /* Góc lệch cho nghệ hơn */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+            z-index: 9999999999;
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 16px;
+            backdrop-filter: blur(4px);
+            /* Nền mờ sang xịn */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            /* Viền mờ nhẹ */
+        }
+
+        .toast i {
+            font-size: 18px;
+        }
+    </style>
+
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                setTimeout(() => {
+                    toast.style.transform = 'translateX(120%)'; // trượt sang phải
+                    toast.style.opacity = '0';
+                }, 3000); // delay 3s rồi biến mất
+            }
+        });
+    </script>
+
+
+    <!-- Thông báo -->
+
+    <!-- scr tư vấn -->
+    <script src="{{ url_for('static', filename='js/tuvan.js') }}"></script>
+    <script>
+        const userEmail = "{{ session.get('user_email') }}";
+    </script>
+
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const foodGrid = document.getElementById('foodGrid');
+
+            function renderFoodItems(category) {
+                const items = foodGrid.querySelectorAll('.food-item');
+                items.forEach(item => {
+                    if (category === 'all' || item.dataset.category === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
+
+            renderFoodItems('all');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const category = button.getAttribute('data-category');
+                    renderFoodItems(category);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

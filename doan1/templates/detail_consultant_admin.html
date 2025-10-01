@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang quản trị</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/CssTotal/standard_admin.css" />
+    <link rel="stylesheet" href="../static/CssTotal/detail_consultant.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/admin.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CssTotal/standard_admin.css') }}">
+</head>
+
+<body>
+
+    {% include "partials/sidebar_admin.html" %}
+    <div class="main" id="main">
+        {% include "partials/navbar_admin.html" %}
+        <div class="inner-position">
+            <h2>Chi tiết tư vấn</h2>
+            <div class="position-right">
+                <a href="intro.html">Trang chủ /</a>
+                <a href="consultant_admin.html">Tư vấn /</a>
+                <p>Chi tiết</p>
+            </div>
+        </div>
+        <div class="content">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2>Cuộc trò chuyện giữa <span class="user">Khách hàng</span> & <span class="staff">Nhân viên</span>
+                    </h2>
+                </div>
+
+                <div class="chat-box">
+                    {% for msg in messages %}
+                    {% if msg.IdSender == id_user %}
+                    <!-- Tin của khách -->
+                    <div class="message left">
+                        <div class="sender">Khách hàng:</div>
+                        <div class="bubble">{{ msg.content }}</div>
+                    </div>
+                    {% else %}
+                    <!-- Tin của nhân viên -->
+                    <div class="message right">
+                        <div class="sender">Nhân viên:</div>
+                        <div class="bubble">{{ msg.content }}</div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+
+                </div>
+
+                <div class="back-btn-wrap">
+                    <button onclick="history.back()" class="back-btn">
+                        <a href="/consultant_admin" style="text-decoration: none;color: #fff;">
+                            ⬅ Quay lại
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../static/CssTotal/standard_admin.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userInfo = document.getElementById("userInfo");
+        const userDropdown = document.getElementById("userDropdown");
+
+        userDropdown.style.display = "none"; // Ẩn trước
+
+        userInfo.addEventListener("click", function (e) {
+            e.stopPropagation(); // Ngăn lan ra ngoài
+            if (userDropdown.style.display === "none") {
+                userDropdown.style.display = "block";
+            } else {
+                userDropdown.style.display = "none";
+            }
+        });
+
+        // Click ngoài thì đóng dropdown
+        document.addEventListener("click", function () {
+            userDropdown.style.display = "none";
+        });
+    });
+</script>
+
+</html>

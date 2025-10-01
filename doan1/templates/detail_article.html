@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>html Page</title>
+        <link rel="stylesheet" href="../static/CssTotal/detail_article.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"/>
+        <link rel="stylesheet" href="../static/CssTotal/standard.css"/>
+        <script src="../static/CssTotal/standard.js">
+        </script>
+    </head>
+    <body>
+        <header class="header">
+            <img class="logo" src="../static/avatars/media/logo2.png" alt="logo"/>
+            <div class="navbar">
+                <div class="navbar_item">
+                    <a href="intro.html">Trang chủ</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="refarral.html">Giới thiệu</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="Menu.html">Thực đơn</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="article.html">Bài viết</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="gallery.html">Hình ảnh</a>
+                </div>
+                <div class="navbar_item">
+                    <a href="contact.html">Liên hệ</a>
+                </div>
+            </div>
+            <div class="navbar_right">
+                <div class="navbar_item navbar_item_right">
+                    <a href="reserve.html">
+                        <i class="fa-solid fa-calendar-check navbar_icon"></i>
+                        Đặt bàn</a>
+                </div>
+                <div class="navbar_item navbar_item_right account-dropdown" id="accountDropdown">
+                    <div class="account-toggle" onclick="toggleDropdown()">
+                        <i class="fa-solid fa-user navbar_icon"></i> Tài khoản
+                    </div>
+                    <ul class="dropdown-menu" id="dropdownMenu">
+                        <li><i class="fa-solid fa-user"></i> 
+                            <a href="#">Hồ sơ</a></li>
+                        <li><i class="fa-solid fa-calendar-check"></i>
+                            <a href="reserve.html">Đặt bàn</a></li>
+                        <li><i class="fa-solid fa-box"></i> 
+                            <a href="order.html">Đơn hàng</a></li>
+                        <li><i class="fa-solid fa-heart"></i>
+                            <a href="favorite.html">Yêu thích</a></li>
+                        <li><i class="fa-solid fa-right-from-bracket"></i> 
+                            <a href="login.html">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar_item navbar_item_right">
+                    <a href="Cart.html">
+                        <i class="fa-solid fa-cart-shopping navbar_icon"></i>
+                        Giỏ hàng</a>
+                </div>
+            </div>
+        </header>
+        <div class="inner-position">
+            <p>Bạn đang ở đây: =></p>
+            <a href="intro.html">Trang chủ =></a>
+            <a href="intro.html">Bài viết =></a>
+            <span style="color: black;margin-left: 1px;">chi tiết bài viết</span>
+        </div>
+        <div class="blog-container">
+            <!-- Bài viết chính -->
+            <div class="blog-main">
+                <h2>Bí quyết làm bánh flan mịn căng mềm mượt đẹp như hoa hậu</h2>
+
+                <p class="intro_content">
+                    Với bí quyết làm bánh flan này, bạn sẽ có món bánh flan ngon đẹp chưa từng thấy!
+                    Để làm bánh flan bạn cần làm 2 phần: caramel và bánh flan. Dưới đây là nguyên liệu và cách làm từng phần.
+                </p>
+
+                <!-- PHẦN I: CARAMEL -->
+                <div class="blog_item">
+                    <h3>I. Phần caramel</h3>
+                    <p><strong>Nguyên liệu:</strong><br>
+                        – 180g đường<br>
+                        – 100-120ml nước<br>
+                        – 1/2 quả chanh (lọc lấy nước cốt, bỏ hạt)
+                    </p>
+                    <p><strong>Cách làm:</strong><br>
+                        Cho đường và nước vào nồi, lắc nhẹ cho đều. Đun lửa vừa để đường tan hoàn toàn (không khuấy để tránh bị lại đường).<br>
+                        Khi đường chuyển màu cánh gián, cho nước cốt chanh vào, khuấy đều.<br>
+                        Thêm 2 thìa cà phê nước lọc (cẩn thận vì lúc này đường rất nóng), rồi tắt bếp.<br>
+                        Để nguội bớt rồi đổ caramel vào đáy khuôn flan.
+                    </p>
+                    <div class="item_img">
+                        <img src="../static/avatars/media/1.jpg" alt="alt"/>
+                        <img src="../static/avatars/media/2.jpg" alt="alt"/>
+                    </div>
+                </div>
+
+                <!-- PHẦN II: BÁNH FLAN -->
+                <div class="blog_item">
+                    <h3>II. Phần bánh flan</h3>
+                    <p><strong>Nguyên liệu:</strong><br>
+                        – 6 quả trứng gà to<br>
+                        – 6 lòng đỏ trứng gà to<br>
+                        – 120g đường<br>
+                        – 350ml whipping cream<br>
+                        – 800ml sữa tươi không đường<br>
+                        – 6ml tinh chất vanilla
+                    </p>
+                    <p><strong>Cách làm:</strong><br>
+                        1. Đun ấm hỗn hợp sữa tươi và whipping cream (nóng hơn nước tắm một chút, không được đun sôi), sau đó bắc xuống.<br>
+                        2. Đánh tan trứng, đường, vanilla bằng phới cầm tay. Từ từ đổ hỗn hợp kem sữa vào trứng, vừa đổ vừa khuấy đều.<br>
+                        3. Lọc hỗn hợp qua rây cho mịn, sau đó đổ vào khuôn đã có caramel. Đậy nắp lại.
+                    </p>
+                    <div class="item_img">
+                        <img src="../static/avatars/media/1.jpg" alt="alt"/>
+                        <img src="../static/avatars/media/2.jpg" alt="alt"/>
+                    </div>
+                </div>
+
+                <!-- PHẦN III: HẤP HOẶC NƯỚNG -->
+                <div class="blog_item">
+                    <h3>III. Cách hấp hoặc nướng bánh flan</h3>
+                    <p><strong>Hấp cách thủy:</strong><br>
+                        – Đun nước sôi, sau đó để lửa nhỏ nhất rồi cho flan vào hấp cách thủy.<br>
+                        – Lót khăn dưới vung để tránh nước rơi vào mặt bánh.<br>
+                        – Cứ 5 phút mở nắp cho hơi nước thoát ra.<br>
+                        – Hấp khoảng 30-35 phút. Xiên tăm vào giữa, rút ra không dính là chín.
+                    </p>
+                    <p><strong>Nướng cách thủy:</strong><br>
+                        – Làm nóng lò ở 150°C trong 10-15 phút.<br>
+                        – Lót khăn dưới khay nước sôi, đặt khuôn flan vào khay.<br>
+                        – Nướng 150-160°C trong 30-40 phút.<br>
+                        – Xiên tăm không dính là bánh đã chín.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="blog-sidebar">
+                <!-- Bài viết gần đây -->
+                <div class="recent-posts">
+
+                    <h4>Có thể bạn quan tâm</h4>
+
+                    <div class="recent-post">
+                        <a href="article-detail.html?id=456" class="recent-link">
+                            <img src="../static/avatars/media/1.jpg" alt="">
+                            <div>
+                                <p>Hé lộ chia khóa vàng giúp thiết lập được công thức nấu ăn ngon</p>
+                                <span>2024-12-29 08:44:54</span>
+                            </div>
+                            <a/>
+                    </div>
+
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+                    <div class="recent-post">
+                        <img src="../static/avatars/media/1.jpg" alt="">
+                        <div>
+                            <p>1001 món ngon mỗi ngày - Giải quyết vấn đề “Hôm nay ăn gì?”</p>
+                            <span>2025-06-29 15:55:37</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="comment-container">
+            <div class="comment-heading">
+                <i class="fa-solid fa-comment-dots"></i>
+                <span>Bình Luận (33)</span>
+            </div>
+            <!-- Form nhập bình luận -->
+            <div class="comment-form">
+                <div class="comment-user-avatar">
+                    <img src="https://i.imgur.com/Uz4F4kz.png" alt="User Avatar">
+                </div>
+                <div class="comment-inputs">
+                    <textarea placeholder="Tham gia thảo luận"></textarea>
+                    <input type="text" placeholder="👤 Tên*">
+                    <input type="email" placeholder="✉️ Email*">
+                    <br><!-- comment -->
+                    <button class="submit-btn">Đăng bình luận</button>
+                </div>
+            </div>
+
+            <h3 class="comment-count">2 GÓP Ý</h3>
+
+            <!-- Bình luận 1 -->
+            <div class="comment pinned">
+                <img class="avatar" src="https://i.imgur.com/Uz4F4kz.png" alt="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username admin">ADMIN</span>
+                        <span class="time">3 tháng trước</span>
+                        <i class="fa-solid fa-thumbtack pin-icon"></i>
+                    </div>
+                    <p class="comment-text">
+                        Chúc bạn đọc bài vui vẻ
+                    </p>
+                    <div class="comment-footer">
+                        <span class="author-badge">Tác giả</span>
+                        <a href="#" class="reply-link"><i class="fa-solid fa-reply"></i> Trả lời</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bình luận 2 -->
+            <div class="comment">
+                <img class="avatar" src="https://i.imgur.com/J8zk9eW.png" alt="avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="username">chúa toxic</span>
+                        <span class="time">1 tháng trước</span>
+                    </div>
+                    <p class="comment-text">mình làm theo mà có được đâu shop bịp</p>
+                    <div class="comment-footer">
+                        <a href="#" class="reply-link"><i class="fa-solid fa-reply"></i> Trả lời</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="chat-fixed-icons">
+
+            <div class="chat-icon message-icon">
+                <a class="chat" href="https://www.facebook.com/giacs.aos.121" target="target">
+                    <i class="fa-brands fa-facebook-messenger"></i>
+                    <div class="chat-tooltip">Chuyên gia tư vấn đang sẵn sàng</div>
+                </a>
+
+            </div>
+
+            <div class="chat-icon instagram-icon">
+                <a class="chat" href="https://www.instagram.com/linhnef.30__/" target="target">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-left">
+                    <h3>Nhà hàng Lẩu Hột Ty Hưu Trung Thạnh</h3>
+                    <p>Nhà hàng chuyên về các món lẩu ngon nhất tại Thành phố Hải Phòng, chuyên về các món ăn chuẩn hương vị thuần Việt.</p>
+                    <p>Thực phẩm tươi sống là yếu tố hàng đầu trong việc chế biến món ăn, Quy Khắc chắc chắn sẽ làm hài lòng quý khách với những món ăn đậm đà hương vị.</p>
+                </div>
+                <div class="footer-right">
+                    <h3>Thông tin liên hệ</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Địa chỉ: Hà Đông, Hà Nội</p>
+                    <p><i class="fas fa-phone"></i> Điện thoại: 0999999999</p>
+                    <p><i class="fas fa-envelope"></i> Email: dabc@gmail.com</p>
+                    <button class="footer-book-now">Đặt bàn ngay</button>
+                    <div class="footer-social">
+                        <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="tel:0999999999"><i class="fas fa-phone"></i></a>
+                        <a href="https://www.pinterest.com/" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="https://plus.google.com/" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

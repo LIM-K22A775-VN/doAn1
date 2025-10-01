@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat Tư Vấn</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    .support-widget {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 9999;
+    }
+
+    /* Icon Messenger */
+    .chat-icon-btn {
+      width: 50px;
+      height: 50px;
+      background: #1877f2;
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    .chat-icon-btn:hover {
+      background: #0e5aaf;
+    }
+
+    .chat-tooltip {
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #333;
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      font-size: 13px;
+      display: none;
+    }
+
+    .chat-button-wrapper:hover .chat-tooltip {
+      display: block;
+    }
+
+    /* Chat box */
+    #chat-box {
+      width: 300px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      border: 1px solid #ddd;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .support-header {
+      background: #ff6600;
+      color: #fff;
+      padding: 12px 16px;
+      font-weight: bold;
+      font-size: 16px;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+
+    .support-body {
+      padding: 16px;
+    }
+
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .close-chat {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff6600;
+      border: none;
+      font-size: 16px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    .close-chat:hover {
+      background: #e55c00;
+    }
+
+    .messages {
+      max-height: 200px;
+      overflow-y: auto;
+      background: #f9f9f9;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 13px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .message {
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .message.user {
+      background: #dcf8c6;
+      align-self: flex-end;
+      border: 1px solid #b2e59f;
+    }
+
+    .message.agent {
+      background: #fff;
+      align-self: flex-start;
+      border: 1px solid #eee;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 60px;
+      max-height: 120px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 14px;
+      resize: vertical;
+    }
+
+    #send-chat,
+    #clear-chat {
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #send-chat {
+      background: #ff6600;
+    }
+
+    #send-chat:hover {
+      background: #e55c00;
+    }
+
+    #clear-chat {
+      background: #999;
+    }
+
+    #clear-chat:hover {
+      background: #777;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="support-widget">
+    <!-- Icon Messenger -->
+    <div class="chat-button-wrapper">
+      <div class="chat-tooltip">Chuyên gia tư vấn đang sẵn sàng</div>
+      <button id="open-chat" class="chat-icon-btn">
+        <i class="fa-brands fa-facebook-messenger"></i>
+      </button>
+    </div>
+
+    <!-- Khung chat ẩn ban đầu -->
+    <div id="chat-box" class="hidden">
+      <div class="support-header">Chuyên viên tư vấn</div>
+      <div class="support-body">
+        <div class="chat-area" id="chat-area">
+          <div class="messages" id="messages"></div>
+          <textarea id="chat-input" placeholder="Nhập tin nhắn..."></textarea>
+          <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+            <button id="clear-chat">Xóa tất cả</button>
+            <button id="send-chat">Gửi</button>
+          </div>
+        </div>
+      </div>
+      <button id="close-chat" class="close-chat hidden">×</button>
+    </div>
+  </div>
+
+  <script>
+ 
+  </script>
+</body>
+</html>

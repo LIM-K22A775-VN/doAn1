@@ -1,0 +1,558 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 25, 2025, 3:57:03 PM
+    Author     : ASUS
+*/
+
+
+.banner {
+    width: 100%;
+    height: auto;
+    margin-top: 70px;
+}
+
+
+.footer {
+    background-color: #252525;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+.swiper {
+    width: 100%;
+    height: 70vh;
+    margin: 0 auto;
+    border-radius: 0;
+    overflow: hidden;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* service - promise*/
+
+.service-promises {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: Arial, sans-serif;
+}
+
+
+.promise-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.promise-icon i{
+    font-size: 30px;
+    background-color: #fff;
+    color: black;
+}
+
+.promise-text h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+
+.promise-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+/*food - suggest*/
+
+.food-suggestion {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+.food-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.food-input-box {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.food-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+.food-option-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.food-option-btn:hover {
+    background-color: #f0f0f0;
+}
+/*intro-standard*/
+
+
+.intro-standard{
+    display: flex;
+    width: 100%;
+}
+.standard-text{
+    width: 50%;
+    height: 200px;
+    padding: 40px;
+}
+.standard-text h3{
+    color: orange;
+}
+.standard-text p{
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: justify;
+}
+.standard-img{
+    width: 50%;
+    height: 500px;
+    overflow: hidden;
+}
+.standard-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /*    background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;*/
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.grid-item {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.grid-item i {
+    font-size: 30px;
+    color: #f4a261;
+    margin-bottom: 10px;
+}
+
+.grid-item p {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+    text-align: center;
+}
+/* food-section*/
+.food-section {
+    padding: 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.food-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.filter-buttons {
+    margin-bottom: 20px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f4a261;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-btn.active {
+    background-color: #e76f51;
+}
+
+.filter-btn:hover {
+    background-color: #e76f51;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 250px); /* Độ rộng cố định 250px */
+    gap: 20px;
+    justify-content: center;
+}
+
+.food-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 250px; /* Đảm bảo độ rộng cố định */
+    margin: 0 auto;
+}
+
+.food-item img {
+    width: 100%;
+    height: auto;
+}
+
+.food-item p {
+    padding: 10px;
+    margin: 0;
+    font-size: 14px;
+    color: #333;
+}
+
+.food-item p span {
+    text-decoration: line-through;
+    color: #888;
+    margin-left: 10px;
+}
+
+.detail-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f4a261;
+    color: white;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.detail-btn:hover {
+    background-color: #e76f51;
+}
+/* new-dishes-section */
+.new-dishes-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    padding-bottom: 10px;
+    max-width: 100%;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+.new-dishes-section h2{
+    text-align: center;
+    margin-bottom: 20px;
+}
+.new-dishes-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.new-dishes-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.new-dishes-scroll::-webkit-scrollbar-thumb {
+    background-color: #f4a261;
+    border-radius: 4px;
+}
+
+.new-dishes-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #e76f51;
+}
+
+.food-item {
+    flex: 0 0 auto; /* Không co giãn và giữ kích thước cố định */
+    width: 250px;    /* Cố định chiều rộng */
+}
+/*register-form*/
+#form-container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    text-align: center;
+    margin: auto;
+}
+#form-container h2{
+    color: #4f5bd5;
+}
+.form-group {
+    margin: 0;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #888;
+    font-size: 12px;
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.form-group input[type="date"] {
+    padding: 7px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16"><path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM2 2a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1H2zm11.5 2.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5zM8 8a.5.5 0 0 1 .5.5V9a.5.5 0 0 1-1 0V8.5A.5.5 0 0 1 8 8zm0 2a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 8 10zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 6 10zm-2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 4 10zm6 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 10 10zm2 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1A.5.5 0 0 1 12 10z"/></svg>') no-repeat right 8px center;
+    background-size: 16px;
+}
+.date-group {
+    grid-column: span 2;
+    display: flex;
+    align-items: center;
+}
+.date-group input[type="date"] {
+    width: 175px;
+    height: 33.53px;
+}
+.date-group input[type="time"] {
+    margin-left: 10px;
+    width: 175px;
+    height: 33.53px;
+}
+.notes-group {
+    grid-column: span 2;
+}
+.notes-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 14px;
+    min-height: 60px;
+}
+.button_form {
+    grid-column: span 2;
+    background-color: #f4a261;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.button_form:hover {
+    background-color: #e07a5f;
+}
+.footer-text {
+    grid-column: span 2;
+    margin-top: 10px;
+    font-size: 12px;
+    color: #888;
+}
+.register-form h2{
+    text-align: center;
+    margin-bottom: 18px;
+}
+.register-form h3{
+    text-align: center;
+    color: orange;
+    margin-bottom: 8px;
+}
+.register-form{
+    width: 100%;
+    height: 500px;
+    background-image: url("../media/backfood.jpg");
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    padding: 30px;
+}
+/* referal service*/
+.referal-service{
+    padding: 30px;
+}
+.referal-service h2{
+    text-align: center;
+    color: #333;
+    margin-bottom: 18px;
+}
+.referal-service h3{
+    text-align: center;
+    color: orange;
+    margin-bottom: 12px;
+}
+.referal-container {
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    
+}
+.card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    height:150px;
+    text-align: center;
+    padding-top: 45px;
+}
+.card h3 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+.header {
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+.title {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+/* new-section */
+.latest-news-section {
+    padding: 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.latest-news-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.news-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 20px;
+    padding-bottom: 10px;
+    max-width: 100%;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+
+.news-scroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+.news-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.news-scroll::-webkit-scrollbar-thumb {
+    background-color: #f4a261;
+    border-radius: 4px;
+}
+
+.news-scroll::-webkit-scrollbar-thumb:hover {
+    background-color: #e76f51;
+}
+
+.news-item {
+    flex: 0 0 auto;
+    width: 250px;
+    height: 300px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    vertical-align: top;
+    text-align: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.news-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.news-item .date {
+    color: #f4a261;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.news-item p {
+    padding: 10px;
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+/*animation*/
+
+@keyframes showTooltip{
+    0%,45%{
+        opacity:0;
+        visibility: hidden;
+        right:60px;
+    }
+    50%,95%{
+        opacity: 1;
+        visibility: visible;
+        right: 70px;
+    }
+
+    100%{
+        opacity: 0;
+        visibility: hidden;
+        right:60px;
+    }
+}
+@media (max-width: 768px) {
+    .service-promises {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+}

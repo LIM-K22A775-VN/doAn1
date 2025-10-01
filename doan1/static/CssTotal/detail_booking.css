@@ -1,0 +1,53 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jun 29, 2025, 9:00:35 PM
+    Author     : ASUS
+*/
+.booking-detail-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.booking-detail-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.booking-detail-table th,
+.booking-detail-table td {
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    text-align: left;
+    vertical-align: top;
+}
+
+.booking-detail-table th {
+    width: 20%;
+    background-color: #f8f8f8;
+    font-weight: bold;
+}
+
+.booking-detail-back {
+    margin-top: 20px;
+}
+
+.booking-detail-back button {
+    padding: 8px 16px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.booking-detail-back button:hover {
+    background-color: #333;
+}
+.container{
+    margin: 0 5px;
+}
